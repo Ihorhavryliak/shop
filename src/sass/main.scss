@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/bootstrap";
+@import './app';
+@import './Header';
+@import './productCartSmall';
+@import './fonts';
+
+$myColor: rgb(137, 113, 113);
+
+h1 {
+  color: $myColor;
+}

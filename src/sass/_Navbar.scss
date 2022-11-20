@@ -1,0 +1,17 @@
+
+.nav-open-menu:hover>.dropdown-menu, .dropdown:hover>.dropdown-menu {
+  opacity: 1;
+  transform: scaleY(1);
+  visibility: visible;
+}
+.nav-open-menu>.dropdown-menu, .dropdown>.dropdown-menu {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all .3s ease-in;
+  visibility: hidden;
+}
+
+.nav-open-menu:hover>.dropdown-menu {
+  transform: translateY(20px);
+}

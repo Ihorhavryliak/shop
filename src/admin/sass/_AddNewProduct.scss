@@ -1,0 +1,19 @@
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+}
+.fade:not(.show) {
+  opacity: 0;
+}
+.fade {
+  transition: opacity .15s linear;
+}

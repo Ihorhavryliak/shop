@@ -1,9 +1,11 @@
 import { instance } from "./api";
 
 export const productAPI = {
-  getProductData(number: number = 1) {
-    return instance.get(`products/${number}`).then((res) => res.data);
+  async getProductData(id: number = 1) {
+    const res = await instance.get<GetProductDataType>(`products/${id}`);
+    return res.data;
   },
+ 
 };
 
 export type GetProductDataType = {

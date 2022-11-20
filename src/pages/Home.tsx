@@ -6,7 +6,6 @@ import Slider from "../components/Home/Slider";
 
 const Home = React.memo(() => {
   return (<main>
-    <Link to={'/products'}>products</Link>
       <Slider />
       <CategorySlider />
       <Discounts />

@@ -119,7 +119,7 @@ const Navbar = React.memo(() => {
           </div>
           {/* menu left for phone */}
           <div
-            className="offcanvas offcanvas-start p-4 p-lg-0 show"
+            className="offcanvas offcanvas-start p-4 p-lg-0"
             id="navbar-default"
             aria-modal="true"
             role="dialog"

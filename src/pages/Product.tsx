@@ -21,7 +21,7 @@ export const Product = React.memo(() => {
     }
   }, []);
 
-  console.log(productData);
+
   return (
     <>
       <NavBreadcrumb />

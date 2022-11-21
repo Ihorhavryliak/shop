@@ -13,11 +13,9 @@ const productListReducer = (
   switch (action.type) {
     case "SET_PRODUCTS":
     case "SET_CATEGORY_IN_PRODUCTS":
-      debugger
       return { ...state, products: [...action.payload]}; 
     case "SET_FILTER": 
-    debugger
-    return {...state, filter: {...state.filter, limit: action.payload, sort: action.sort}}
+    return {...state, filter: {...state.filter, limit: action.limit, sort: action.payload}}
     default:
       return state;
   }
@@ -28,22 +26,21 @@ export const actions = {
     ({ type: "SET_PRODUCTS", payload: data} as const),
   getDataProductsInCategory: (categoryName: Array<GetAllProductsType>) =>
     ({ type: "SET_CATEGORY_IN_PRODUCTS", payload: categoryName } as const),
-    getFilter: (limit: string, sort: string) =>
-    ({ type: "SET_FILTER", payload: limit,  sort } as const),
+    getFilter: ( sort: string, limit: string) =>
+    ({ type: "SET_FILTER", payload: sort,   limit} as const),
 };
 
-export const getProducts = (limit: string, sortResult: string): ThunkType => async (dispatch) => {
-  dispatch(actions.getFilter(limit, sortResult));
-  debugger
-  const data = await productsListAPI.getAllProducts(limit, sortResult);
+export const getProducts = (sortResult: string, limit: string ): ThunkType => async (dispatch) => {
+  dispatch(actions.getFilter(sortResult, limit));
+  const data = await productsListAPI.getAllProducts(sortResult);
   dispatch(actions.receiveAllProducts(data));
 };
 
 export const getDataInCategory =
-  (categoryName: string, limit: string , sortResult: string ): ThunkType =>
+  (categoryName: string,  sortResult: string, limit: string ): ThunkType =>
   async (dispatch) => {
-    dispatch(actions.getFilter(limit, sortResult));
-    const data = await productsListAPI.getProductsInCategory(categoryName, limit, sortResult);
+    dispatch(actions.getFilter(sortResult,limit));
+    const data = await productsListAPI.getProductsInCategory(categoryName, sortResult);
     dispatch(actions.getDataProductsInCategory(data));
   };
 

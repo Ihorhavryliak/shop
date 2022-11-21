@@ -13,12 +13,10 @@ const NavBreadcrumb = React.memo(() => {
     { path: "/products/product/", breadcrumb: null },
     { path: "/products/category/", breadcrumb: null },
   ]);
-  console.log(breadcrumbs);
+ 
   const navigation = useLocation();
   const lastUrl = navigation.pathname;
 
-  console.log(lastUrl);
-  console.log(breadcrumbs);
   return (
     <>
       <div className="mt-4">

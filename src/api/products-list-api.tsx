@@ -2,16 +2,16 @@ import { instance } from "./api";
 import { GetProductDataType } from "./product-api";
 
 export const productsListAPI = {
-   getAllProducts(limit: string  = '', sortResult: string  = '') {
+   getAllProducts(sortResult: string  = '') {
     return(
       instance
-      .get<Array<GetProductDataType>>(`products?&limit=${limit}&sort=${sortResult}`).then(res=> res.data)
+      .get<Array<GetProductDataType>>(`products?&sort=${sortResult}`).then(res=> res.data)
     )
 
 
   },
-  async getProductsInCategory(categoryName: string, limit: string  = '', sortResult: string  = '') {
-    const res = await instance.get<Array<GetAllProductsType>>(`products/category${categoryName}?&limit=${limit}&sort=${sortResult}`);
+  async getProductsInCategory(categoryName: string, sortResult: string  = '') {
+    const res = await instance.get<Array<GetAllProductsType>>(`products/category${categoryName}?&sort=${sortResult}`);
     return res.data;
   },
 

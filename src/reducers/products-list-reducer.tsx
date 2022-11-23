@@ -15,7 +15,9 @@ const productListReducer = (
     case "SET_CATEGORY_IN_PRODUCTS":
       return { ...state, products: [...action.payload]}; 
     case "SET_FILTER": 
-    return {...state, filter: {...state.filter, limit: action.limit, sort: action.payload}}
+    return {...state, filter: {...state.filter, limit: action.limit, sort: action.payload}};
+    case "SET_SORT": 
+    return {...state, filter: {...state.filter, sort: action.payload}};
     default:
       return state;
   }
@@ -28,6 +30,13 @@ export const actions = {
     ({ type: "SET_CATEGORY_IN_PRODUCTS", payload: categoryName } as const),
     getFilter: ( sort: string, limit: string) =>
     ({ type: "SET_FILTER", payload: sort,   limit} as const),
+    getSort: ( sort: string) =>
+    ({ type: "SET_SORT", payload: sort} as const),
+};
+
+export const setSort = (sort: string ): ThunkType => async (dispatch) => {
+  dispatch(actions.getSort(sort));
+ 
 };
 
 export const getProducts = (sortResult: string, limit: string ): ThunkType => async (dispatch) => {

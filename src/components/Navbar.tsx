@@ -73,7 +73,7 @@ const Navbar = React.memo(() => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
-              {categoryData.length &&
+              {categoryData.length ?
                 categoryData.map((m, i) => {
                   return (
                     <li className="nav-item" key={i}>
@@ -86,7 +86,7 @@ const Navbar = React.memo(() => {
                       </NavLink>
                     </li>
                   );
-                })}
+                }) : '' }
 
               <li className="nav-item dropdown">
                 <NavLink

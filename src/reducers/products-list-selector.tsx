@@ -5,7 +5,7 @@ import { AppStateType } from "./redux-store";
 
 
 
-export const getFilter = (state: AppStateType) => {
+export const getFilterSelector = (state: AppStateType) => {
   return state.productsList.filter
 }
 //productMaxPrice
@@ -18,3 +18,6 @@ export const getProductMaxPriceSelector = createSelector(getAllProducts, (produc
 })
 
 
+export const getCategorySelector = (state: AppStateType) => {
+  return state.categories.category
+}

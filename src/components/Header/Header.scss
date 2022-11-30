@@ -1,0 +1,10 @@
+.logo{
+  font-size: 33px;
+  color: rgb(63, 107, 41);
+  font-family: Mono;
+  font-weight: bold;
+  &__icon{
+    position: relative;
+    top: -5px;
+  }
+}

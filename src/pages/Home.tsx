@@ -1,12 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
 
-import { CategorySlider, Discounts } from "../components";
-import Slider from "../components/Home/Slider";
+import React from "react";
+import { CategorySlider, Discounts, MainSlider } from "../components";
+
+
+
 
 const Home = React.memo(() => {
   return (<main>
-      <Slider />
+      <MainSlider />
       <CategorySlider />
       <Discounts />
       </main>

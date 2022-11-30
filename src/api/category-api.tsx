@@ -1,5 +1,4 @@
 import { instance } from "./api";
-import { GetProductDataType } from "./product-api";
 
 export const categoryAPI = {
   async getCategoryName() {

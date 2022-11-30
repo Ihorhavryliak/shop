@@ -2,7 +2,7 @@ import React from "react";
 
 import { Route, Routes } from "react-router-dom";
 import {  AdminProducts, HomeAdmin } from "./admin/pages";
-import { AddNewProducts } from "./admin/pages/AddNewProducts";
+import { AddNewProducts } from "./admin/pages/AddNewProducts/AddNewProducts";
 import {  Error, Home } from "./pages";
 import { Product } from "./pages/Product";
 import Products from "./pages/Products";

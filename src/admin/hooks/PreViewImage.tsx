@@ -11,8 +11,8 @@ export const PreViewImage: React.FC<PreViewImageType> = React.memo(
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      const resulton = reader.result as string;
-      setPreViewImage(resulton);
+      const results = reader.result as string;
+      setPreViewImage(results);
     };
     return (
       <div>

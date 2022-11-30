@@ -1,8 +1,8 @@
 import { Footer, Header, Navbar } from "./components";
-import "./sass/main.scss";
+import "./styles/main.scss";
 import { AppRouters } from "./AppRouters";
 import { useEffect } from "react";
-import { getCategory } from "./reducers/category-reducer";
+import { getCategory } from "./reducers/category-reducer/category-reducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./reducers/redux-store";
 import { useLocation } from "react-router-dom";

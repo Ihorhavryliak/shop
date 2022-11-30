@@ -1,8 +1,8 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import addProductReducer from "../admin/reducers/add-product-reducer";
-import categoryReducer from "./category-reducer";
-import productReducer from "./product-reducer";
-import productListReducer from "./products-list-reducer";
+import categoryReducer from "./category-reducer/category-reducer";
+import productReducer from "./product-reducer/product-reducer";
+import productListReducer from "./products-list-reducer/products-list-reducer";
 
 
 const store = configureStore({

@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { NavBreadcrumb } from "../components";
-import { dataProduct } from "../reducers/product-reducer";
-import { getProductInformation } from "../reducers/product-selector";
+import { dataProduct } from "../reducers/product-reducer/product-reducer";
+import { getProductInformation } from "../reducers/product-reducer/product-selector";
 import { AppDispatch } from "../reducers/redux-store";
 
 export const Product = React.memo(() => {
-  console.log("fdsf->");
+
   const productNumber = useParams();
   const dispatch: AppDispatch = useDispatch();
   const productData = useSelector(getProductInformation);

@@ -1,12 +1,16 @@
 
-import Banner from "./Banner";
+import { AsideSection } from "./AsideSection/AsideSection";
+import Banner from "./Banner/Banner";
 import Filter from "./Filter";
-import { CartProduct } from "./ProductsCard";
+import { FilterDeveloper } from "./FilterDeveloper/FilterDeveloper";
+import { CartProduct } from "./ProductsCard/ProductsCard";
 
 
 export {
   Banner,
   Filter,
-  CartProduct
+  CartProduct,
+  FilterDeveloper,
+  AsideSection,
 } 
 

@@ -1,35 +1,29 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/exports";
-import { NavBreadcrumb } from "../components";
 import {
   getAllProducts,
   getCategorySelector,
-
   getFilterSelector,
-} from "../reducers/products-list-selector";
+} from "../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../reducers/redux-store";
-import { CartProduct } from "../components/Products/ProductsCard";
 import {
-  actions,
   getDataInCategory,
   getProducts,
-  setSort,
-} from "../reducers/products-list-reducer";
+} from "../reducers/products-list-reducer/products-list-reducer";
 import { useLocation } from "react-router-dom";
 import {
   useQueryParam,
   StringParam,
   ArrayParam,
-  objectToSearchString,
-  decodeQueryParams,
 } from "use-query-params";
 import Paginator from "../utils/Paginator";
-import Slider from "rc-slider";
-
 import "rc-slider/assets/index.css";
-import { BsFillStarFill, BsGrid, BsGrid3X3Gap, BsListUl, BsStar } from "react-icons/bs";
+import { BsGrid, BsGrid3X3Gap, BsListUl } from "react-icons/bs";
 import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs";
+import { AsideSection, FilterDeveloper, NavBreadcrumb } from "../components";
+
+
 
 type QueryType = {
   limit?: string;
@@ -37,20 +31,21 @@ type QueryType = {
 };
 
 const Products = React.memo(() => {
-
-  
   //get data
   const products = useSelector(getAllProducts);
   const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
   const getFilter = useSelector(getFilterSelector);
 
-    //save data filter content in session localStorage
-  if (localStorage.getItem('filter_content') === null) {
-    localStorage.setItem('filter_content', JSON.stringify({limit: getFilter.limit, sort: getFilter.sort}))
-  } 
-  const filter = JSON.parse(localStorage.getItem('filter_content') as string) ;
-   
+  //save data filter content in session localStorage
+  if (localStorage.getItem("filter_content") === null) {
+    localStorage.setItem(
+      "filter_content",
+      JSON.stringify({ limit: getFilter.limit, sort: getFilter.sort })
+    );
+  }
+  const filter = JSON.parse(localStorage.getItem("filter_content") as string);
+
   // set url
   const [limitParam, setLimitParam] = useQueryParam("limit", StringParam);
   const [currentPage, setCurrentPage] = useQueryParam("page", StringParam);
@@ -60,7 +55,9 @@ const Products = React.memo(() => {
     ArrayParam
   );
   //filter check checkbox
-  const [nameFilterCategory, setNameFilterCategory] = useState<Array<string | null> >([]);
+  const [nameFilterCategory, setNameFilterCategory] = useState<
+    Array<string | null>
+  >([]);
   //get categories
   const categoriesNameData = useSelector(getCategorySelector);
   //sent to paginator
@@ -92,13 +89,13 @@ const Products = React.memo(() => {
     location.pathname.lastIndexOf("/")
   );
   // Filter rating stars
-  const [filterRating, setFilterRating] = useState <Array<number>>([])
-  const ratingArr = [5,4,3,2,1];
+  const [filterRating, setFilterRating] = useState<Array<number>>([]);
+  const ratingArr = [5, 4, 3, 2, 1];
 
   //Name category
   const breadcrumbs = useReactRouterBreadcrumbs();
   //@ts-ignore
-  const  categoryBreadcrumbsName = breadcrumbs[breadcrumbs.length - 1].breadcrumb.props.children as string;
+  const categoryBreadcrumbsName = breadcrumbs[breadcrumbs.length - 1].breadcrumb.props.children as string;
 
   //requests first
   useEffect(() => {
@@ -169,10 +166,9 @@ const Products = React.memo(() => {
     // set limit in use
     setLimitParam(productInfoLimit);
     // ad to local storage
-    addFilterStorageLocal('limit', productInfoLimit);
-
+    addFilterStorageLocal("limit", productInfoLimit);
   };
-  
+
   //sort old hight
   const setFilterSort = (e: string) => {
     //set in reduce
@@ -184,15 +180,20 @@ const Products = React.memo(() => {
     // select filter sort
     choseFilterSort(e);
   };
-   const choseFilterSort = (value: string) => {
+  const choseFilterSort = (value: string) => {
     setSortOldPrice(value);
-    addFilterStorageLocal('sort', value);
-   }
-    // function add to local storage filter
-    const addFilterStorageLocal = (name: string, value: string) => {
-      const localStorageFilterData = JSON.parse(localStorage.getItem('filter_content') as string) ;
-      localStorage.setItem('filter_content', JSON.stringify({...localStorageFilterData, [name]: value}));
-    }
+    addFilterStorageLocal("sort", value);
+  };
+  // function add to local storage filter
+  const addFilterStorageLocal = (name: string, value: string) => {
+    const localStorageFilterData = JSON.parse(
+      localStorage.getItem("filter_content") as string
+    );
+    localStorage.setItem(
+      "filter_content",
+      JSON.stringify({ ...localStorageFilterData, [name]: value })
+    );
+  };
 
   //min max price from range filter ---
 
@@ -200,10 +201,7 @@ const Products = React.memo(() => {
     if (
       productMaxPrice !== Infinity &&
       productMaxPrice !== -Infinity &&
-      productMaxPrice !== undefined &&
-      productMinPrice !== Infinity &&
-      productMinPrice !== -Infinity &&
-      productMinPrice !== undefined
+      productMaxPrice !== undefined
     ) {
       if (sortRangePriceMaxMin) {
       } else {
@@ -232,15 +230,15 @@ const Products = React.memo(() => {
   };
   //length depend on chose price on range and category
   const productsLength = products
-      .filter((r) => {
-                    if (filterRating.length > 0) {
-                      const min =  Math.min(...filterRating)
-                      const max =  Math.max(...filterRating)
-                      return  min - 1 <= r.rating.rate && max >= r.rating.rate //1 2.2 3  4.8
-                    } else {
-                      return r;
-                    }
-                  })
+    .filter((r) => {
+      if (filterRating.length > 0) {
+        const min = Math.min(...filterRating);
+        const max = Math.max(...filterRating);
+        return min - 1 <= r.rating.rate && max >= r.rating.rate; //1 2.2 3  4.8
+      } else {
+        return r;
+      }
+    })
     .filter((f) => {
       if (nameFilterCategory.length > 0) {
         return nameFilterCategory.includes(f.category);
@@ -259,11 +257,10 @@ const Products = React.memo(() => {
       }
     }).length;
 
-
   //Filter category
   const setFilterCategoryName = (e: string) => {
-        //set page on 1
-        setItemOffset(1);
+    //set page on 1
+    setItemOffset(1);
     //add delete category in arr
     let indexNameCategory = categoriesNameData.indexOf(e);
     if (nameFilterCategory.includes(e)) {
@@ -289,26 +286,38 @@ const Products = React.memo(() => {
       const deleteRate = filterRating.filter((f) => f !== e);
       setFilterRating(deleteRate);
     } else {
-      setFilterRating([
-        ...filterRating,
-        (filterRating[indexNameRate] = e),
-      ]);
+      setFilterRating([...filterRating, (filterRating[indexNameRate] = e)]);
     }
   };
 
-  //change main style main content
-  const [mainContentStyle, setMainContentStyle] = useState('on-four');
   //set main style in local storage
- 
 
-  if(localStorage.getItem('filter_content') !== undefined) {
-    const getObj = JSON.parse(localStorage.getItem('filter_content')  as string);
-    localStorage.setItem('filter_content', JSON.stringify({...getObj, contentStyle: mainContentStyle }));
+  //change main style main content
+  // - get data from local
+  const getLocalContentStyle = JSON.parse(
+    localStorage.getItem("filter_content") as string
+  ) as { contentStyle: string };
+  let mainContentInitialValue = getLocalContentStyle.contentStyle;
+  // check is mainContentInitialValue undefined
+  if (getLocalContentStyle === undefined) {
+    mainContentInitialValue = "onFour";
+  }
+  const [mainContentStyle, setMainContentStyle] = useState(
+    mainContentInitialValue
+  );
+
+  if (getLocalContentStyle.contentStyle !== undefined) {
+    const getObj = JSON.parse(localStorage.getItem("filter_content") as string);
+    localStorage.setItem(
+      "filter_content",
+      JSON.stringify({ ...getObj, contentStyle: mainContentStyle })
+    );
+  } else {
+    setMainContentStyle(getLocalContentStyle.contentStyle);
   }
 
   return (
     <>
-    
       <main>
         <NavBreadcrumb />
         <div>
@@ -316,178 +325,30 @@ const Products = React.memo(() => {
           <div className="container">
             <div className="row  gx-10">
               {/*  section filter */}
-              <aside className="col-lg-3 col-md-4 mb-6 mb-md-0">
-                {/* filter min max ok form */}
-                <div className="row mt-3">
-                  <h5 className="mb-2">Price:</h5>
-                  <div className="col-4">
-                    <input
-                      type="text"
-                      value={
-                        Array.isArray(minMaxPrice) && minMaxPrice.length > 0
-                          ? minMaxPrice[0]
-                          : 0
-                      }
-                      disabled={
-                        Array.isArray(minMaxPrice) && minMaxPrice.length > 0
-                          ? false
-                          : true
-                      }
-                      className="form-control"
-                      onChange={(e) => setMinPrice(e.target.value)}
-                    />
-                  </div>
-                  <span className="col-4 align-self-center  text-center">
-                    —
-                  </span>
-                  <div className="col-4">
-                    <input
-                      type="text"
-                      value={
-                        Array.isArray(minMaxPrice) && minMaxPrice.length > 0
-                          ? minMaxPrice[1]
-                          : 0
-                      }
-                      disabled={
-                        Array.isArray(minMaxPrice) && minMaxPrice.length > 0
-                          ? false
-                          : true
-                      }
-                      className="form-control"
-                      onChange={(e) => setMaxPrice(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <Slider
-                      range
-                      defaultValue={[maxMinStartPrice[0], maxMinStartPrice[1]]}
-                      className="t-slider mt-3"
-                      min={maxMinStartPrice[0]}
-                      max={maxMinStartPrice[1]}
-                      value={minMaxPrice}
-                      onAfterChange={(arr) => {
-                        if (arr !== undefined && Array.isArray(arr)) {
-                          setSortRangePriceMaxMin([
-                            arr[0].toString(),
-                            arr[1].toString(),
-                          ]);
-                        }
-                        //set page on 1
-                        setItemOffset(1);
-                      }}
-                      onChange={(arr) => {
-                        setMinMaxPrice(arr);
-                      }}
-                    />
-                  </div>
-                </div>
-                {/*    filter category */}
-                <div className="mt-3">
-                  <h5>Category</h5>
-                  <div>
-                    {categoriesNameData.map((cat, i) => {
-                      return (
-                        <div key={i + cat} className="form-check">
-                          <input
-                            id={cat}
-                            className="form-check-input"
-                            type="checkbox"
-                            checked={nameFilterCategory.includes(cat)}
-                            value={cat}
-                            onChange={(e) => {
-                              setFilterCategoryName(e.target.value);
-                            }}
-                          />
-                          <label htmlFor={cat} className="form-check-label">
-                            {cat[0].toUpperCase() + cat.slice(1)}
-                          </label>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                {/* filter rating  */}
-                <div>
-                  <h5>Rating</h5>
-                  {ratingArr.map((r, i) => {
-                    return (
-                      <div
-                        className="d-flex align-content-center"
-                        key={r + "rating"}
-                      >
-                        <input
-                          className="form-check-input mb-2"
-                          onChange={(e) => {
-                            setFilterRate(+e.target.value);
-                          }}
-                          type="checkbox"
-                          id={r + "stars"}
-                          value={r}
-                          checked={filterRating.includes(r)}
-                        />
-                        <label htmlFor={r + "stars"} className="ms-2">
-                          {r === 5 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 4 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 3 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 2 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 1 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : (
-                            <BsStar className="me-1 " />
-                          )}
-                          {r === 5 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 4 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 3 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 2 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : (
-                            <BsStar className="me-1 " />
-                          )}
-                          {r === 5 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 4 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 3 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : (
-                            <BsStar className="me-1 " />
-                          )}
-                          {r === 5 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : r === 4 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : (
-                            <BsStar className="me-1 " />
-                          )}
-                          {r === 5 ? (
-                            <BsFillStarFill className="me-1 ratingYellow" />
-                          ) : (
-                            <BsStar className="me-1 " />
-                          )}
-                        </label>
-                      </div>
-                    );
-                  })}
-                </div>
-              </aside>
+              <AsideSection
+                minMaxPrice={minMaxPrice}
+                setMaxPrice={setMaxPrice}
+                setMinPrice={setMinPrice}
+                maxMinStartPrice={maxMinStartPrice}
+                setSortRangePriceMaxMin={setSortRangePriceMaxMin}
+                setItemOffset={setItemOffset}
+                setMinMaxPrice={setMinMaxPrice}
+                categoriesNameData={categoriesNameData}
+                nameFilterCategory={nameFilterCategory}
+                setFilterCategoryName={setFilterCategoryName}
+                ratingArr={ratingArr}
+                setFilterRate={setFilterRate}
+                filterRating={filterRating}
+              />
               {/*   content section */}
               <section className="col-lg-9 col-md-12">
                 {/* name category */}
-                {categoryBreadcrumbsName &&
+                {categoryBreadcrumbsName && (
                   <div>
-                  <h1>{categoryBreadcrumbsName}</h1>
-                </div>
-                }
-              
+                    <h1>{categoryBreadcrumbsName}</h1>
+                  </div>
+                )}
+
                 {/*   category filter */}
                 <div className="d-lg-flex justify-content-between align-items-center">
                   <div className="mb-3 mb-lg-0">
@@ -497,17 +358,50 @@ const Products = React.memo(() => {
                       Products found
                     </p>
                   </div>
-                 {/* content filter / */}
+                  {/* content filter / */}
                   <div className="d-md-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center justify-content-between">
-                     {/*  change style main content */}
-                      <div >
-                        <a  href={'#list'} onClick={()=>{setMainContentStyle('list')}}  
-                        className={ mainContentStyle === 'list'? 'active me-3' : 'text-muted me-3'}><BsListUl /></a>
-                        <a href={'#onFour'} onClick={()=>{setMainContentStyle('on-four')}}  
-                         className={ mainContentStyle === 'on-four'? 'active me-3' : 'text-muted me-3'}><BsGrid /></a>
-                        <a href={'#onThree'} onClick={()=>{setMainContentStyle('on-three')}}  
-                         className={ mainContentStyle === 'on-three'? 'active me-3' : 'text-muted me-3'}><BsGrid3X3Gap /></a>
+                      {/*  change style main content */}
+                      <div>
+                        <a
+                          href={"#list"}
+                          onClick={() => {
+                            setMainContentStyle("list");
+                          }}
+                          className={
+                            mainContentStyle === "list"
+                              ? "active me-3"
+                              : "text-muted me-3"
+                          }
+                        >
+                          <BsListUl />
+                        </a>
+                        <a
+                          href={"#onFour"}
+                          onClick={() => {
+                            setMainContentStyle("on-four");
+                          }}
+                          className={
+                            mainContentStyle === "on-four"
+                              ? "active me-3"
+                              : "text-muted me-3"
+                          }
+                        >
+                          <BsGrid />
+                        </a>
+                        <a
+                          href={"#onThree"}
+                          onClick={() => {
+                            setMainContentStyle("on-three");
+                          }}
+                          className={
+                            mainContentStyle === "on-three"
+                              ? "active me-3"
+                              : "text-muted me-3"
+                          }
+                        >
+                          <BsGrid3X3Gap />
+                        </a>
                       </div>
                       {/* icon filters on small screen  */}
                       <div className="ms-2 d-lg-none">
@@ -567,85 +461,20 @@ const Products = React.memo(() => {
                           <option value="hight">Price: Hight to Old</option>
                         </select>
                       </div>
-          
                     </div>
                   </div>
                 </div>
                 {/*  list products + filter */}
-                <div className="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
-                  {products
-                /*   rating filter */
-                  .filter((r) => {
-                    if (filterRating.length > 0) {
-                      const min =  Math.min(...filterRating);
-                      const max =  Math.max(...filterRating);
-                        return  min - 1 <= r.rating.rate && max >= r.rating.rate; //1 2.2 3  4.8
-                    } else {
-                      return r;
-                    }
-                  })
-                  /*   category filter */
-                    .filter((f) => {
-                      if (nameFilterCategory.length > 0) {
-                        return nameFilterCategory.includes(f.category);
-                      } else {
-                        return f;
-                      }
-                    })
-                    .filter((m) => {
-                      if (Array.isArray(minMaxPrice)) {
-                        return (
-                          Math.round(m.price) <= minMaxPrice[1] &&
-                          minMaxPrice[0] <= Math.round(m.price)
-                        );
-                      } else {
-                        return m;
-                      }
-                    })
-
-                    /*      sortOldPrice */
-                    .sort((s, b) =>{
-                      if (sortOldPrice === "low" ) {
-                        if(Number.isInteger(s.price)){
-                          return   s.price * 10 - b.price * 10
-                        } else {
-                          return  s.price * 100 - b.price * 100
-                        }
-                      }
-                      if (sortOldPrice === "hight" ) {
-                        if(Number.isInteger(s.price)){
-                          return  b.price * 10 - s.price * 10
-                        } else {
-                          return  b.price * 100 - s.price * 100
-                        }
-                      }
-
-                        if (sortOldPrice === "desc") {
-                         return  b.id - s.id
-                        }
-                        if (sortOldPrice === "rating" && Number.isInteger(s.rating.rate)) {
-                         return b.rating.rate * 10 - s.rating.rate * 10
-                        } 
-                        if(sortOldPrice === "rating" && !Number.isInteger(s.rating.rate)) {
-                          return b.rating.rate * 100 - s.rating.rate * 100
-                        }
-                        /* asc default */
-                        return s.id - b.id
-                    }
-                    
-                    )
-                    /* paginator slice */
-                    .slice(
-                      (itemOffset - 1) * limitParamNew,
-                      itemOffset * limitParamNew
-                    )
-                    .map((m) => (
-                      <CartProduct m={m} key={m.id} />
-                    ))}
-                  {/*  page not found */}
-
-                  {productsLength === 0 && <div>Products not founds</div>}
-                </div>
+                <FilterDeveloper
+                  productsLength={productsLength}
+                  limitParamNew={limitParamNew}
+                  itemOffset={itemOffset}
+                  sortOldPrice={sortOldPrice}
+                  minMaxPrice={minMaxPrice}
+                  nameFilterCategory={nameFilterCategory}
+                  filterRating={filterRating}
+                  products={products}
+                />
                 {/* paginator */}
                 {productsLength !== 0 ? (
                   <div className="mt-3">

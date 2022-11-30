@@ -2,7 +2,7 @@ import Header from "./Header/Header";
 import Navbar from "./Navbar/Navbar";
 import NavBreadcrumb from "./NavBreadcrumb/NavBreadcrumb";
 import  Footer  from "./Footer/Footer";
-import { CategorySlider, Discounts, MainSlider } from "./Home";
+import { CategorySlider, DiscountsPhoto, FeaturedCategories, MainSlider, PopularProducts } from "./Home";
 import { AsideSection, Banner, CartProduct, Filter, FilterDeveloper } from "./Products";
 
 
@@ -13,7 +13,7 @@ export {
   Navbar,
   MainSlider,
   CategorySlider,
-  Discounts,
+  DiscountsPhoto,
   NavBreadcrumb,
   Banner,
   Filter,
@@ -21,6 +21,8 @@ export {
   AsideSection,
   FilterDeveloper,
   Footer,
+  FeaturedCategories,
+  PopularProducts,
 }
 
 

@@ -3,23 +3,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "./MainSlider.scss";
-import { mainSlider, speedSliders, turnStraits } from "../../../data/mainSlider";
+import { autoplaySpeedSetting, mainSlider, speedSlider, turnStraits } from "../../../data/mainSlider";
 import { SampleNextArrow, SamplePrevArrow } from "../../../utils/sliderStraits";
 import { BsArrowRightShort } from "react-icons/bs";
 
 
-
 const MainSlider = React.memo(() => {
+ 
   let settings = {
     dots: true,
     infinite: true,
-    speed: speedSliders,
+    speed: speedSlider,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: autoplaySpeedSetting,
     nextArrow: <></>,
     prevArrow: <></>,
+    fade: true,
   };
   //add / delete Arrow
   if (turnStraits) {
@@ -29,7 +30,6 @@ const MainSlider = React.memo(() => {
   return (
     <div className="container">
       <Slider {...settings}>
-    
           {mainSlider.map((m, i) => {
             return(
               <div>
@@ -47,11 +47,14 @@ const MainSlider = React.memo(() => {
 
               <h2 className="text-dark display-5 fw-bold mt-4">
               {m.name}
+              {m.price.length > 0 && 
+              <span className="price">{m.price}</span>
+              }
               </h2>
               <p className="description">
               {m.description}
               </p>
-              <a href="#!" className="btn btn-dark mt-3">
+              <a href={m.link} className="btn btn-dark mt-3">
               {m.nameButton} <BsArrowRightShort />
               </a>
             </div></div>

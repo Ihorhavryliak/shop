@@ -1,0 +1,66 @@
+.mb-lg-10 {
+  margin-top: 5rem!important;
+  margin-bottom: 3rem!important;
+}
+.mb-6 {
+  margin-bottom: 1.5rem!important;
+}
+
+.slick{
+  &__prev {
+    margin-left: -35px;
+    margin-top: -35px;
+  }
+  
+  &__next {
+    margin-top: -35px;
+  }
+
+}
+
+.slick__next, .slick__prev {
+  background: #f0f3f2;
+  border: none;
+  border-radius: 50px;
+  color: #001e2b;
+  cursor: pointer;
+  display: block;
+  font-size: 20px;
+  height: 32px;
+  left: 97%;
+  line-height: 0;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  width: 32px;
+  @media (max-width: 1024px){
+
+    left: 74vw;
+    }
+}
+ .slick__next:focus,  .slick__next:hover {
+  background: #0aad0a;
+  color: #fff;
+  outline: none;
+}
+
+.slick__prev:focus,  .slick__prev:hover {
+  background: #0aad0a;
+  color: #fff;
+  outline: none;
+}
+.text-center {
+  text-align: center!important;
+}
+.py-8 {
+  padding-bottom: 2rem!important;
+  padding-top: 2rem!important;
+}
+.text-inherit {
+  color: #21313c;
+}
+.slick-slider .slick-slide {
+  padding-right: 0.75rem;
+}

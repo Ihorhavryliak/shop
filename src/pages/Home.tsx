@@ -1,6 +1,6 @@
 
 import React from "react";
-import { CategorySlider, Discounts, MainSlider } from "../components";
+import { CategorySlider, DiscountsPhoto, FeaturedCategories, MainSlider, PopularProducts } from "../components";
 
 
 
@@ -8,8 +8,10 @@ import { CategorySlider, Discounts, MainSlider } from "../components";
 const Home = React.memo(() => {
   return (<main>
       <MainSlider />
-      <CategorySlider />
-      <Discounts />
+    {/*   <CategorySlider /> */}
+      <FeaturedCategories />
+      <DiscountsPhoto />
+      <PopularProducts />
       </main>
   );
 });

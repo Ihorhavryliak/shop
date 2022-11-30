@@ -1,11 +1,16 @@
 import CategorySlider from "./CategorySlider"
-import Discounts from "./Discounts"
+import DiscountsPhoto from "./DiscountsPhoto/DiscountsPhoto"
+import FeaturedCategories from "./FeaturedCategories/FeaturedCategories"
 import MainSlider from "./MainSlider/MainSlider"
+import PopularProducts from "./PopularProducts/PopularProducts"
+
 
 
 
 export {
   CategorySlider,
-  Discounts,
+  DiscountsPhoto,
   MainSlider,
+  FeaturedCategories,
+  PopularProducts,
 }

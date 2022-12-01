@@ -7,7 +7,6 @@ import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6'
 import { parse, stringify } from 'query-string';
 
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

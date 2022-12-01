@@ -1,14 +1,19 @@
 import React from "react";
 import { BsFillStarFill, BsStar, BsStarHalf } from "react-icons/bs";
-import './StarsUnderCard.scss'
+import "./StarsUnderCard.scss";
 type StarsUnderCartType = {
   rating: number;
-  countRating: number;
+  countRating?: number;
+  isPadding?: boolean;
 };
 
-export const StarsUnderCard: React.FC<StarsUnderCartType> = ({ rating, countRating }) => {
+export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
+  rating,
+  countRating,
+  isPadding,
+}) => {
   return (
-    <div className="mb-2">
+    <div className= { isPadding? 'min-tp' : " mb-2"}>
       {/*    starts  */}
       <small>
         {rating === 5 ? (
@@ -104,8 +109,16 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({ rating, countRati
             <BsStar className="me-1 " />
           </>
         )}
+
+     
+       
+       <span className={ isPadding? "text-muted   position-relative pt-1 prt-2":'text-muted   position-absolute pt-1'}>
+          {rating}
+          {countRating && ` (${countRating})`}
+        </span>
+  
       </small>
-      <span className="text-muted small  position-absolute pt-1">{rating} ({countRating})</span>
+   
     </div>
   );
 };

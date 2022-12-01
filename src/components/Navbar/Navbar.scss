@@ -1,3 +1,4 @@
+@use '../../styles/media';
 
 .nav-open-menu:hover>.dropdown-menu, .dropdown:hover>.dropdown-menu {
   opacity: 1;
@@ -14,4 +15,35 @@
 
 .nav-open-menu:hover>.dropdown-menu {
   transform: translateY(20px);
+
 }
+@media (max-width: media.$mobile) {
+  .dropdown-item:hover {
+    background-color: #dfe2e1 !important;
+    border-radius: 0;
+    color: #21313c;
+  
+  }
+  
+  .dropdown-item {
+    align-items: center !important;;
+    background-color: transparent;
+    border-radius: 0.5rem!important;
+    color: #5c6c75;
+    display: flex !important;;
+    font-size: 15px !important;;
+    font-weight: 500 !important;;
+    line-height: 28px !important;;
+    padding: 0.125rem 0.75rem !important;;
+  }
+  .dropdown-item.active {
+   
+    color: #00a2ff !important;
+
+  }
+  .navbar .navbar-nav .nav-item .nav-link {
+    border-bottom: 1px solid #ecf0ef;
+    padding: 0.5rem 0!important;
+}
+}
+

@@ -37,7 +37,7 @@ const Products = React.memo(() => {
   const location = useLocation();
   const getFilter = useSelector(getFilterSelector);
 
-  //save data filter content in session localStorage
+  //save data filter content in  localStorage
   if (localStorage.getItem("filter_content") === null) {
     localStorage.setItem(
       "filter_content",
@@ -45,6 +45,29 @@ const Products = React.memo(() => {
     );
   }
   const filter = JSON.parse(localStorage.getItem("filter_content") as string);
+  //set main style in local storage
+  //change main style main content
+  // - get data from local
+  const getLocalContentStyle = JSON.parse(
+    localStorage.getItem("filter_content") as string
+  ) as { contentStyle: string };
+  let mainContentInitialValue = getLocalContentStyle.contentStyle;
+  // check is mainContentInitialValue undefined
+  if (getLocalContentStyle === undefined) {
+    mainContentInitialValue = "onFour";
+  }
+  const [mainContentStyle, setMainContentStyle] = useState(
+    mainContentInitialValue
+  );
+  if (getLocalContentStyle.contentStyle !== undefined) {
+    const getObj = JSON.parse(localStorage.getItem("filter_content") as string);
+    localStorage.setItem(
+      "filter_content",
+      JSON.stringify({ ...getObj, contentStyle: mainContentStyle })
+    );
+  } else {
+    setMainContentStyle(getLocalContentStyle.contentStyle);
+  }
 
   // set url
   const [limitParam, setLimitParam] = useQueryParam("limit", StringParam);
@@ -55,9 +78,7 @@ const Products = React.memo(() => {
     ArrayParam
   );
   //filter check checkbox
-  const [nameFilterCategory, setNameFilterCategory] = useState<
-    Array<string | null>
-  >([]);
+  const [nameFilterCategory, setNameFilterCategory] = useState<Array<string | null>>([]);
   //get categories
   const categoriesNameData = useSelector(getCategorySelector);
   //sent to paginator
@@ -87,7 +108,7 @@ const Products = React.memo(() => {
   //Get category url
   const productInCategoryUrl = location.pathname.slice(
     location.pathname.lastIndexOf("/")
-  );
+  ).replace("-", " ");
   // Filter rating stars
   const [filterRating, setFilterRating] = useState<Array<number>>([]);
   const ratingArr = [5, 4, 3, 2, 1];
@@ -290,31 +311,7 @@ const Products = React.memo(() => {
     }
   };
 
-  //set main style in local storage
 
-  //change main style main content
-  // - get data from local
-  const getLocalContentStyle = JSON.parse(
-    localStorage.getItem("filter_content") as string
-  ) as { contentStyle: string };
-  let mainContentInitialValue = getLocalContentStyle.contentStyle;
-  // check is mainContentInitialValue undefined
-  if (getLocalContentStyle === undefined) {
-    mainContentInitialValue = "onFour";
-  }
-  const [mainContentStyle, setMainContentStyle] = useState(
-    mainContentInitialValue
-  );
-
-  if (getLocalContentStyle.contentStyle !== undefined) {
-    const getObj = JSON.parse(localStorage.getItem("filter_content") as string);
-    localStorage.setItem(
-      "filter_content",
-      JSON.stringify({ ...getObj, contentStyle: mainContentStyle })
-    );
-  } else {
-    setMainContentStyle(getLocalContentStyle.contentStyle);
-  }
 
   return (
     <>

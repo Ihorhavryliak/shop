@@ -1,0 +1,30 @@
+.footer {
+  background-color: #f0f3f2;
+  padding: 4rem 0;
+}
+
+.footer .nav .nav-item .nav-link {
+  color: #5c6c75;
+  padding: 0;
+}
+.footer .nav .nav-item .nav-link:hover {
+  color: #0aad0a;
+}
+
+footer .social-links {
+  border: 1px solid #889397;
+  border-radius: 0.5rem;
+  color: #889397;
+}
+.icon-shape {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+}
+.icon-sm {
+  height: 2rem;
+  line-height: 2rem;
+  width: 2rem;
+}

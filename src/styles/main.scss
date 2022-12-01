@@ -1,3 +1,4 @@
+@use './media';
 @import "~bootstrap/scss/bootstrap";
 @import './fonts';
 
@@ -5,9 +6,19 @@
 
 
 body{
-  overflow-y: overlay
+  overflow-y: overlay;
+  @media(max-width: media.$mobile) {
+    overflow-y: auto;
+  }
 }
 a{
   text-decoration: none;
 }
 
+.nav-link.activ{
+  color: #00a2ff !important;
+}
+
+.nav-link.active {
+  color: #00a2ff !important;
+}

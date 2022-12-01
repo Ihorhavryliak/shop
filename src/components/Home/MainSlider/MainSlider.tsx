@@ -6,6 +6,7 @@ import "./MainSlider.scss";
 import { autoplaySpeedSetting, mainSlider, speedSlider, turnStraits } from "../../../data/mainSlider";
 import { SampleNextArrow, SamplePrevArrow } from "../../../utils/sliderStraits";
 import { BsArrowRightShort } from "react-icons/bs";
+import { ButtonShopNow } from "../../Button/ButtonShopNow";
 
 
 const MainSlider = React.memo(() => {
@@ -28,13 +29,13 @@ const MainSlider = React.memo(() => {
     settings.prevArrow = <SamplePrevArrow />;
   }
   return (
+    <section className="mt-8">
     <div className="container">
       <Slider {...settings}>
           {mainSlider.map((m, i) => {
             return(
-              <div>
+              <div     key={ `${i}_${m.name}`}>
               <div
-              key={i + m.name}
             style={{
               background: `url("${m.img}") center center / cover no-repeat`,
               borderRadius: "0.5rem",
@@ -54,15 +55,16 @@ const MainSlider = React.memo(() => {
               <p className="description">
               {m.description}
               </p>
-              <a href={m.link} className="btn btn-dark mt-3">
-              {m.nameButton} <BsArrowRightShort />
-              </a>
+          
+              <ButtonShopNow link={m.link} />
+            
             </div></div>
             </div>
             )
           })}
       </Slider>
     </div>
+    </section>
   );
 });
 

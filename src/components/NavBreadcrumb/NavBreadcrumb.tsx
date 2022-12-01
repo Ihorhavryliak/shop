@@ -13,10 +13,13 @@ const NavBreadcrumb = React.memo(() => {
     { path: "/products/product/", breadcrumb: null },
     { path: "/products/category/", breadcrumb: null },
   ]);
- 
+
+  const getLastUrlName = decodeURI(breadcrumbs[breadcrumbs.length - 1].key);
+  const nameLastUrl = getLastUrlName.slice((getLastUrlName.lastIndexOf('/') + 1)).replace("-", " ");
+
   const navigation = useLocation();
   const lastUrl = navigation.pathname;
-
+ 
   return (
     <>
       <div className="mt-4">
@@ -26,7 +29,9 @@ const NavBreadcrumb = React.memo(() => {
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb mb-0">
                   {breadcrumbs.map((breadcrumbs) => {
+               
                     return (
+                  
                       <li
                         key={breadcrumbs.key}
                         className="breadcrumb-item"
@@ -34,10 +39,14 @@ const NavBreadcrumb = React.memo(() => {
                       >
                         {breadcrumbs.key !== lastUrl ? (
                           <NavLink to={breadcrumbs.key}>
-                            {breadcrumbs.breadcrumb}
+                            {breadcrumbs.breadcrumb
+                       
+                            
+                            }
                           </NavLink>
                         ) : (
-                          breadcrumbs.breadcrumb
+                          
+                          nameLastUrl[0].toUpperCase() + nameLastUrl.slice(1)
                         )}
                       </li>
                     );

@@ -41,14 +41,11 @@ export const actions = {
 
 export const setSort = (sort: string ): ThunkType => async (dispatch) => {
   dispatch(actions.getSort(sort));
- 
 };
 
 export const getProducts = (sortResult: string, limit: string ): ThunkType => async (dispatch) => {
   dispatch(actions.getFilter(sortResult, limit));
   const data = await productsListAPI.getAllProducts(sortResult);
-
-  debugger
   dispatch(actions.receiveAllProducts(data));
 };
 

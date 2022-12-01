@@ -18,7 +18,7 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
   const { minMaxPrice, sortOldPrice, itemOffset, limitParamNew, productsLength } = props;
   return (
     <div className="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
-      {products
+      {products.length > 0 && products
         /*   rating filter */
         .filter((r) => {
           if (filterRating.length > 0) {

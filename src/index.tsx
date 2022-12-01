@@ -14,10 +14,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <HashRouter>
-    <QueryParamProvider adapter={ReactRouter6Adapter}    options={{
+    <QueryParamProvider adapter={ReactRouter6Adapter}    /* options={{
         searchStringToObject: parse,
         objectToSearchString: stringify,
-      }}>
+      }} */>
         <App />
       </QueryParamProvider>
     </HashRouter>

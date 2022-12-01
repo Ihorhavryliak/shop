@@ -20,9 +20,9 @@ const Navbar = React.memo(() => {
 
   useEffect(() => {
     setHeight(ref.current!.offsetHeight);
-  });
+  }, []);
 
-  console.log(height, "dfdf");
+console.log(height)
   return (
     <div className="border-bottom  mb-4">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

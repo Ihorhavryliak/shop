@@ -31,6 +31,8 @@ type QueryType = {
 };
 
 const Products = React.memo(() => {
+  debugger
+  console.log('one>')
   //get data
   const products = useSelector(getAllProducts);
   const dispatch: AppDispatch = useDispatch();
@@ -316,13 +318,13 @@ const Products = React.memo(() => {
   return (
     <>
       <main>
-        <NavBreadcrumb />
+    {/*     <NavBreadcrumb /> */}
         <div>
           {/* container */}
           <div className="container">
             <div className="row  gx-10">
               {/*  section filter */}
-              <AsideSection
+            {/*   <AsideSection
                 minMaxPrice={minMaxPrice}
                 setMaxPrice={setMaxPrice}
                 setMinPrice={setMinPrice}
@@ -336,7 +338,7 @@ const Products = React.memo(() => {
                 ratingArr={ratingArr}
                 setFilterRate={setFilterRate}
                 filterRating={filterRating}
-              />
+              /> */}
               {/*   content section */}
               <section className="col-lg-9 col-md-12">
                 {/* name category */}
@@ -462,7 +464,7 @@ const Products = React.memo(() => {
                   </div>
                 </div>
                 {/*  list products + filter */}
-                <FilterDeveloper
+              {/*   <FilterDeveloper
                   productsLength={productsLength}
                   limitParamNew={limitParamNew}
                   itemOffset={itemOffset}
@@ -471,9 +473,9 @@ const Products = React.memo(() => {
                   nameFilterCategory={nameFilterCategory}
                   filterRating={filterRating}
                   products={products}
-                />
+                /> */}
                 {/* paginator */}
-                {productsLength !== 0 ? (
+            {/*     {productsLength !== 0 ? (
                   <div className="mt-3">
                     <Paginator
                       itemsPerPage={+filter.limit}
@@ -483,7 +485,7 @@ const Products = React.memo(() => {
                       setItemOffset={setItemOffset}
                     />
                   </div>
-                ) : null}
+                ) : null} */}
                 {/* paginator */}
               </section>
             </div>

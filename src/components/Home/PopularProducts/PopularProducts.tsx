@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { categoryPopularProducts } from "../../../data/setCategoryProducts";
 import { getDataInCategory, getProducts } from "../../../reducers/products-list-reducer/products-list-reducer";
 import { getAllProducts } from "../../../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../../../reducers/redux-store";
@@ -21,10 +22,10 @@ const PopularProducts = React.memo(() => {
             <h3 className="mb-0 fw-bold">Popular Products</h3>
           </div>
         </div>
-        <div className="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-3">
+        <div className="row g-3 row-cols-lg-5 row-cols-2 row-cols-md-3">
           {products.filter(f =>{
             return(
-                f.category === 'electronics'
+                f.category === categoryPopularProducts
             )
           }).slice(0, 5).map((m) => (
             <CartProduct m={m} key={m.id} />

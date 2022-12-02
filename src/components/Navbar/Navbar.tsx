@@ -15,14 +15,14 @@ const Navbar = React.memo(() => {
   //close menu phone
   const [isOpenMenuSlide, setIsOpenMenuSlide] = useState(false);
 
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(() => 0);
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setHeight(ref.current!.offsetHeight);
-  }, []);
+    setHeight(() => ref.current!.offsetHeight);
+  });
 
-console.log(height)
+
   return (
     <div className="border-bottom  mb-4">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -64,7 +64,7 @@ console.log(height)
                   All categories
                 </Link>
                 <ul className="dropdown-menu open">
-                  {categoryData.length &&
+                  {categoryData.length > 0 &&
                     categoryData.map((m, i) => {
                       return (
                         <li className="nav-item" key={i}>
@@ -112,7 +112,7 @@ console.log(height)
                   href="#collapseExample"
                 >
                   <span className="me-2"></span> 
-                  All CATEGORY
+                  ALL CATEGORY
                 </a>
                 <div
                   className={`mt-2 collapse  ${
@@ -128,6 +128,7 @@ console.log(height)
                             <li className="nav-item" key={i}>
                               <NavLink
                                 className="dropdown-item"
+                                onClick={()=>setIsOpenMenu(!isOpenMenu)} 
                                 aria-current="page"
                                 to={`${startUrl}${m
                                   .replace(/['/]/g, "-")
@@ -148,7 +149,7 @@ console.log(height)
                           {categoryData.map( (m, i) => {
                             return(
                               <li key={`${i}__`} className="nav-item dropdown">
-                              <NavLink className="nav-link" to={startUrl + m}>{m[0].toUpperCase() + m.slice(1)}</NavLink>
+                              <NavLink onClick={()=>setIsOpenMenu(!isOpenMenu)} className="nav-link" to={startUrl + m}>{m[0].toUpperCase() + m.slice(1)}</NavLink>
                             </li>
                             )
                           })}

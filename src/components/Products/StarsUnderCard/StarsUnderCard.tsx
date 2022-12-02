@@ -113,7 +113,7 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
      
        
        <span className={ isPadding? "text-muted   position-relative pt-1 prt-2":'text-muted   position-absolute pt-1'}>
-          {rating}
+          {Math.round(rating * 10) / 10}
           {countRating && ` (${countRating})`}
         </span>
   

@@ -3,7 +3,7 @@ import Navbar from "./Navbar/Navbar";
 import NavBreadcrumb from "./NavBreadcrumb/NavBreadcrumb";
 import  Footer  from "./Footer/Footer";
 import { Advantages, CategorySlider, DailyBestSells, DiscountsPhoto, FeaturedCategories, MainSlider, PopularProducts } from "./Home";
-import { AsideSection, Banner, CartProduct, Filter, FilterDeveloper } from "./Products";
+import { AsideSection, Banner, CartProduct, ContentCategoryName, Filter, FilterDeveloper } from "./Products";
 
 
 
@@ -25,6 +25,7 @@ export {
   PopularProducts,
   DailyBestSells,
   Advantages,
+  ContentCategoryName,
 }
 
 

@@ -8,7 +8,7 @@ const DiscountsPhoto = React.memo(() => {
     <section className="mb-55">
     <div className="container">
       <div className="row">
-        <div className="col-6">
+        <div className="col-12 col-md-6 mb-3 mb-lg-0">
           <div
             className="py-10 px-8 rounded-3"
             style={{
@@ -26,7 +26,7 @@ const DiscountsPhoto = React.memo(() => {
             </div>
           </div>
         </div>
-        <div className="col-6">
+        <div className="col-12 col-md-6 mb-3 mb-lg-0">
           <div
             className="py-10 px-8 rounded-3"
             style={{

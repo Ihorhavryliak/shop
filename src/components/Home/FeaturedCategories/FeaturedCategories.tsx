@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import "./FeaturedCategories.scss";
 import categoryImg from "../../../assets/cate.jpg";
 import { useSelector } from "react-redux";
 import { getAllProducts } from "../../../reducers/products-list-reducer/products-list-selector";
+
 export function PrevArrow(props: any) {
   const { onClick } = props;
   return (
@@ -34,19 +35,43 @@ export function NextArrow(props: any) {
 const FeaturedCategories = React.memo(() => {
 
   const products = useSelector(getAllProducts);
+  const [screenWight, setScreenWight] = useState<number>(() => window.innerWidth);
+  const [showSlides, setShowSlides] = useState<number>(() => 6);
+  //get and set screen wight
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWight(() => window.innerWidth);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  //set count sliders category
+  useEffect(()=>{
+    if(screenWight <= 500 ) {
+      setShowSlides(() => 2);
+    }else if(screenWight > 500  && screenWight <= 768) {
+      setShowSlides(() => 2);
+    } else if (screenWight > 768  && screenWight <= 968) {
+      setShowSlides(() => 4);
+    } else {
+      setShowSlides(() => 6);
+    }
+  },[screenWight])
+
+
   let settings = {
     /* dots: true, */
     infinite: true,
-    slidesToShow: 6,
+    slidesToShow: showSlides,
     slidesToScroll: 1,
     autoplay: true,
     speed: 400,
     autoplaySpeed: 4000,
- 
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  let a = [1, 2, 3, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
   return (
     <section className="mb-lg-10 mt-lg-14 my-8">
       <div className="container">
@@ -87,3 +112,7 @@ const FeaturedCategories = React.memo(() => {
 });
 
 export default FeaturedCategories;
+function useStats<T>(arg0: () => number): [any, any] {
+  throw new Error("Function not implemented.");
+}
+

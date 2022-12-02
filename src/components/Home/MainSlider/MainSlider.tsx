@@ -30,7 +30,7 @@ const MainSlider = React.memo(() => {
   }
   return (
     <section className="mt-8">
-    <div className="container">
+    <div className="main__slider container">
       <Slider {...settings}>
           {mainSlider.map((m, i) => {
             return(

@@ -1,14 +1,15 @@
 import { GetAllProductsType, productsListAPI } from "../../api/products-list-api";
+import { dataProducts } from "../../data/products";
 /* import { dataProducts } from "../../data/products"; */
 import { BaseThunkType, InfersActionsTypes } from "../redux-store";
 
 let initialState = {
   products: [] as Array<GetAllProductsType>,
-  filter: {limit: '5', sort: 'asc'} as limitProductsType
+  filter: {limit: '5', sort: 'asc', contentStyle: "onFour"} as limitProductsType
 };
 /* let initialState = {
   products: dataProducts as Array<GetAllProductsType>,
-  filter: {limit: '5', sort: 'asc'} as limitProductsType
+  filter: {limit: '5', sort: 'asc', contentStyle: "onFour"} as limitProductsType
 }; */
 
 const productListReducer = (
@@ -63,6 +64,7 @@ export default productListReducer;
 export type limitProductsType = {
   limit: string
   sort: string
+  contentStyle: string
 }
 export type ActionCreatesTypes = InfersActionsTypes<typeof actions>;
 export type InitialStateType = typeof initialState;

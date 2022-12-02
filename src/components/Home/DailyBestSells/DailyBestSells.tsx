@@ -8,6 +8,7 @@ import './DailyBestSells.scss';
 import imgBestsellers from '../../../assets/bestsellers.jpg'
 import { CartProductCard } from "./CartProductCard/CartProductCard";
 import { ButtonShopNow } from "../../Button/ButtonShopNow";
+import { dailyBestSells } from "../../../data/setCategoryProducts";
 const DailyBestSells = React.memo(() => {
   const products = useSelector(getAllProducts); 
 
@@ -36,9 +37,9 @@ const DailyBestSells = React.memo(() => {
           </div>
           {products.filter(f =>{
             return(
-                f.category === 'jewelery'
+                f.category === dailyBestSells 
             )
-          }).slice(1).map((m) => (
+          }).slice(0, 3).map((m) => (
             <CartProductCard m={m} key={m.id} />
           ))}
         </div>

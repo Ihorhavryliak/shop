@@ -21,55 +21,33 @@ import Paginator from "../utils/Paginator";
 import "rc-slider/assets/index.css";
 import { BsGrid, BsGrid3X3Gap, BsListUl } from "react-icons/bs";
 import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs";
-import { AsideSection, FilterDeveloper, NavBreadcrumb } from "../components";
+import { AsideSection, ContentCategoryName, FilterDeveloper, NavBreadcrumb } from "../components";
 
 
 
 type QueryType = {
   limit?: string;
   sort?: string;
+  contentStyle?: string
 };
 
 const Products = React.memo(() => {
-  debugger
-  console.log('one>')
+  
   //get data
   const products = useSelector(getAllProducts);
   const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
   const getFilter = useSelector(getFilterSelector);
 
-  //save data filter content in  localStorage
+  //save data filter content in  localStorage if null
   if (localStorage.getItem("filter_content") === null) {
     localStorage.setItem(
       "filter_content",
-      JSON.stringify({ limit: getFilter.limit, sort: getFilter.sort })
+      JSON.stringify({ limit: getFilter.limit, sort: getFilter.sort, contentStyle: getFilter.contentStyle })
     );
   }
-  const filter = JSON.parse(localStorage.getItem("filter_content") as string);
-  //set main style in local storage
-  //change main style main content
   // - get data from local
-  const getLocalContentStyle = JSON.parse(
-    localStorage.getItem("filter_content") as string
-  ) as { contentStyle: string };
-  let mainContentInitialValue = getLocalContentStyle.contentStyle;
-  // check is mainContentInitialValue undefined
-  if (getLocalContentStyle === undefined) {
-    mainContentInitialValue = "onFour";
-  }
-  const [mainContentStyle, setMainContentStyle] = useState(
-    mainContentInitialValue
-  );
-  if (getLocalContentStyle.contentStyle !== undefined) {
-    const getObj = JSON.parse(localStorage.getItem("filter_content") as string);
-    localStorage.setItem(
-      "filter_content",
-      JSON.stringify({ ...getObj, contentStyle: mainContentStyle })
-    );
-  } else {
-    setMainContentStyle(getLocalContentStyle.contentStyle);
-  }
+  const filter = JSON.parse(localStorage.getItem("filter_content") as string);
 
   // set url
   const [limitParam, setLimitParam] = useQueryParam("limit", StringParam);
@@ -128,13 +106,11 @@ const Products = React.memo(() => {
       );
     }
   }, [location.pathname]);
-
   useEffect(() => {
     if (!location.pathname.includes("category")) {
       dispatch(getProducts(filter.sort, filter.limit));
     }
   }, []);
-
   //get url
   useEffect(() => {
     let actualFilter: QueryType = filter;
@@ -181,45 +157,7 @@ const Products = React.memo(() => {
       );
     }
   }, []);
-
-  // request limit filter select
-  const setLimitProducts = (productInfoLimit: string) => {
-    // update page
-    setItemOffset(1);
-    // set limit in use
-    setLimitParam(productInfoLimit);
-    // ad to local storage
-    addFilterStorageLocal("limit", productInfoLimit);
-  };
-
-  //sort old hight
-  const setFilterSort = (e: string) => {
-    //set in reduce
-    /* dispatch(setSort(e)); */
-    //set in url
-    setSortRatePrice(e);
-    //set page on 1
-    setItemOffset(1);
-    // select filter sort
-    choseFilterSort(e);
-  };
-  const choseFilterSort = (value: string) => {
-    setSortOldPrice(value);
-    addFilterStorageLocal("sort", value);
-  };
-  // function add to local storage filter
-  const addFilterStorageLocal = (name: string, value: string) => {
-    const localStorageFilterData = JSON.parse(
-      localStorage.getItem("filter_content") as string
-    );
-    localStorage.setItem(
-      "filter_content",
-      JSON.stringify({ ...localStorageFilterData, [name]: value })
-    );
-  };
-
   //min max price from range filter ---
-
   useEffect(() => {
     if (
       productMaxPrice !== Infinity &&
@@ -239,6 +177,43 @@ const Products = React.memo(() => {
       setMaxMinStartPrice([0, 0]);
     }
   }, [productMaxPrice, productMinPrice]);
+  // request limit filter select
+  const setLimitProducts = (productInfoLimit: string) => {
+    // update page
+    setItemOffset(1);
+    // set limit in use
+    setLimitParam(productInfoLimit);
+    // ad to local storage
+    addFilterStorageLocal("limit", productInfoLimit);
+  };
+  //sort old hight
+  const setFilterSort = (e: string) => {
+    //set in url
+    setSortRatePrice(e);
+    //set page on 1
+    setItemOffset(1);
+    // select filter sort
+    choseFilterSort(e);
+  };
+  const choseFilterSort = (value: string) => {
+    setSortOldPrice(value);
+    addFilterStorageLocal("sort", value);
+  };
+  // function set add to local storage filter
+  const addFilterStorageLocal = (name: string, value: string) => {
+    const localStorageFilterData = JSON.parse(
+      localStorage.getItem("filter_content") as string
+    );
+    localStorage.setItem(
+      "filter_content",
+      JSON.stringify({ ...localStorageFilterData, [name]: value })
+    );
+  };
+  //set main style in local storage
+  const setStylesContent = (name: string) => {
+    addFilterStorageLocal('contentStyle', name)
+  }
+
 
   //price in inputs
   const setMinPrice = (e: string) => {
@@ -313,18 +288,16 @@ const Products = React.memo(() => {
     }
   };
 
-
-
   return (
     <>
       <main>
-    {/*     <NavBreadcrumb /> */}
+        <NavBreadcrumb />
         <div>
           {/* container */}
           <div className="container">
             <div className="row  gx-10">
               {/*  section filter */}
-            {/*   <AsideSection
+              <AsideSection
                 minMaxPrice={minMaxPrice}
                 setMaxPrice={setMaxPrice}
                 setMinPrice={setMinPrice}
@@ -338,15 +311,11 @@ const Products = React.memo(() => {
                 ratingArr={ratingArr}
                 setFilterRate={setFilterRate}
                 filterRating={filterRating}
-              /> */}
+              />
               {/*   content section */}
               <section className="col-lg-9 col-md-12">
                 {/* name category */}
-                {categoryBreadcrumbsName && (
-                  <div>
-                    <h1>{categoryBreadcrumbsName}</h1>
-                  </div>
-                )}
+                <ContentCategoryName categoryName={categoryBreadcrumbsName}  />
 
                 {/*   category filter */}
                 <div className="d-lg-flex justify-content-between align-items-center">
@@ -361,47 +330,47 @@ const Products = React.memo(() => {
                   <div className="d-md-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center justify-content-between">
                       {/*  change style main content */}
-                      <div>
+              <div>
                         <a
                           href={"#list"}
                           onClick={() => {
-                            setMainContentStyle("list");
+                            setStylesContent("list");
                           }}
-                          className={
+                        /*   className={
                             mainContentStyle === "list"
                               ? "active me-3"
                               : "text-muted me-3"
-                          }
+                          } */
                         >
                           <BsListUl />
                         </a>
                         <a
                           href={"#onFour"}
                           onClick={() => {
-                            setMainContentStyle("on-four");
+                            setStylesContent("on-four");
                           }}
-                          className={
+                      /*     className={
                             mainContentStyle === "on-four"
                               ? "active me-3"
                               : "text-muted me-3"
-                          }
+                          } */
                         >
                           <BsGrid />
                         </a>
                         <a
                           href={"#onThree"}
                           onClick={() => {
-                            setMainContentStyle("on-three");
+                            setStylesContent("on-three");
                           }}
-                          className={
+                      /*     className={
                             mainContentStyle === "on-three"
                               ? "active me-3"
                               : "text-muted me-3"
-                          }
+                          } */
                         >
                           <BsGrid3X3Gap />
                         </a>
-                      </div>
+                      </div> 
                       {/* icon filters on small screen  */}
                       <div className="ms-2 d-lg-none">
                         <a
@@ -464,7 +433,7 @@ const Products = React.memo(() => {
                   </div>
                 </div>
                 {/*  list products + filter */}
-              {/*   <FilterDeveloper
+                <FilterDeveloper
                   productsLength={productsLength}
                   limitParamNew={limitParamNew}
                   itemOffset={itemOffset}
@@ -473,9 +442,9 @@ const Products = React.memo(() => {
                   nameFilterCategory={nameFilterCategory}
                   filterRating={filterRating}
                   products={products}
-                /> */}
+                />
                 {/* paginator */}
-            {/*     {productsLength !== 0 ? (
+                {productsLength !== 0 ? (
                   <div className="mt-3">
                     <Paginator
                       itemsPerPage={+filter.limit}
@@ -485,7 +454,7 @@ const Products = React.memo(() => {
                       setItemOffset={setItemOffset}
                     />
                   </div>
-                ) : null} */}
+                ) : null}
                 {/* paginator */}
               </section>
             </div>
@@ -497,3 +466,6 @@ const Products = React.memo(() => {
 });
 
 export default Products;
+
+
+

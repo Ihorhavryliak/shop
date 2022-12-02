@@ -1,5 +1,6 @@
 import { GetAllProductsType, productsListAPI } from "../../api/products-list-api";
 import { dataProducts } from "../../data/products";
+import { targum } from "../../data/setCategoryProducts";
 /* import { dataProducts } from "../../data/products"; */
 import { BaseThunkType, InfersActionsTypes } from "../redux-store";
 
@@ -7,10 +8,13 @@ let initialState = {
   products: [] as Array<GetAllProductsType>,
   filter: {limit: '5', sort: 'asc', contentStyle: "onFour"} as limitProductsType
 };
-/* let initialState = {
-  products: dataProducts as Array<GetAllProductsType>,
-  filter: {limit: '5', sort: 'asc', contentStyle: "onFour"} as limitProductsType
-}; */
+
+if(targum) {
+  initialState ={  products: dataProducts as Array<GetAllProductsType>,
+  filter: {limit: '5', sort: 'asc', contentStyle: "onFour"} as limitProductsType}
+}
+
+
 
 const productListReducer = (
   state = initialState,

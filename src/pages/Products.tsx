@@ -292,7 +292,7 @@ const Products = React.memo(() => {
     <>
       <main>
         <NavBreadcrumb />
-        <div>
+        <div className=" mt-8 mb-lg-14 mb-8">
           {/* container */}
           <div className="container">
             <div className="row  gx-10">

@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "rc-slider";
 import { BsFillStarFill, BsStar } from "react-icons/bs";
+import { BannerAside } from "./BannerAside/BannerAside";
 
 type AsideSectionType = {
   minMaxPrice: number | number[];
@@ -27,8 +28,9 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
   return (
     <aside className="col-lg-3 col-md-4 mb-6 mb-md-0">
       {/* filter min max ok form */}
-      <div className="row mt-3">
-        <h5 className="mb-2">Price:</h5>
+      <div className="mb-8">
+      <div className="row">
+        <h5 className="mb-3">Price:</h5>
         <div className="col-4">
           <input
             type="text"
@@ -57,6 +59,7 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
             onChange={(e) => setMaxPrice(e.target.value)} />
         </div>
       </div>
+
       <div className="row">
         <div className="col">
           <Slider
@@ -81,8 +84,9 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
             }} />
         </div>
       </div>
+      </div>
       {/*    filter category */}
-      <div className="mt-3">
+      <div className="mb-8">
         <h5>Category</h5>
         <div>
           {categoriesNameData.map((cat, i) => {
@@ -106,7 +110,7 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
         </div>
       </div>
       {/* filter rating  */}
-      <div>
+      <div className="mb-8">
         <h5>Rating</h5>
         {ratingArr.map((r, i) => {
           return (
@@ -174,6 +178,7 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
           );
         })}
       </div>
+      <BannerAside />
     </aside>
   );
 };

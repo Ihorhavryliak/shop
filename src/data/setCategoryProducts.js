@@ -1,4 +1,8 @@
+export const targum = false;
 
-
-export const categoryPopularProducts = 'electronics' /* 'shoes' */;
-export const dailyBestSells = 'jewelery' /* 'shoes' */;
+export let categoryPopularProducts = 'electronics' /* 'shoes' */;
+export let dailyBestSells = 'jewelery' /* 'shoes' */;
+if (targum) {
+  categoryPopularProducts = 'shoes' ;
+  dailyBestSells = 'shoes';
+} 

@@ -1,5 +1,6 @@
 
 import { AsideSection } from "./AsideSection/AsideSection";
+import { BannerAside } from "./AsideSection/BannerAside/BannerAside";
 import Banner from "./Banner/Banner";
 import { ContentCategoryName } from "./ContentCategoryName/ContentCategoryName";
 import Filter from "./Filter";
@@ -13,6 +14,7 @@ export {
   CartProduct,
   FilterDeveloper,
   AsideSection,
-  ContentCategoryName
+  ContentCategoryName,
+  BannerAside
 } 
 

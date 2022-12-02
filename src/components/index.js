@@ -8,6 +8,7 @@ import { AsideSection, Banner, CartProduct, ContentCategoryName, Filter, FilterD
 
 
 
+
 export {
   Header,
   Navbar,
@@ -27,6 +28,5 @@ export {
   Advantages,
   ContentCategoryName,
 }
-
 
 

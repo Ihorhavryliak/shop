@@ -7,9 +7,10 @@ export const ContentCategoryName = React.memo( ({ categoryName }: ContentCategor
   return (
     <>
       {categoryName && (
-        <div className="card-body p-9">
+        <div className="card mb-3 bg-light border-0 ">
+        <div className="card-body p-9 content__category__name banner__border">
           <h2 className="mb-0 fs-1">{categoryName}</h2>
-        </div>
+        </div>   </div>
       )}
     </>
   );

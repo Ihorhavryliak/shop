@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/shop/static/css/main.ea51d24f.css",
-    "main.js": "/shop/static/js/main.1ac587d1.js",
+    "main.css": "/shop/static/css/main.a137734a.css",
+    "main.js": "/shop/static/js/main.f5bdfd65.js",
     "static/media/slider-2.jpg": "/shop/static/media/slider-2.92200ddb54f84e0e8c71.jpg",
     "static/media/slide-1.jpg": "/shop/static/media/slide-1.2be1a91b8c0806e145da.jpg",
     "static/media/discount-1.png": "/shop/static/media/discount-1.2c56649c9cbe2e19b86f.png",
     "static/media/bestsellers.jpg": "/shop/static/media/bestsellers.1b59492b3693c381fcbb.jpg",
     "static/media/discount-2.jpg": "/shop/static/media/discount-2.7a4a78a90acc3d5847cb.jpg",
+    "static/media/logo.jpg": "/shop/static/media/logo.c83065f6a43c9c7de3fd.jpg",
     "static/media/appstore-btn.svg": "/shop/static/media/appstore-btn.e0458174c310ac85a64fdaaccc0b5541.svg",
     "static/media/mastercard.svg": "/shop/static/media/mastercard.95e5a18b5766ebd2d8b97e354dab0994.svg",
     "static/media/googleplay-btn.svg": "/shop/static/media/googleplay-btn.19211d12af9fac14b0f3224eb3c8b330.svg",
@@ -17,11 +18,11 @@
     "static/media/slick.ttf": "/shop/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/shop/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/shop/index.html",
-    "main.ea51d24f.css.map": "/shop/static/css/main.ea51d24f.css.map",
-    "main.1ac587d1.js.map": "/shop/static/js/main.1ac587d1.js.map"
+    "main.a137734a.css.map": "/shop/static/css/main.a137734a.css.map",
+    "main.f5bdfd65.js.map": "/shop/static/js/main.f5bdfd65.js.map"
   },
   "entrypoints": [
-    "static/css/main.ea51d24f.css",
-    "static/js/main.1ac587d1.js"
+    "static/css/main.a137734a.css",
+    "static/js/main.f5bdfd65.js"
   ]
 }

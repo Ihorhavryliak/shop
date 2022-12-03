@@ -1,0 +1,36 @@
+// delete img
+.image__product__width {
+  /*   height: 200px; */
+}
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  /*   max-height: 100%; */
+}
+
+.not__visible.visibility {
+  display: block;
+  opacity: 1;
+  height: auto;
+  visibility: visible;
+  transition: all 0.3s;
+  z-index: 100;
+}
+.not__visible {
+  display: none;
+  z-index: 100;
+  opacity: 0;
+  height: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.product__main__photo
+  .image-gallery-content
+  .image-gallery-slide
+  .image-gallery-image {
+  max-height: calc(50vh - 80px);
+}
+
+.product__main__photo .image-gallery-thumbnail .image-gallery-thumbnail-image {
+
+
+}

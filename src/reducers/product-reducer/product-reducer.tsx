@@ -1,5 +1,6 @@
 import { GetProductDataType, productAPI } from "../../api/product-api"
-import { dataProducts } from "../../data/products"
+import { dataProd } from "../../data/product"
+
 import { targum } from "../../data/setCategoryProducts"
 import { BaseThunkType, InfersActionsTypes } from "../redux-store"
 
@@ -10,7 +11,7 @@ let initialState = {
 
 if(targum) {
   initialState ={  
-    product: dataProducts as Array<GetProductDataType>,
+    product: dataProd as Array<GetProductDataType>,
   }
 }
 

@@ -17,6 +17,27 @@
   }
 }
 
+.card-product .btn-action {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  color: #21313c;
+  display: inline-flex;
+  font-size: 14px;
+  height: 34px;
+  justify-content: center;
+  line-height: 34px;
+  text-align: center;
+  transition: all .3s ease 0s;
+  vertical-align: middle;
+  width: 34px;
+  margin: 2px;
+}
 
+.card-product .btn-action:hover{
+  background-color: #0aad0a;
+  color: #fff;
+}
 
 

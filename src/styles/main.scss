@@ -296,10 +296,7 @@ h1 {
   border-color: #ecf0ef;
 }
 
-// delete img
-.image__product__width {
-  width: 50%;
-}
+
 
 //number
 ::-webkit-inner-spin-button {
@@ -307,48 +304,17 @@ h1 {
   -moz-appearance: textfield;
 }
 
-.see {
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 1.4s, visibility 1.4s;
-}
-.see.active {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 1.4s, visibility 1.4s;
-}
 
-// description
-.nav-tabs .nav-link.active,
-.nav-tabs .nav-item.show .nav-link {
-  background-color: transparent;
-  border-color: transparent;
-  border-bottom: 2px solid #0aad0a;
-  color: #0aad0a;
-
-}
-
-.nav-lb-tab .nav-item .nav-link.active,
-.nav-lb-tab .nav-item .nav-link:hover {
-  background-color: transparent;
-  border-bottom: 2px solid #0aad0a;
-  color: #0aad0a;
-}
-.nav-link {
+// 
+.navbar .dropdown-menu {
+  border: 1px solid #dfe2e1;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 4%);
   color: #5c6c75;
-  padding: 16px 0;
+  font-size: .938rem;
+  line-height: 1.2rem;
+  margin: 1.125rem 0;
+  min-width: 12rem;
+  padding: 1rem 0.75rem;
+  top: 26px;
 }
-.nav-link:hover{
-  color: #0aad0a;
-}
-.nav-tabs .nav-link:hover,
-.nav-tabs .nav-link:focus {
-  border-color: transparent;
- 
-  border-bottom: 2px solid #0aad0a;
-}
-.nav-tabs {
-  color: rgba(10, 173, 10, 0.25);
-}
-
-.nav-item{margin-right: 2rem;}

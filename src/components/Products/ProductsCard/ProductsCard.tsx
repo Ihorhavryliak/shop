@@ -1,5 +1,5 @@
 import React from "react";
-import {  BsPlus, BsStar } from "react-icons/bs";
+import {  BsEye, BsPlus, BsHeart, BsArrowLeftRight } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { GetAllProductsType } from "../../../api/products-list-api";
 import { StarsUnderCard } from "../StarsUnderCard/StarsUnderCard";
@@ -28,13 +28,16 @@ export const CartProduct: React.FC<CartProductType> = ({ m }) => {
 
             </NavLink>
                          {/*  hover */}
-                         <div className="card-product-action" >cv
+                         <div className="card-product-action" >
                       <a href="#!" className="btn-action" data-bs-target="#quickViewModal">
-                        <i className="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Quick View"></i></a>
+                      
+                       < BsEye />
+                        </a>
                       <a href="5" className="btn-action" data-bs-html="true" aria-label="Wishlist">
-                        <i className="bi bi-heart"></i></a>
+                     <BsHeart/></a>
                       <a href="#!" className="btn-action"  data-bs-html="true" aria-label="Compare"
-                      ><i className="bi bi-arrow-left-right"></i></a>
+                      ><BsArrowLeftRight />
+                      </a>
                     </div>
           </div>
           {/* information */}

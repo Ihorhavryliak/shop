@@ -4,7 +4,7 @@ import { BsArrowLeftRight, BsHeart } from "react-icons/bs";
 import './ProductButtons.scss'
 
 
-export const ProductButtons = () => {
+export const ProductButtons = React.memo(() => {
   return (
     <div className="mt-3 row justify-content-start g-2 align-items-center">
       <div className="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
@@ -34,4 +34,4 @@ export const ProductButtons = () => {
       </div>
     </div>
   );
-};
+});

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './ProductDescription.scss'
 
-export const ProductDescription = () => {
+export const ProductDescription = React.memo(() => {
   const [activeTab, setActiveTab] = useState("Home");
 
   return (
@@ -199,4 +199,4 @@ export const ProductDescription = () => {
       </div>
     </section>
   );
-};
+});

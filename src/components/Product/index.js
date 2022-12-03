@@ -1,4 +1,9 @@
+import { ProductButtons } from "./ProductButtons/ProductButtons"
+import { ProductCharacteristics } from "./ProductCharacteristics/ProductCharacteristics"
 import { ProductCount } from "./ProductCount/ProductCount"
+import { ProductDescription } from "./ProductDescription/ProductDescription"
+import { ProductImg } from "./ProductImg/ProductImg"
+import { ProductShare } from "./ProductShare/ProductShare"
 
 
 
@@ -6,5 +11,10 @@ import { ProductCount } from "./ProductCount/ProductCount"
 
 export {
   ProductCount,
+  ProductButtons,
+  ProductCharacteristics,
+  ProductDescription,
+  ProductImg,
+  ProductShare,
 }
 

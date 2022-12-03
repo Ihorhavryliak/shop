@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export const ProductShare = () => {
+export const ProductShare = React.memo(() => {
   return (
     <div className="mt-8">
       <div className="dropdown">
@@ -35,4 +35,4 @@ export const ProductShare = () => {
       </div>
     </div>
   );
-};
+});

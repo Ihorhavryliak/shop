@@ -9,10 +9,10 @@ import { AppDispatch } from "../reducers/redux-store";
 import { StarsUnderCard } from "../components/Products/StarsUnderCard/StarsUnderCard";
 import { ProductCount } from "../components/Product/ProductCount/ProductCount";
 import { ProductButtons } from "../components/Product/ProductButtons/ProductButtons";
-import { ProductDescription } from "../components/Products/ProductDescription/ProductDescription";
-import { ProductShare } from "../components/Products/ProductShare/ProductShare";
-import { ProductCharacteristics } from "../components/Products/ProductCharacteristics/ProductCharacteristics";
-import { ProductImg } from "../components/Products/ProductImg/ProductImg";
+import { ProductDescription } from "../components/Product/ProductDescription/ProductDescription";
+import { ProductShare } from "../components/Product/ProductShare/ProductShare";
+import { ProductCharacteristics } from "../components/Product/ProductCharacteristics/ProductCharacteristics";
+import { ProductImg } from "../components/Product/ProductImg/ProductImg";
 
 export const Product = React.memo(() => {
   const productNumber = useParams();

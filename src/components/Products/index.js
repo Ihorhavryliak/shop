@@ -5,6 +5,7 @@ import Banner from "./Banner/Banner";
 import { ContentCategoryName } from "./ContentCategoryName/ContentCategoryName";
 import Filter from "./Filter";
 import { FilterDeveloper } from "./FilterDeveloper/FilterDeveloper";
+import { OnModalProduct } from "./OnModalProduct/OnModalProduct";
 import { CartProduct } from "./ProductsCard/ProductsCard";
 
 
@@ -15,6 +16,7 @@ export {
   FilterDeveloper,
   AsideSection,
   ContentCategoryName,
-  BannerAside
+  BannerAside,
+  OnModalProduct
 } 
 

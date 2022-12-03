@@ -4,7 +4,7 @@ import { GetProductDataType } from "../../../api/product-api";
 type TypeProductType = {
   product: GetProductDataType[];
 };
-export const ProductCharacteristics = ({ product }: TypeProductType) => {
+export const ProductCharacteristics = React.memo(({ product }: TypeProductType) => {
   return (
     <>
       {product.map((m, i) => {
@@ -40,4 +40,4 @@ export const ProductCharacteristics = ({ product }: TypeProductType) => {
       })}
     </>
   );
-};
+});

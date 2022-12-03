@@ -4,7 +4,7 @@ import ImageGallery from "react-image-gallery";
 import { GetProductDataType } from "../../../api/product-api";
 import "./ProductImg.scss";
 
-export const ProductImg = ({ m }: { m: GetProductDataType }) => {
+export const ProductImg = React.memo(({ m }: { m: GetProductDataType }) => {
   const [isOpenScreen, setIsOpenScreen] = useState(false);
   const screenRef = useRef<ReactImageGallery | null>(null);
   const onScreen = (e: boolean) => {
@@ -16,7 +16,7 @@ export const ProductImg = ({ m }: { m: GetProductDataType }) => {
       <div className="image__product__width">
         <ImageGallery
           additionalClass={'product__main__photo'}
- 
+        
           items={[
             {
               original: m.image,
@@ -108,4 +108,4 @@ export const ProductImg = ({ m }: { m: GetProductDataType }) => {
       </div>
     </div>
   );
-};
+});

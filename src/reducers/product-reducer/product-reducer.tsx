@@ -1,10 +1,19 @@
 import { GetProductDataType, productAPI } from "../../api/product-api"
+import { dataProducts } from "../../data/products"
+import { targum } from "../../data/setCategoryProducts"
 import { BaseThunkType, InfersActionsTypes } from "../redux-store"
 
 
 let initialState = {
   product: [] as Array<GetProductDataType>,
 }
+
+if(targum) {
+  initialState ={  
+    product: dataProducts as Array<GetProductDataType>,
+  }
+}
+
 
 const productReducer = (state = initialState, action: ActionCreatesTypes ): InitialStateType => {
   switch(action.type){

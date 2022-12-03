@@ -5,15 +5,17 @@ type StarsUnderCartType = {
   rating: number;
   countRating?: number;
   isPadding?: boolean;
+  type?: string;
 };
 
 export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
   rating,
   countRating,
   isPadding,
+  type,
 }) => {
   return (
-    <div className= { isPadding? 'min-tp' : " mb-2"}>
+    <div className={isPadding ? "min-tp" : " mb-2"}>
       {/*    starts  */}
       <small>
         {rating === 5 ? (
@@ -26,7 +28,7 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
           </>
         ) : rating >= 4.1 && rating !== 5 ? (
           <>
-            <BsFillStarFill className="me-1 ratingYellow" />
+       
             <BsFillStarFill className="me-1 ratingYellow" />
             <BsFillStarFill className="me-1 ratingYellow" />
             <BsFillStarFill className="me-1 ratingYellow" />
@@ -110,15 +112,30 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
           </>
         )}
 
-     
-       
-       <span className={ isPadding? "text-muted   position-relative pt-1 prt-2":'text-muted   position-absolute pt-1'}>
-          {Math.round(rating * 10) / 10}
-          {countRating && ` (${countRating})`}
-        </span>
-  
+        {type !== "product" && (
+          <span
+            className={
+              isPadding
+                ? "text-muted   position-relative pt-1 prt-2"
+                : "text-muted   position-absolute pt-1"
+            }
+          >
+            {Math.round(rating * 10) / 10}
+            {countRating && ` (${countRating})`}
+          </span>
+        )}
       </small>
-   
+      {type === "product" && (
+        <a className="ms-2  position-absolute " href="9">
+          (
+          {`${
+            countRating !== undefined && countRating === 1
+              ? `${countRating}  review`
+              : `${countRating} reviews`
+          }`}
+          )
+        </a>
+      )}
     </div>
   );
 };

@@ -287,6 +287,8 @@ const Products = React.memo(() => {
       setFilterRating([...filterRating, (filterRating[indexNameRate] = e)]);
     }
   };
+// open close mobile filter
+const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
 
   return (
     <>
@@ -311,6 +313,8 @@ const Products = React.memo(() => {
                 ratingArr={ratingArr}
                 setFilterRate={setFilterRate}
                 filterRating={filterRating}
+                isOpenFilter={isOpenFilter}
+                setIsOpenFilter={setIsOpenFilter}
               />
               {/*   content section */}
               <section className="col-lg-9 col-md-12">
@@ -336,11 +340,11 @@ const Products = React.memo(() => {
                           onClick={() => {
                             setStylesContent("list");
                           }}
-                        /*   className={
-                            mainContentStyle === "list"
+                          className={
+                            getFilter.contentStyle === "list"
                               ? "active me-3"
                               : "text-muted me-3"
-                          } */
+                          }
                         >
                           <BsListUl />
                         </a>
@@ -349,11 +353,11 @@ const Products = React.memo(() => {
                           onClick={() => {
                             setStylesContent("on-four");
                           }}
-                      /*     className={
-                            mainContentStyle === "on-four"
+                         className={
+                          getFilter.contentStyle === "on-four"
                               ? "active me-3"
                               : "text-muted me-3"
-                          } */
+                          } 
                         >
                           <BsGrid />
                         </a>
@@ -362,23 +366,21 @@ const Products = React.memo(() => {
                           onClick={() => {
                             setStylesContent("on-three");
                           }}
-                      /*     className={
-                            mainContentStyle === "on-three"
+                           className={
+                            getFilter.contentStyle === "on-three"
                               ? "active me-3"
                               : "text-muted me-3"
-                          } */
+                          } 
                         >
                           <BsGrid3X3Gap />
                         </a>
                       </div> 
                       {/* icon filters on small screen  */}
                       <div className="ms-2 d-lg-none">
-                        <a
-                          className="btn btn-outline-gray-400 text-muted"
-                          data-bs-toggle="offcanvas"
-                          href="#offcanvasCategory"
-                          role="button"
-                          aria-controls="offcanvasCategory"
+                        <button
+                          className="btn btn__filter__gray text-muted"
+                          onClick={()=> setIsOpenFilter(!isOpenFilter)}
+                          type="button"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -395,7 +397,7 @@ const Products = React.memo(() => {
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                           </svg>
                           Filters
-                        </a>
+                        </button>
                       </div>
                     </div>
                     <div className="d-flex mt-2 mt-lg-0">

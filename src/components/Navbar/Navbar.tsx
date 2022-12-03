@@ -56,13 +56,13 @@ const Navbar = React.memo(() => {
                 : ""}
 
               <li className="nav-item dropdown">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  to={`products`}
+                <span
+                  className="nav-link dropdown-toggle "
+                 
                   data-bs-toggle="dropdown"
                 >
                   All categories
-                </Link>
+                </span>
                 <ul className="dropdown-menu open">
                   {categoryData.length > 0 &&
                     categoryData.map((m, i) => {
@@ -162,7 +162,7 @@ const Navbar = React.memo(() => {
           {isOpenMenu && (
             <div
               onClick={() => setIsOpenMenu(!isOpenMenu)}
-              className={`offcanvas-backdrop fade ${isOpenMenu ? "show" : ""} `}
+              className={`offcanvas-backdrop  ${isOpenMenu ? " fade show" : "fade"} `}
             ></div>
           )}
         </div>

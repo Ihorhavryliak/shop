@@ -1,6 +1,14 @@
 
    :root {
-    --bs-body-font-family: Arial;
+/*     --bs-body-font-family: Arial; */
+--bs-font-sans-serif: "Inter",sans-serif;
     --bs-body-font-size: 0.875rem;
   }
   
+  .small, small {
+    font-size: .875em;
+}
+
+/* .navbar-nav{
+  --bs-body-font-family: Arial;
+} */

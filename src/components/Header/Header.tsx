@@ -12,11 +12,14 @@ import { useSelector } from "react-redux";
 import { ModalLogin } from "../ModalLogin/ModalLogin";
 import { OnModalProduct } from "../Products";
 import { getIsAuthSelector } from "../../reducers/auth-reducer/auth-selector";
+import { CartModal } from "../CartModal/CartModal";
 const Header = React.memo(() => {
   const getFavoriteData = useSelector(getFavoriteSelector);
   const navigate = useNavigate()
   const [isOpenModal, setIsOpenModal] = useState(false);
   const isLogIn = useSelector(getIsAuthSelector);
+  const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
+
 //close forme
   useEffect(() => {
     if (isLogIn !== null) {
@@ -83,21 +86,27 @@ const Header = React.memo(() => {
                   </span>
                 </div>
                 <div className="list-inline-item">
-                  <a className="text-muted position-relative" href="s">
+                  <span 
+                     onClick={()=>{setIsOpenCart(!isOpenCart)}}
+                  className="text-muted position-relative span__link" >
                     <FiShoppingBag />
-                  </a>{" "}
+                  </span>{" "}
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <CartModal isOpenMenu={isOpenCart} setIsOpenMenu={setIsOpenCart}  />
       </div>
      <OnModalProduct name={'Sing In'} isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
-
                       <ModalLogin />
-
      </OnModalProduct>
+
+        {/* cart */}
+  
+   
     </header>
+    
   );
 });
 

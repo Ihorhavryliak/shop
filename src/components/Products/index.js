@@ -1,4 +1,5 @@
 
+import { CartModal } from "../CartModal/CartModal";
 import { AsideSection } from "./AsideSection/AsideSection";
 import { BannerAside } from "./AsideSection/BannerAside/BannerAside";
 import Banner from "./Banner/Banner";
@@ -17,6 +18,7 @@ export {
   AsideSection,
   ContentCategoryName,
   BannerAside,
-  OnModalProduct
+  OnModalProduct,
+  CartModal
 } 
 

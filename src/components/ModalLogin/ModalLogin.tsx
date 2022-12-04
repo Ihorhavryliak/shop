@@ -46,7 +46,7 @@ export const ModalLogin = React.memo(() => {
   const singInValidate = (values: FormDataType) => {
     const errors: DataType = {};
     if (values.username.length <= 0) {
-      errors.username = "Please enter a username.";
+      errors.username = "Please enter a name.";
     }
     if (values.password.length <= 0) {
       errors.password = "Please enter a password.";

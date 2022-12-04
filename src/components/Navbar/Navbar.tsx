@@ -130,9 +130,7 @@ const Navbar = React.memo(() => {
                                 className="dropdown-item"
                                 onClick={()=>setIsOpenMenu(!isOpenMenu)} 
                                 aria-current="page"
-                                to={`${startUrl}${m
-                                  .replace(/['/]/g, "-")
-                                  .replace(" ", "")}`}
+                                to={`${startUrl}${m.replace(" ", "-")}`}
                               >
                                 {m[0].toUpperCase() + m.slice(1)}
                               </NavLink>
@@ -149,7 +147,8 @@ const Navbar = React.memo(() => {
                           {categoryData.map( (m, i) => {
                             return(
                               <li key={`${i}__`} className="nav-item dropdown">
-                              <NavLink onClick={()=>setIsOpenMenu(!isOpenMenu)} className="nav-link" to={startUrl + m}>{m[0].toUpperCase() + m.slice(1)}</NavLink>
+                              <NavLink onClick={()=>setIsOpenMenu(!isOpenMenu)} className="nav-link" 
+                              to={`${startUrl}${m.replace(" ", "-")}`}>{m[0].toUpperCase() + m.slice(1)}</NavLink>
                             </li>
                             )
                           })}

@@ -92,7 +92,7 @@ const productDataFiltered = productData.filter((m) => {
                       <hr className="my-6" />
                       {/*  count */}
                       <ProductCount />
-                      <ProductButtons />
+                      <ProductButtons id={m.id} />
                       <hr className="my-6" />
                       <ProductCharacteristics product={productDataFiltered} />
                       <ProductShare />

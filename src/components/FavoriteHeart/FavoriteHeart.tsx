@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BsHeart, BsFillHeartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { GetAllProductsType } from "../../api/products-list-api";
 import {
-  getProducts,
-  setDeleteFavorite,
   setFavorite,
 } from "../../reducers/products-list-reducer/products-list-reducer";
 import {
@@ -12,46 +9,38 @@ import {
   getFavoriteSelector,
 } from "../../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../../reducers/redux-store";
+import { onDeleteToFavorite } from "../../utils/funcrions";
+import { getLocalStorage } from "../../utils/getLocalStorage";
 import "./FavoriteHeart.scss";
 
-export const FavoriteHeart = React.memo(({ id }: { id: number }) => {
+type FavoriteHeartType = {
+  id: number 
+  className?: string
+}
+export const FavoriteHeart = React.memo(({ id, className = "btn-action span__link" }: FavoriteHeartType) => {
   const dispatch: AppDispatch = useDispatch();
   const getFavoriteData = useSelector(getFavoriteSelector);
-  const isFavoriteProduct = getFavoriteData.some((s) => s.id === id);
   const getProducts = useSelector(getAllProducts);
-  //get /set data from local storage
-let getDataLocalStorage: null | Array<GetAllProductsType>  = [];
-if(localStorage.getItem("favorite") === null) {
-  localStorage.setItem("favorite", JSON.stringify([]));
-} else {
-  getDataLocalStorage = JSON.parse(localStorage.getItem("favorite") as string) as Array<GetAllProductsType>;
-}
+
 //add 
   const onAddToFavorite = (id: number) => {
     dispatch(setFavorite(id));
     const findProduct = [getProducts.find((f) => f.id === id)];
-    getDataLocalStorage !== null
+    getLocalStorage("favorite") !== null
       ? localStorage.setItem(
           "favorite",
-          JSON.stringify([...getDataLocalStorage, ...findProduct])
+          JSON.stringify([...getLocalStorage("favorite"), ...findProduct])
         )
       : localStorage.setItem("favorite", JSON.stringify([...findProduct]));
   };
-//delete
-const onDeleteToFavorite = (id: number) => {
-  dispatch(setDeleteFavorite(id));
-if(getDataLocalStorage !== null) {
-  localStorage.setItem("favorite", JSON.stringify([...getDataLocalStorage.filter(f => f.id !== id)]));
-}
-};
 // is Product Favorite
-const isProductFavorite = getDataLocalStorage.some(s => s.id === id );
+const isProductFavorite = getLocalStorage("favorite").some(s => s.id === id );
 return (
     <>
       {isProductFavorite ? (
         <span
-          onClick={() => onDeleteToFavorite(id)}
-          className="btn-action"
+          onClick={() => onDeleteToFavorite(id, dispatch)}
+          className={className}
           data-bs-html="true"
           aria-label="Wishlist"
         >
@@ -60,7 +49,7 @@ return (
       ) : (
         <span
           onClick={() => onAddToFavorite(id)}
-          className="btn-action"
+          className={className}
           data-bs-html="true"
           aria-label="Wishlist"
         >

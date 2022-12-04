@@ -21,3 +21,12 @@ export const getProductMaxPriceSelector = createSelector(getAllProducts, (produc
 export const getCategorySelector = (state: AppStateType) => {
   return state.categories.category
 }
+
+//get favorite 
+export const getFavoriteSelector = (state: AppStateType) => {
+  return state.productsList.favorite
+}
+//createSelectorSuper
+export const getIsFavoriteSelectorSuper = createSelector(getFavoriteSelector, (favorite)=>{
+  return  favorite ;
+})

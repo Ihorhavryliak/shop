@@ -1,7 +1,7 @@
 
 import React from "react";
 import { BsCart4 } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import './Header.scss';
 import { AiOutlineHeart } from "react-icons/ai";
@@ -21,7 +21,7 @@ const Header = React.memo(() => {
       
         </div>
         <div className="col-4 	 col-sm-6 col-md-6 col-lg-3 col-xl-3   col-xxl-3  text-end fs-4 list-inline-item">
-          <a className="text-muted position-relative pe-2" href="s"><AiOutlineHeart /></a>
+          <NavLink className="text-muted position-relative pe-2" to="favorite"><AiOutlineHeart /></NavLink>
           <a className="text-muted position-relative pe-2" href="s"><BiUser/> </a>
           <a className="text-muted position-relative" href="s"><FiShoppingBag /></a>  </div>
       </div>

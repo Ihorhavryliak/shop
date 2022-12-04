@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { BsEye, BsPlus, BsHeart, BsArrowLeftRight } from "react-icons/bs";
+import { BsEye, BsPlus, BsArrowLeftRight } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { GetAllProductsType } from "../../../api/products-list-api";
 import { OnModalProduct } from "../OnModalProduct/OnModalProduct";
 import { StarsUnderCard } from "../StarsUnderCard/StarsUnderCard";
+import { FavoriteHeart } from "../../FavoriteHeart/FavoriteHeart";
 import "./ProductCartSmall.scss";
 type CartProductType = {
   m: GetAllProductsType;
@@ -13,6 +14,7 @@ export const CartProduct: React.FC<CartProductType> = ({ m }) => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
+ 
   return (
     <div className="col  " key={m.id}>
       <div className="card card-product">
@@ -40,21 +42,16 @@ export const CartProduct: React.FC<CartProductType> = ({ m }) => {
                 <BsEye />
               </span>
              
-              <a
-                href="5"
-                className="btn-action"
-                data-bs-html="true"
-                aria-label="Wishlist"
-              >
-                <BsHeart />
-              </a>
+            <FavoriteHeart id={m.id} />
+
+
               <a
                 href="#!"
                 className="btn-action"
                 data-bs-html="true"
                 aria-label="Compare"
               >
-                <BsArrowLeftRight />
+                <BsArrowLeftRight  />
               </a>
             </div>
           </div>
@@ -83,3 +80,7 @@ export const CartProduct: React.FC<CartProductType> = ({ m }) => {
     </div>
   );
 };
+
+
+
+

@@ -34,7 +34,7 @@ export const FavoriteHeart = React.memo(({ id, className = "btn-action span__lin
       : localStorage.setItem("favorite", JSON.stringify([...findProduct]));
   };
 // is Product Favorite
-const isProductFavorite = getLocalStorage("favorite").some(s => s.id === id );
+const isProductFavorite = getLocalStorage("favorite").some(s => s.id === id ) ;
 return (
     <>
       {isProductFavorite ? (

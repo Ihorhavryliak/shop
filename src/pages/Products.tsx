@@ -10,6 +10,7 @@ import { AppDispatch } from "../reducers/redux-store";
 import {
   getDataInCategory,
   getProducts,
+  setStyle,
 } from "../reducers/products-list-reducer/products-list-reducer";
 import { useLocation } from "react-router-dom";
 import {
@@ -32,7 +33,7 @@ type QueryType = {
 };
 
 const Products = React.memo(() => {
-  
+
   //get data
   const products = useSelector(getAllProducts);
   const dispatch: AppDispatch = useDispatch();
@@ -209,8 +210,11 @@ const Products = React.memo(() => {
       JSON.stringify({ ...localStorageFilterData, [name]: value })
     );
   };
+
+
   //set main style in local storage
   const setStylesContent = (name: string) => {
+    dispatch(setStyle(name))
     addFilterStorageLocal('contentStyle', name)
   }
 
@@ -289,6 +293,7 @@ const Products = React.memo(() => {
   };
 // open close mobile filter
 const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
+//
 
   return (
     <>
@@ -335,45 +340,46 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
                     <div className="d-flex align-items-center justify-content-between">
                       {/*  change style main content */}
               <div>
-                        <a
-                          href={"#list"}
+                        <span
+                      
                           onClick={() => {
                             setStylesContent("list");
                           }}
                           className={
                             getFilter.contentStyle === "list"
-                              ? "active me-3"
-                              : "text-muted me-3"
+                              ? "active me-3 span__link"
+                              : "text-muted me-3 span__link"
                           }
                         >
                           <BsListUl />
-                        </a>
-                        <a
-                          href={"#onFour"}
-                          onClick={() => {
-                            setStylesContent("on-four");
-                          }}
-                         className={
-                          getFilter.contentStyle === "on-four"
-                              ? "active me-3"
-                              : "text-muted me-3"
-                          } 
-                        >
-                          <BsGrid />
-                        </a>
-                        <a
-                          href={"#onThree"}
+                        </span>
+          
+                        <span
+                  
                           onClick={() => {
                             setStylesContent("on-three");
                           }}
                            className={
                             getFilter.contentStyle === "on-three"
-                              ? "active me-3"
-                              : "text-muted me-3"
+                              ? "active me-3 span__link"
+                              : "text-muted me-3 span__link"
                           } 
                         >
-                          <BsGrid3X3Gap />
-                        </a>
+                         <BsGrid />
+                        </span>
+                        <span
+                       
+                       onClick={() => {
+                         setStylesContent("on-four");
+                       }}
+                      className={
+                       getFilter.contentStyle === "on-four"
+                           ? "active me-3 span__link"
+                           : "text-muted me-3 span__link"
+                       } 
+                     >
+                        <BsGrid3X3Gap />
+                     </span>
                       </div> 
                       {/* icon filters on small screen  */}
                       <div className="ms-2 d-lg-none">
@@ -444,6 +450,7 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
                   nameFilterCategory={nameFilterCategory}
                   filterRating={filterRating}
                   products={products}
+                  
                 />
                 {/* paginator */}
                 {productsLength !== 0 ? (

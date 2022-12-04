@@ -9,7 +9,7 @@ export const BannerAside = React.memo(() => {
 <div className="position-absolute p-5 py-8">
       <h3 className="mb-0">Fresh Fruits </h3>
       <p>Get Upto 25% Off</p>
-      <ButtonShopNow />
+      <ButtonShopNow link={'/products?price=8&price=346'}/>
     </div>
 
     <img src={bannerOne} alt="bannerOne" className="img-fluid rounded-3"/>

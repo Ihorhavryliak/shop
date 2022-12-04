@@ -22,7 +22,7 @@ const DiscountsPhoto = React.memo(() => {
               <p className="mb-3 img__surname">
                 Get Upto <span className="fw-bold">25%</span> Off
               </p>
-            <ButtonShopNow  />
+            <ButtonShopNow link={'/products?price=8&price=346'} />
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@ const DiscountsPhoto = React.memo(() => {
               <p className="mb-3 img__surname">
                 Get Upto <span className="fw-bold">25%</span> Off
               </p>
-              <ButtonShopNow  />
+              <ButtonShopNow link={'/products?price=8&price=346'} />
             </div>
           </div>
         </div>

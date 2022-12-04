@@ -5,6 +5,7 @@ import './ProductButtons.scss'
 import { getFavoriteSelector } from "../../../reducers/products-list-reducer/products-list-selector";
 import { useDispatch, useSelector } from "react-redux";
 import { FavoriteHeart } from "../../FavoriteHeart/FavoriteHeart";
+import { ButtonProductAdd } from "../../Button/ButtonProductAdd";
 
 
 export const ProductButtons = React.memo(({id = 1}: {id: number}) => {
@@ -13,9 +14,7 @@ export const ProductButtons = React.memo(({id = 1}: {id: number}) => {
   return (
     <div className="mt-3 row justify-content-start g-2 align-items-center">
       <div className="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-        <button type="button" className="btn btn-dark">
-          <FiShoppingBag className="me-2" />  Add to cart
-        </button>
+        <ButtonProductAdd />
       </div>
       <div className="col-md-4 col-4">
         <a

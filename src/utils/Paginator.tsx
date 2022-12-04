@@ -18,7 +18,11 @@ const Paginator: React.FC<PaginatedItemsType> = React.memo((props) => {
   const handlePageClick = (current: any) => {
     setItemOffset(current.pageNumber.selected + 1);
     setCurrentPage(current.pageNumber.selected + 1)
+
+  
+
   };
+  
 //if page 0
 (currentPage === 0) ? currentPage = 1 : currentPage = newOffset;
  

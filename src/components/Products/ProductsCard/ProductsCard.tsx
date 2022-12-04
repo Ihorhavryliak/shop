@@ -45,14 +45,14 @@ export const CartProduct: React.FC<CartProductType> = ({ m }) => {
             <FavoriteHeart id={m.id} />
 
 
-              <a
-                href="#!"
+              <span
+       
                 className="btn-action"
                 data-bs-html="true"
                 aria-label="Compare"
               >
                 <BsArrowLeftRight  />
-              </a>
+              </span>
             </div>
           </div>
           {/* information */}
@@ -76,7 +76,11 @@ export const CartProduct: React.FC<CartProductType> = ({ m }) => {
           </div>
         </div>
       </div>
-      <OnModalProduct isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} />
+      <OnModalProduct name={''} isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} >
+        <div>
+          dsfdsf
+        </div>
+      </OnModalProduct>
     </div>
   );
 };

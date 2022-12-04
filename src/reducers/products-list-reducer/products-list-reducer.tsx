@@ -12,7 +12,7 @@ let initialState = {
   filter: {
     limit: "5",
     sort: "asc",
-    contentStyle: "onFour",
+    contentStyle: "on-four",
   } as limitProductsType,
   favorite: [] as Array<GetAllProductsType>,
 };
@@ -44,7 +44,8 @@ const productListReducer = (
       };
     case "SET_SORT":
       return { ...state, filter: { ...state.filter, sort: action.payload } };
-
+      case "SET_STYLES":
+        return { ...state, filter: { ...state.filter, contentStyle: action.payload } };
     case "SET_FAVORITE":
       const productsFilter = [
         state.products.find((f) => f.id === action.payload),
@@ -69,7 +70,15 @@ export const actions = {
   getFavorite: (id: number) => ({ type: "SET_FAVORITE", payload: id } as const),
   deleteFavorite: (id: number) =>
     ({ type: "DELETE_FAVORITE", payload: id } as const),
+    getStyle: (name: string) =>
+    ({ type: "SET_STYLES", payload: name } as const),
 };
+
+export const setStyle =
+  (name: string): ThunkType =>
+  async (dispatch) => {
+    dispatch(actions.getStyle(name));
+  };
 
 export const setFavorite =
   (id: number): ThunkType =>

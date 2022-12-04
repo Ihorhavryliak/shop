@@ -13,5 +13,3 @@ export const getLocalStorage = (name: string) => {
   }
      return getDataLocalStorage
 };
-
-

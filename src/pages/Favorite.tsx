@@ -17,7 +17,7 @@ const Favorite = React.memo(() => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div className="mb-8">
+            <div className="mb-8 ">
               <h1 className="mb-1">My Wishlist</h1>
               <p>
                 {getLocalStorage("favorite").length > 0
@@ -31,7 +31,7 @@ const Favorite = React.memo(() => {
             </div>
             {getLocalStorage("favorite").length > 0 ? (
               <div>
-                <div className="table-responsive">
+                <div className="table-responsive min__vh__50">
                   <table className="table text-nowrap">
                     <thead className="table-light">
                       <tr>
@@ -114,7 +114,7 @@ const Favorite = React.memo(() => {
                 </div>
               </div>
             ) : (
-              <div>Not favorite</div>
+              <div className="min__vh__50">Not favorite</div>
             )}
           </div>
         </div>

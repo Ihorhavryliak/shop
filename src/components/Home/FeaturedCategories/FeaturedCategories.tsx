@@ -5,6 +5,7 @@ import "./FeaturedCategories.scss";
 import categoryImg from "../../../assets/cate.jpg";
 import { useSelector } from "react-redux";
 import { getAllProducts } from "../../../reducers/products-list-reducer/products-list-selector";
+import { Link } from "react-router-dom";
 
 export function PrevArrow(props: any) {
   const { onClick } = props;
@@ -66,8 +67,8 @@ const FeaturedCategories = React.memo(() => {
     slidesToShow: showSlides,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 400,
-    autoplaySpeed: 4000,
+    speed: 430,
+    autoplaySpeed: 1300,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
@@ -84,8 +85,8 @@ const FeaturedCategories = React.memo(() => {
             {products.map((m, i) => {
               return (
                 <div key={`${i} s`} className="item">
-                  <a
-                    href={`/products/product/${m.id}`}
+                  <Link
+                    to={`/products/product/${m.id}`}
                     className="text-decoration-none text-inherit"
                   >
                     <div className="card card-product mb-lg-4">
@@ -100,7 +101,7 @@ const FeaturedCategories = React.memo(() => {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               );
             })}

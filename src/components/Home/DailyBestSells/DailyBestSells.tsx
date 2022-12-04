@@ -31,7 +31,7 @@ const DailyBestSells = React.memo(() => {
                   Coffee Beans.
                 </h3>
                 <p className="text-white">Get the best deal before close.</p>
-              <ButtonShopNow />
+              <ButtonShopNow link={'/products/category/jewelery'} />
               </div>
             </div>
           </div>

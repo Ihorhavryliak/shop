@@ -23,6 +23,7 @@ export const OnModalProduct = React.memo(
   }: OnModalProductType) => {
     return (
       <>
+      
         {isOpenModal && (
           <div
             className={`modal fade  ${isOpenModal ? `show` : ``}`}
@@ -67,7 +68,9 @@ export const OnModalProduct = React.memo(
             </div>
           </div>
         )}
-        {isOpenModal && <div className="offcanvas-backdrop   fade show "></div>}
+        {isOpenModal && <div
+        onClick={() => setIsOpenModal(!isOpenModal)}
+        className="offcanvas-backdrop   fade show jojio"></div>}
       </>
     );
   }

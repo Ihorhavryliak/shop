@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { ProductCartType } from "../../../admin/api/cart-api";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { getCartProductsSelector } from "../../../reducers/cart-reducer/cart-selector";
-import { ButtonProductAdd } from "../ButtonProductAdd";
+
 import { FiShoppingBag } from "react-icons/fi";
 
 type ButtonAddToCardType = {

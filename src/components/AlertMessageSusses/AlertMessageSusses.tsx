@@ -18,7 +18,7 @@ export const AlertMessageSusses = React.memo(({ isAddedProduct }: { isAddedProdu
     setTimeout(() => {
       dispatch(isAddedProductToCart(null));
 
-    }, 400);
+    }, 1000);
 
   }, [isAddedProduct]);
 

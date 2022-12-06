@@ -37,7 +37,7 @@ const Header = React.memo(() => {
   if (isLogIn !== null) {
   }
 
-  return (
+  return ( <>
     <header>
       <div className="navbar navbar-light py-lg-4 pt-3 px-0 pb-0 d-flex justify-content-between ">
         <div className="container">
@@ -114,6 +114,9 @@ const Header = React.memo(() => {
         <ModalLogin />
       </OnModalProduct>
     </header>
+
+    
+   </>
   );
 });
 

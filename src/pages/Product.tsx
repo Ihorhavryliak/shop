@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { NavBreadcrumb } from "../components";
+import { NavBreadcrumb, WrapperPopular } from "../components";
 import { dataProduct } from "../reducers/product-reducer/product-reducer";
 import { getProductInformation } from "../reducers/product-reducer/product-selector";
 import { AppDispatch } from "../reducers/redux-store";
@@ -52,6 +52,8 @@ const addToCart = (
   dispatch(setProductCart(userId, date, products));
 
 };
+
+const [value, setValue] = useState(1);
   return (
     <>
       <NavBreadcrumb />
@@ -74,7 +76,6 @@ const addToCart = (
                 return (
                   <div className="row" key={m.id}>
                    <ProductImg m={m} />
-
                     <div className="col-md-6">
                       <div className="ps-lg-10 mt-6 mt-md-0">
                         <Link
@@ -102,8 +103,8 @@ const addToCart = (
                       </div>
                       <hr className="my-6" />
                       {/*  count */}
-                      <ProductCount />
-                      <ProductButtons id={m.id} addToCart={addToCart} kind={'mainProduct'} />
+                      <ProductCount value={value} setValue={setValue} />
+                      <ProductButtons id={m.id} addToCart={addToCart} kind={'mainProduct'} quantity={value} />
                       <hr className="my-6" />
                       <ProductCharacteristics product={productDataFiltered} />
                       <ProductShare />
@@ -113,7 +114,9 @@ const addToCart = (
               })}
         </div>
       </section>
-      <ProductDescription />
+      <ProductDescription data={productData} />
+    
+      <WrapperPopular title={'Related Items'} />
     </>
   );
 });

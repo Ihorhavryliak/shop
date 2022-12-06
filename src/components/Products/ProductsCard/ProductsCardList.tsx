@@ -32,6 +32,8 @@ export const ProductsCardList: React.FC<CartProductType> = ({ m }) => {
     dispatch(setProductCart(userId, date, products));
   
   };
+
+  const [value, setValue] = useState(1);
   return (
     <div className="row g-4  row-cols-1 mt-2">
       <div className="col  " key={m.id}>
@@ -132,7 +134,7 @@ export const ProductsCardList: React.FC<CartProductType> = ({ m }) => {
               </div>
               <hr className="my-6" />
               {/*  count */}
-              <ProductCount />
+              <ProductCount value={value} setValue={setValue} />
               <ProductButtons id={m.id}  addToCart={addToCart} />
               <hr className="my-6" />
               <ProductCharacteristics product={[m]} />

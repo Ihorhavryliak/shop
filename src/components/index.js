@@ -6,6 +6,10 @@ import { Advantages, CategorySlider, DailyBestSells, DiscountsPhoto, FeaturedCat
 import { AsideSection, Banner, CartProduct, ContentCategoryName, Filter, FilterDeveloper } from "./Products";
 import { ButtonProductAdd } from "./Button/ButtonProductAdd";
 import { ModalLogin } from "./ModalLogin/ModalLogin";
+import { OrderForm } from "./Form/OrderForm";
+import WrapperPopular from "./WrapperPopular/WrapperPopular";
+
+
 
 
 
@@ -31,6 +35,7 @@ export {
   ContentCategoryName,
   ButtonProductAdd,
   ModalLogin,
+  OrderForm,
+  WrapperPopular
 }
-
 

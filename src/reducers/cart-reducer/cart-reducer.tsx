@@ -29,7 +29,7 @@ const cartReducer = (
         );
         const oObjCart = {
           ...findObjCart,
-          quantity: findObjCart!.quantity + 1
+          quantity: findObjCart!.quantity + action.payload.products[0].quantity
         } as ProductCartType;
         return {
           ...state,
@@ -47,7 +47,7 @@ const cartReducer = (
           ...state,
           cart: {
             ...state.cart,
-            products: [...state.cart.products, ...[{productId: action.payload.products[0].productId, quantity: 1}]],
+            products: [...state.cart.products, ...action.payload.products],
           },
         };
       }
@@ -83,7 +83,9 @@ const cartReducer = (
                     return m
                   }
             })]}}
-
+            case 'SET_CLEAR_CART':
+              return {...state, 
+              cart: { ...state.cart, products: []}  }
     default:
       return state;
   }
@@ -102,8 +104,13 @@ export const actions = {
     ({ type: "SET_NUMBER_CART", payload: id, number } as const),
     isAddedProduct: (b: boolean | null) =>
     ({ type: "SET_IS_ADD_PRODUCT", payload: b, } as const),
+    nullCart: () =>
+    ({ type: "SET_CLEAR_CART"} as const),
 };
 
+export const cleanCart = (): ThunkType => async (dispatch) => {
+  dispatch(actions.nullCart());
+};
 
 export const isAddedProductToCart = (b: boolean | null, ): ThunkType => async (dispatch) => {
   dispatch(actions.isAddedProduct(b));

@@ -1,5 +1,5 @@
 
-import { ButtonAddToCard } from "../Button/ProductsButons/ButtonAddToCard";
+import { ButtonAddToCard } from "../Button/ProductsButtons/ButtonAddToCard";
 import { CartModal } from "../CartModal/CartModal";
 import { AsideSection } from "./AsideSection/AsideSection";
 import { BannerAside } from "./AsideSection/BannerAside/BannerAside";

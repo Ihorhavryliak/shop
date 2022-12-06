@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { BsCheckCircleFill, BsFillTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { GetAllProductsType } from "../../api/products-list-api";
 import {
   addToCartOneNumber,
+  cleanCart,
   deleteFromCartOneNumber,
   deleteFromDate,
   setToCartOneNumber,
@@ -12,10 +13,13 @@ import {
 import { getCartSelector } from "../../reducers/cart-reducer/cart-selector";
 import { getAllProducts } from "../../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../../reducers/redux-store";
+import { OrderForm } from "../Form/OrderForm";
+
+import { OnModalProduct } from "../Products";
 import "./CartModal.scss";
 
 type CartModalType = {
-  isOpenMenu: Boolean;
+  isOpenMenu: boolean;
   setIsOpenMenu: (b: boolean) => void;
 };
 
@@ -24,6 +28,10 @@ export const CartModal = React.memo(
     const cartDate = useSelector(getCartSelector);
     const getProducts = useSelector(getAllProducts);
     const dispatch: AppDispatch = useDispatch();
+    const navigate = useNavigate();
+    /* modal */
+  /*   const [isOpenModal, setIsOpenModal] = useState(false); */
+    const [isOrderOneActive, setIsOrderOneActive] = useState(false);
     let sum = 0;
 
     const deleteFromCart = (id: number) => {
@@ -38,13 +46,23 @@ export const CartModal = React.memo(
       dispatch(addToCartOneNumber(id));
     };
     const setValueCart = (id: number, number: number) => {
-     if(number < 0 ){
-      number = number * -1
-     } 
-     if(number === 0 ){
-      number = 1
-     } 
+      if (number < 0) {
+        number = number * -1;
+      }
+      if (number === 0) {
+        number = 1;
+      }
       dispatch(setToCartOneNumber(id, number));
+    };
+    //clear cart
+    const onClearCart = () => {
+      dispatch(cleanCart());
+    };
+
+    // navigate to order page
+    const onOrderPage = () => {
+
+      return (setIsOpenMenu(!isOpenMenu), navigate("/order"));
     };
     return (
       <>
@@ -76,97 +94,99 @@ export const CartModal = React.memo(
               </div>
             </div> */}
             <ul className="list-group list-group-flush">
-              {cartDate.products.length > 0 ?
-                cartDate.products.map((m) => {
+              {cartDate.products.length > 0
+                ? cartDate.products.map((m) => {
+                    const findProduct = getProducts.find(
+                      (f) => f.id === m.productId
+                    ) as GetAllProductsType;
+                    if (findProduct === undefined) {
+                      return null;
+                    }
+                    sum += findProduct.price * m.quantity;
 
-                  const findProduct = getProducts.find(
-                    (f) => f.id === m.productId
-                  ) as GetAllProductsType;
-                  if (findProduct === undefined) {
-                    return null;
-                  }
-                  sum += findProduct.price * m.quantity;
-                
-                  return (
-                    <li
-                      key={`${m.productId}___`}
-                      className="list-group-item py-3 ps-0 "
-                    >
-                      <div className="row align-items-center">
-                        <div className="col-3 col-md-2">
-                          <img
-                            src={findProduct?.image}
-                            alt="/"
-                            className="img-fluid"
-                          />
-                        </div>
-                        <div className="col-4 col-md-6 col-lg-5">
-                          <NavLink
-                            onClick={() => setIsOpenMenu(!isOpenMenu)}
-                            to={`/products/product/${findProduct.id}`}
-                            className="text-inherit"
-                          >
-                            <h6 className="mb-0">{findProduct?.title}</h6>
-                          </NavLink>
-                          <span>
-                            <small className="text-muted">98 / lb</small>
-                          </span>
-                          <div className="mt-2 small lh-1">
-                            <span
-                              onClick={() => deleteFromCart(m.productId)}
-                              className="text-decoration-none text-inherit span__link"
-                            >
-                              <span className="me-1 align-text-bottom">
-                                <BsFillTrashFill />
-                              </span>
-                            </span>
+                    return (
+                      <li
+                        key={`${m.productId}___`}
+                        className="list-group-item py-3 ps-0 "
+                      >
+                        <div className="row align-items-center">
+                          <div className="col-3 col-md-2">
+                            <img
+                              src={findProduct?.image}
+                              alt="/"
+                              className="img-fluid"
+                            />
                           </div>
-                        </div>
-                        <div className="col-4 col-md-4 col-lg-4">
-                          <div className="input-group input-spinner  ">
-                            {/*  {m.quantity} */}
+                          <div className="col-4 col-md-6 col-lg-5">
+                            <NavLink
+                              onClick={() => setIsOpenMenu(!isOpenMenu)}
+                              to={`/products/product/${findProduct.id}`}
+                              className="text-inherit"
+                            >
+                              <h6 className="mb-0">{findProduct?.title}</h6>
+                            </NavLink>
+                            <span>
+                              <small className="text-muted">98 / lb</small>
+                            </span>
+                            <div className="mt-2 small lh-1">
+                              <span
+                                onClick={() => deleteFromCart(m.productId)}
+                                className="text-decoration-none text-inherit span__link"
+                              >
+                                <span className="me-1 align-text-bottom">
+                                  <BsFillTrashFill />
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <div className="col-4 col-md-4 col-lg-4">
+                            <div className="input-group input-spinner  ">
+                              {/*  {m.quantity} */}
 
-                            <div className="mb-3">
-                              <div className="input-group input-spinner  ">
-                                <input
-                                  onClick={() =>
-                                    deleteOneNumberCart(m.productId)
-                                  }
-                                  type="button"
-                                  value="-"
-                                  disabled={m.quantity === 1 && true}
-                                  className="button-minus  btn  btn-sm "
-                                  data-field="quantity"
-                                />
-                                <input
-                                  className="quantity-field form-control-sm form-input   "
-                                  type="number"
-                                  value={m.quantity}
-                                  onChange={(e) => {
-                                    setValueCart(m.productId, +e.target.value); 
-                                  }}
-                                />
-                                <input
-                                  onClick={() => addNumberToCart(m.productId)}
-                                  type="button"
-                                  value="+"
-                                  className="button-plus btn btn-sm "
-                                  data-field="quantity"
-                                />
+                              <div className="mb-3">
+                                <div className="input-group input-spinner  ">
+                                  <input
+                                    onClick={() =>
+                                      deleteOneNumberCart(m.productId)
+                                    }
+                                    type="button"
+                                    value="-"
+                                    disabled={m.quantity === 1 && true}
+                                    className="button-minus  btn  btn-sm "
+                                    data-field="quantity"
+                                  />
+                                  <input
+                                    className="quantity-field form-control-sm form-input   "
+                                    type="number"
+                                    value={m.quantity}
+                                    onChange={(e) => {
+                                      setValueCart(
+                                        m.productId,
+                                        +e.target.value
+                                      );
+                                    }}
+                                  />
+                                  <input
+                                    onClick={() => addNumberToCart(m.productId)}
+                                    type="button"
+                                    value="+"
+                                    className="button-plus btn btn-sm "
+                                    data-field="quantity"
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
+                          <div className="col-2 text-lg-end text-start text-md-end col-md-2">
+                            <span className="fw-bold">
+                              ${findProduct.price}
+                            </span>
+                          </div>
                         </div>
-                        <div className="col-2 text-lg-end text-start text-md-end col-md-2">
-                          <span className="fw-bold">${findProduct.price}</span>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })
-              : 'No added any products'
-              
-              }
+                      </li>
+                    );
+                  })
+                : "No added any products"}
             </ul>
             <hr />
             <div className="d-flex justify-content-between">
@@ -179,19 +199,39 @@ export const CartModal = React.memo(
                 )}
               </div>
             </div>
+            {/*     buttons */}
             <div className="d-flex justify-content-between mt-4">
               <button
+                onClick={() => setIsOrderOneActive(!isOrderOneActive)}
+                className="btn btn-dark"
+              >
+                Order in a click
+              </button>
+              <button
+                onClick={() => {
+                  return onOrderPage();
+                }}
+                className="btn btn-dark"
+              >
+                Order
+              </button>
+            </div>
+                  {/* buttons */}
+            <hr />
+            <div className="mt-3 d-flex justify-content-between">
+              <button
                 onClick={() => setIsOpenMenu(!isOpenMenu)}
-                className="btn btn-primary"
+                className="btn btn-light"
               >
                 Continue Shopping
               </button>
-              <a href="/" className="btn btn-dark">
-                Update Cart
-              </a>
+              <button onClick={() => onClearCart()} className="btn btn-light">
+                Clear cart
+              </button>
             </div>
           </div>
         </div>
+        {/*  shadow */}
         {isOpenMenu && (
           <div
             onClick={() => setIsOpenMenu(!isOpenMenu)}
@@ -200,12 +240,22 @@ export const CartModal = React.memo(
             } `}
           ></div>
         )}
+
+        {/*   order one click modal */}
+        <OnModalProduct
+          name={"Order in a click"}
+          isOpenModal={isOrderOneActive}
+          setIsOpenModal={setIsOrderOneActive}
+        >
+          <OrderForm
+            isOpenModal={isOrderOneActive}
+            setIsOpenModal={setIsOrderOneActive}
+            isOpenMenu={isOpenMenu}
+            setIsOpenMenu={setIsOpenMenu}
+            onClearCart={onClearCart}
+          />
+        </OnModalProduct>
       </>
     );
   }
 );
-
-
-
-
-

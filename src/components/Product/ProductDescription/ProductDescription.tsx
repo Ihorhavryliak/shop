@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { GetProductDataType } from "../../../api/product-api";
 import './ProductDescription.scss'
 
-export const ProductDescription = React.memo(() => {
-  const [activeTab, setActiveTab] = useState("Home");
-
+export const ProductDescription = React.memo(({data}: {data: GetProductDataType[]}) => {
+  const productDetailsTab = 'Product Details'
+  const [activeTab, setActiveTab] = useState(productDetailsTab);
   return (
     <section className="mt-lg-14 mt-8 ">
       <div className="container">
@@ -13,7 +14,7 @@ export const ProductDescription = React.memo(() => {
               <li className="nav-item me-3" role="presentation">
                 <button
                   onClick={(e) => setActiveTab(e.currentTarget.textContent as string)}
-                  className={`nav-link ${activeTab === "Home" ? "active" : ""}`}
+                  className={`nav-link p__b ${activeTab === productDetailsTab ? "active" : ""}`}
                   id="home-tab"
                   data-bs-toggle="tab"
                   data-bs-target="#home"
@@ -22,13 +23,13 @@ export const ProductDescription = React.memo(() => {
                   aria-controls="home"
                   aria-selected="true"
                 >
-                  Home
+                 {productDetailsTab}
                 </button>
               </li>
               <li className={`nav-item me-3 `} role="presentation">
                 <button
                   onClick={(e) => setActiveTab(e.currentTarget.textContent as string)}
-                  className={`nav-link ${activeTab === "Information" ? "active" : ""}`}
+                  className={`nav-link p__b ${activeTab === "Information" ? "active" : ""}`}
                   id="profile-tab"
                   data-bs-toggle="tab"
                   data-bs-target="#profile"
@@ -43,7 +44,7 @@ export const ProductDescription = React.memo(() => {
               <li className="nav-item me-3" role="presentation">
                 <button
                   onClick={(e) => setActiveTab(e.currentTarget.textContent as string)}
-                  className={`nav-link ${activeTab === "Contact" ? "active" : ""}`}
+                  className={`nav-link p__b ${activeTab === "Contact" ? "active" : ""}`}
                   id="contact-tab"
                   data-bs-toggle="tab"
                   data-bs-target="#contact"
@@ -59,7 +60,7 @@ export const ProductDescription = React.memo(() => {
           </div>
           <div className="tab-content " id="myTabContent">
             <div
-              className={`tab-pane  ${activeTab === "Home" ? "active show" : ""}`}
+              className={`tab-pane  ${activeTab === productDetailsTab ? "active show" : ""}`}
               id="home"
               role="tabpanel"
               aria-labelledby="home-tab"
@@ -68,12 +69,7 @@ export const ProductDescription = React.memo(() => {
                 <div className="mb-5">
                   <h4 className="mb-1">Nutrient Value &amp; Benefits</h4>
                   <p className="mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nisi, tellus iaculis urna bibendum in lacus, integer. Id
-                    imperdiet vitae varius sed magnis eu nisi nunc sit. Vel,
-                    varius habitant ornare ac rhoncus. Consequat risus facilisis
-                    ante ipsum netus risus adipiscing sagittis sed. Lorem ipsum
-                    dolor sit amet, consectetur adipiscing elit.
+              {data.length > 1 && data[0].description}
                   </p>
                 </div>
                 <div className="mb-5">

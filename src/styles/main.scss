@@ -36,6 +36,10 @@ a:hover {
   margin-bottom: 1.5rem !important;
   margin-top: 1.5rem !important;
 }
+.my-14 {
+  margin-bottom: 5rem!important;
+  margin-top: 5rem!important;
+}
 //hover card
 .card-product:hover {
   border: 1px solid #0aad0a;
@@ -336,3 +340,7 @@ h1 {
 }
 
 //
+.btn:disabled, .btn.disabled, fieldset:disabled .btn{
+
+    border-color: #ecf0ef;
+}

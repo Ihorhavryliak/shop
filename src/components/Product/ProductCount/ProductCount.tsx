@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import "./ProductCount.scss";
 
-export const ProductCount = React.memo(() => {
-  const [value, setValue] = useState(1);
+type ProductCountType ={ 
+  setValue: (n: number) => void
+  value: number
+}
+
+export const ProductCount = React.memo(({setValue, value}: ProductCountType) => {
+
 
   return (
     <div className="mb-3">
@@ -12,7 +17,7 @@ export const ProductCount = React.memo(() => {
           onClick={() => setValue(value - 1)}
           type="button"
           value="-"
-          disabled={value === 0 && true}
+          disabled={value < 2 && true}
           
           className="button-minus  btn  btn-sm "
       

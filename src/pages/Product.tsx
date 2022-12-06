@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { NavBreadcrumb, WrapperPopular } from "../components";
 import { dataProduct } from "../reducers/product-reducer/product-reducer";
 import { getProductInformation } from "../reducers/product-reducer/product-selector";
@@ -17,10 +17,11 @@ import { setProductCart } from "../reducers/cart-reducer/cart-reducer";
 import { ProductCartType } from "../admin/api/cart-api";
 
 export const Product = React.memo(() => {
+
   const productNumber = useParams();
   const dispatch: AppDispatch = useDispatch();
   const productData = useSelector(getProductInformation);
-
+  const location = useLocation();
   useEffect(() => {
     if (productNumber.id !== undefined) {
       const isSameId = productData.some(
@@ -30,7 +31,7 @@ export const Product = React.memo(() => {
         dispatch(dataProduct(+productNumber.id));
       }
     }
-  }, []);
+  }, [location]);
 //filter only include product from id
 const productDataFiltered = productData.filter((m) => {
   if (
@@ -73,6 +74,7 @@ const [value, setValue] = useState(1);
                 }
               })
               .map((m) => {
+                document.title = m.title
                 return (
                   <div className="row" key={m.id}>
                    <ProductImg m={m} />

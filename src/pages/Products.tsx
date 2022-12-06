@@ -25,6 +25,7 @@ import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs";
 import { AsideSection, ContentCategoryName, FilterDeveloper, NavBreadcrumb } from "../components";
 import { getIsAddedSelector } from "../reducers/cart-reducer/cart-selector";
 import { AlertMessageSusses } from "../components/AlertMessageSusses/AlertMessageSusses";
+import { getLocalStorage } from "../utils/getLocalStorage";
 
 
 
@@ -88,7 +89,8 @@ const Products = React.memo(() => {
   ]);
   // filter content sortOldPrice rating data
   const [sortOldPrice, setSortOldPrice] = useState(filter.sort);
-
+// open close mobile filter
+const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
   //Get category url
   const productInCategoryUrl = location.pathname.slice(
     location.pathname.lastIndexOf("/")
@@ -294,8 +296,7 @@ const Products = React.memo(() => {
       setFilterRating([...filterRating, (filterRating[indexNameRate] = e)]);
     }
   };
-// open close mobile filter
-const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
+
 //
 
   return (
@@ -349,7 +350,7 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
                             setStylesContent("list");
                           }}
                           className={
-                            getFilter.contentStyle === "list"
+                            getLocalStorage('filter_content').contentStyle === "list"
                               ? "active me-3 span__link"
                               : "text-muted me-3 span__link"
                           }
@@ -363,7 +364,7 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
                             setStylesContent("on-three");
                           }}
                            className={
-                            getFilter.contentStyle === "on-three"
+                            getLocalStorage('filter_content').contentStyle === "on-three"
                               ? "active me-3 span__link"
                               : "text-muted me-3 span__link"
                           } 
@@ -376,7 +377,7 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
                          setStylesContent("on-four");
                        }}
                       className={
-                       getFilter.contentStyle === "on-four"
+                        getLocalStorage('filter_content').contentStyle === "on-four"
                            ? "active me-3 span__link"
                            : "text-muted me-3 span__link"
                        } 

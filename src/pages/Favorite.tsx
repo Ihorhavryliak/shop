@@ -2,34 +2,47 @@ import React, { useEffect } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ProductCartType } from "../admin/api/cart-api";
+import { GetAllProductsType } from "../api/products-list-api";
+import { ButtonAddToCard } from "../components/Products";
+import { setProductCart } from "../reducers/cart-reducer/cart-reducer";
 import { getFavoriteSelector } from "../reducers/products-list-reducer/products-list-selector";
-import { onDeleteToFavorite } from "../utils/funcrions";
+import { AppDispatch } from "../reducers/redux-store";
+import { onDeleteToFavorite } from "../utils/functions";
 import { getLocalStorage } from "../utils/getLocalStorage";
 
 import "./Favorite.scss";
 
 const Favorite = React.memo(() => {
   const getFavoriteData = useSelector(getFavoriteSelector);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+  const addToCart = (
+    userId: number,
+    date: string,
+    products: ProductCartType[]
+  ) => {
+    dispatch(setProductCart(userId, date, products));
+  
+  };
 
-  return (
-    <section>
+  const getLocalIdFavorite = getLocalStorage("favorite") as GetAllProductsType[]
+  return (    <section>
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
             <div className="mb-8 ">
               <h1 className="mb-1">My Wishlist</h1>
               <p>
-                {getLocalStorage("favorite").length > 0
+                {getLocalIdFavorite.length > 0
                   ? `There are ${
-                      getLocalStorage("favorite").length === 1
-                        ? `${getLocalStorage("favorite").length} product`
-                        : `${getLocalStorage("favorite").length} products`
+                    getLocalIdFavorite.length === 1
+                        ? `${getLocalIdFavorite.length} product`
+                        : `${getLocalIdFavorite.length} products`
                     } in this wishlist.`
                   : ""}
               </p>
             </div>
-            {getLocalStorage("favorite").length > 0 ? (
+            {getLocalIdFavorite.length > 0 ? (
               <div>
                 <div className="table-responsive min__vh__50">
                   <table className="table text-nowrap">
@@ -54,7 +67,7 @@ const Favorite = React.memo(() => {
                       </tr>
                     </thead>
                     <tbody>
-                      {getLocalStorage("favorite").map((m, i) => {
+                      {getLocalIdFavorite.map((m, i) => {
                         return (
                           <tr key={m.id}>
                             <td className="align-middle">
@@ -90,9 +103,7 @@ const Favorite = React.memo(() => {
                               <span className="badge bg-success">In Stock</span>
                             </td>
                             <td className="align-middle">
-                              <button className=" btn btn-dark btn-sm">
-                                Add to cart
-                              </button>
+                            <ButtonAddToCard addToCart={addToCart} id={m.id} />
                             </td>
                             <td className="align-middle">
                               <span className="text-muted">

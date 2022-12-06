@@ -61,8 +61,7 @@ export const CartModal = React.memo(
 
     // navigate to order page
     const onOrderPage = () => {
-
-      return (setIsOpenMenu(!isOpenMenu), navigate("/order"));
+      return (setIsOpenMenu(!isOpenMenu), navigate("/checkout"));
     };
     return (
       <>
@@ -205,7 +204,7 @@ export const CartModal = React.memo(
                 onClick={() => setIsOrderOneActive(!isOrderOneActive)}
                 className="btn btn-dark"
               >
-                Order in a click
+                Checkout in a click
               </button>
               <button
                 onClick={() => {
@@ -213,7 +212,7 @@ export const CartModal = React.memo(
                 }}
                 className="btn btn-dark"
               >
-                Order
+                Checkout
               </button>
             </div>
                   {/* buttons */}

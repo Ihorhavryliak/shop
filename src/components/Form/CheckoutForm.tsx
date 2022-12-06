@@ -14,6 +14,7 @@ import {
   getIsAuthSelector,
   getIsBodySelector,
 } from "../../reducers/auth-reducer/auth-selector";
+import { cleanCart } from "../../reducers/cart-reducer/cart-reducer";
 import { AppDispatch } from "../../reducers/redux-store";
 
 
@@ -33,20 +34,16 @@ type NewType = {
 };
 //
 type OrderFormType={
-  isOpenModal: boolean;
-  setIsOpenModal: (e: boolean) => void;
-  isOpenMenu: boolean;
-  setIsOpenMenu: (e: boolean) => void;
-  onClearCart: () => void;
-}
-export const OrderForm = React.memo((props: OrderFormType) => {
 
-  const {isOpenModal, setIsOpenModal} = props;
-  const {isOpenMenu, setIsOpenMenu, onClearCart} = props;
+ 
+}
+export const CheckoutForm = React.memo((props: OrderFormType) => {
+
+
   const dispatch: AppDispatch = useDispatch();
+
   const isLogIn = useSelector(getIsAuthSelector);
-  const [isAddProductMessage, setIsAddProductMessage] = useState<
-    boolean | null
+  const [isAddProductMessage, setIsAddProductMessage] = useState<boolean | null
   >();
   const [isSuccessOrder, setIsSuccessOrder] = useState<null| boolean>(null)
   //
@@ -65,7 +62,7 @@ export const OrderForm = React.memo((props: OrderFormType) => {
     values: FormDataType,
     { setSubmitting, resetForm }: NewType
   ) => {
-    onClearCart();
+     onClearCart();
     setIsSuccessOrder(true);
     setSubmitting(false);
   };
@@ -84,7 +81,14 @@ export const OrderForm = React.memo((props: OrderFormType) => {
   const closeForm = () => {
     setIsAddProductMessage(false);
   };
+  const onClearCart = () => {
+    dispatch(cleanCart());
+  };
 
+  const navigate =useNavigate()
+  const goToMainPAge = () => {
+    return navigate("/");
+  };
   //
   return (
     <>
@@ -160,23 +164,23 @@ export const OrderForm = React.memo((props: OrderFormType) => {
               </div>
 
               <div className="d-flex justify-content-between">
-                <button
+     
+      <button
+          onClick={()=>{
+           return (
+            goToMainPAge()
+            ) 
+            }}
+          className="btn btn-dark">
+                Cancel
+              </button> 
+              <button
                   type="submit"
                   className="btn btn-dark"
                   disabled={isSubmitting}
                 >
                Checkout
                 </button>
-
-                <button
-          onClick={()=>{
-            return (
-              setIsOpenModal(!isOpenModal)
-            )
-            }}
-          className="btn btn-dark">
-                Cancel
-              </button>
               </div>
 
            
@@ -238,12 +242,12 @@ export const OrderForm = React.memo((props: OrderFormType) => {
           <div className="mt-2 d-flex justify-content-end ">
           <button
           onClick={()=>{
-            return (
-              setIsOpenModal(!isOpenModal),
-              setIsOpenMenu(!isOpenMenu))
-            }}
+        return (
+          goToMainPAge()
+        )
+        }}
           className="btn btn-dark">
-                Continue shopping
+                Go to home page
               </button>
 
           </div>

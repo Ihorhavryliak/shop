@@ -4,6 +4,7 @@ import './ContentCategoryName.scss'
 type ContentCategoryNameType = { categoryName: string; };
 
 export const ContentCategoryName = React.memo( ({ categoryName }: ContentCategoryNameType) => {
+  document.title = categoryName;
   return (
     <>
       {categoryName && (

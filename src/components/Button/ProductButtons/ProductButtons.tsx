@@ -20,7 +20,15 @@ type ProductButtonsType = {
 export const ProductButtons = React.memo(({id = 1, kind, addToCart, quantity}: ProductButtonsType) => {
  /*  const getFavoriteData = useSelector(getFavoriteSelector);
   const dispatch = useDispatch(); */
-  return (
+  return (<>
+    {kind ==='category' ?  
+    <div className="fs-5">
+
+  <ButtonAddToCard kind={kind} id={id} addToCart={addToCart} quantity={quantity} />
+  </div> 
+    :
+    
+ 
     <div className="mt-3 row justify-content-start g-2 align-items-center">
       <div className="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
     
@@ -43,5 +51,6 @@ export const ProductButtons = React.memo(({id = 1, kind, addToCart, quantity}: P
        
       </div>
     </div>
+      }</>
   );
 });

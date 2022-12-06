@@ -2,7 +2,7 @@ import { setDeleteFavorite } from "../reducers/products-list-reducer/products-li
 import { AppDispatch } from "../reducers/redux-store";
 import { getLocalStorage } from "./getLocalStorage";
 
-export const onDeleteToFavorite = (id: number, dispatch: AppDispatch) => {
+export const onDeleteToFavorite = (id, dispatch) => {
   dispatch(setDeleteFavorite(id));
   if (getLocalStorage("favorite") !== null) {
     localStorage.setItem(

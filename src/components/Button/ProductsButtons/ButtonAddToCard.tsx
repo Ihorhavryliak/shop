@@ -32,7 +32,7 @@ export const ButtonAddToCard = React.memo((props: ButtonAddToCardType) => {
     >
       {cartDate.some((m) => m.productId === id) ? (
         <>
-          {kind === "mainProduct" ? (
+          {kind === "mainProduct" || kind === 'category' ? (
             <>
               <FiShoppingBag className="me-2" /> Added
             </>
@@ -45,7 +45,7 @@ export const ButtonAddToCard = React.memo((props: ButtonAddToCardType) => {
         </>
       ) : (
         <>
-          {kind === "mainProduct" ? (
+          {kind === "mainProduct" || kind === 'category' ? (
             <>
               <FiShoppingBag className="me-2" /> Add to cart
             </>

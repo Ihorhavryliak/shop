@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { BsEye, BsPlus, BsArrowLeftRight } from "react-icons/bs";
+import { BsEye,  BsArrowLeftRight } from "react-icons/bs";
 import { Link, NavLink } from "react-router-dom";
 import { GetAllProductsType } from "../../../api/products-list-api";
 import { OnModalProduct } from "../OnModalProduct/OnModalProduct";
 import { StarsUnderCard } from "../StarsUnderCard/StarsUnderCard";
 import { FavoriteHeart } from "../../FavoriteHeart/FavoriteHeart";
 import "./ProductsCard.scss";
-import { ButtonProductAdd } from "../../Button/ButtonProductAdd";
+
 import {
   ProductButtons,
   ProductCharacteristics,
@@ -57,9 +57,9 @@ export const ProductsCardList: React.FC<CartProductType> = ({ m }) => {
 
               <div className="col-md-8 col-12 flex-grow-1">
                 <div className="text-small mb-1">
-                  <a href="#!" className="text-decoration-none text-muted">
+                  <NavLink to={`/products/category/${m.category.replace(" ", "-")}`} className="text-decoration-none text-muted">
                     <small>{m.category}</small>
-                  </a>
+                  </NavLink>
                 </div>
                 <h2 className="fs-6">{m.title}</h2>
                 <StarsUnderCard
@@ -96,7 +96,7 @@ export const ProductsCardList: React.FC<CartProductType> = ({ m }) => {
                   </span>
                 </div>
                 <div className="mt-2">
-                  <ButtonProductAdd />
+                <ProductButtons id={m.id}  addToCart={addToCart} kind={'category'} />
                 </div>
               </div>
             </div>
@@ -135,7 +135,7 @@ export const ProductsCardList: React.FC<CartProductType> = ({ m }) => {
               <hr className="my-6" />
               {/*  count */}
               <ProductCount value={value} setValue={setValue} />
-              <ProductButtons id={m.id}  addToCart={addToCart} />
+              <ProductButtons id={m.id}  addToCart={addToCart} kind={'mainProduct'} />
               <hr className="my-6" />
               <ProductCharacteristics product={[m]} />
             </div>

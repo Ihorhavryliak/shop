@@ -41,7 +41,10 @@ export const CartProductCard: React.FC<CartProductType> = ({ m }) => {
             </NavLink>
           </div>
           {/* information */}
-          <div>{m.category}</div>
+          <div className="text-small mb-1">
+          <NavLink to={`/products/category/${m.category}`}><small>{m.category}</small></NavLink>
+          </div>
+          
           <h5 className="fs-4 fontSmall text-truncate">{m.title}</h5>
           {/* rating */}
        

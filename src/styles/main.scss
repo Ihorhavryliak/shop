@@ -40,6 +40,11 @@ a:hover {
   margin-bottom: 5rem!important;
   margin-top: 5rem!important;
 }
+@media (min-width: 1400px){
+.container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 1400px;
+}}
+
 //hover card
 .card-product:hover {
   border: 1px solid #0aad0a;

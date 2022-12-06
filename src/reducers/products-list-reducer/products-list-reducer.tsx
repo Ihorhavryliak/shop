@@ -23,7 +23,7 @@ if (targum) {
     filter: {
       limit: "5",
       sort: "asc",
-      contentStyle: "onFour",
+      contentStyle: "on-four",
     } as limitProductsType,
     favorite: [] as Array<GetAllProductsType>,
   };

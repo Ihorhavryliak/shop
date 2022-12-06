@@ -44,7 +44,7 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
 
   return (
     <>
-      {getDataLocal === "list" ? "" : ""}
+      
 
       <div
         className={

@@ -19,7 +19,7 @@ if(targum) {
 const productReducer = (state = initialState, action: ActionCreatesTypes ): InitialStateType => {
   switch(action.type){
     case "SET_DATA_PRODUCT":
-        return {...state.product, 
+        return {...state, 
           product: [ ...state.product, action.payload]};
 
     default:

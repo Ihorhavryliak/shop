@@ -1,6 +1,7 @@
 import React from "react";
 import { BsHeart, BsFillHeartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import { GetAllProductsType } from "../../api/products-list-api";
 import {
   setFavorite,
 } from "../../reducers/products-list-reducer/products-list-reducer";
@@ -9,7 +10,7 @@ import {
   getFavoriteSelector,
 } from "../../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../../reducers/redux-store";
-import { onDeleteToFavorite } from "../../utils/funcrions";
+import { onDeleteToFavorite } from "../../utils/functions";
 import { getLocalStorage } from "../../utils/getLocalStorage";
 import "./FavoriteHeart.scss";
 
@@ -34,10 +35,10 @@ export const FavoriteHeart = React.memo(({ id, className = "btn-action span__lin
       : localStorage.setItem("favorite", JSON.stringify([...findProduct]));
   };
 // is Product Favorite
-
+const getLocalFavorite = getLocalStorage("favorite") as GetAllProductsType[]
 return (
     <>
-      { getLocalStorage("favorite").some(s => s.id === id ) ? (
+      { getLocalFavorite.some(s => s.id === id ) ? (
         <span
           onClick={() => onDeleteToFavorite(id, dispatch)}
           className={className}

@@ -6,6 +6,7 @@ import { Advantages, CategorySlider, DailyBestSells, DiscountsPhoto, FeaturedCat
 
 
 const Home = React.memo(() => {
+  document.title = 'Shop Store - buy products'
   return (<main>
       <MainSlider />
     {/*   <CategorySlider /> */}

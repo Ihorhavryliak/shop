@@ -8,7 +8,4 @@ for( let i = 1; i <number; i++ ) {
 }
 
 
-export const cart = {
-  cart: { products: [{}]} ,
-  isAdded: null 
-}
+export const carts = arr;

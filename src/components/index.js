@@ -8,6 +8,7 @@ import { ButtonProductAdd } from "./Button/ButtonProductAdd";
 import { ModalLogin } from "./ModalLogin/ModalLogin";
 import { OrderForm } from "./Form/OrderForm";
 import WrapperPopular from "./WrapperPopular/WrapperPopular";
+import { CheckoutForm } from "./Form/CheckoutForm";
 
 
 
@@ -36,6 +37,7 @@ export {
   ButtonProductAdd,
   ModalLogin,
   OrderForm,
-  WrapperPopular
+  WrapperPopular,
+  CheckoutForm
 }
 

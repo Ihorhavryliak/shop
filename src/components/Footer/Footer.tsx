@@ -7,9 +7,12 @@ import paypalImg from '../../assets/paypal.svg';
 import visaImg from '../../assets/visa.svg';
 import googlePlay from '../../assets/googleplay-btn.svg';
 import appStore from '../../assets/appstore-btn.svg';
+import { AlertMessageSusses } from "../AlertMessageSusses/AlertMessageSusses";
+import { getIsAddedSelector } from '../../reducers/cart-reducer/cart-selector';
 const Footer = React.memo(() => {
   const categoriesNameData = useSelector(getCategorySelector);
   const startUrl = `/products/category/`;
+  const isAddedProduct = useSelector(getIsAddedSelector);
   return (
     <footer className="footer">
   <div className="container">
@@ -138,6 +141,7 @@ const Footer = React.memo(() => {
 
     </div>
   </div>
+  <AlertMessageSusses isAddedProduct={isAddedProduct} />
 </footer>
   )
 }

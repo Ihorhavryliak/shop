@@ -41,7 +41,6 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
             <BsFillStarFill className="me-1 ratingYellow" />
             <BsFillStarFill className="me-1 ratingYellow" />
             <BsFillStarFill className="me-1 ratingYellow" />
-            <BsFillStarFill className="me-1 ratingYellow" />
             <BsStar className="me-1 ratingYellow" />
           </>
         ) : rating !== 4 && rating >= 3.1 ? (
@@ -54,7 +53,7 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
           </>
         ) : rating === 3 ? (
           <>
-            <BsFillStarFill className="me-1 ratingYellow" />
+         
             <BsFillStarFill className="me-1 ratingYellow" />
             <BsFillStarFill className="me-1 ratingYellow" />
             <BsFillStarFill className="me-1 ratingYellow" />
@@ -63,7 +62,7 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
           </>
         ) : rating >= 2.1 && rating !== 3 ? (
           <>
-            <BsFillStarFill className="me-1 ratingYellow" />
+         
             <BsFillStarFill className="me-1 ratingYellow" />
             <BsStarHalf className="me-1 ratingYellow" />
             <BsStar className="me-1 ratingYellow" />

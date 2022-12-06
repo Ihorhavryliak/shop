@@ -1,4 +1,4 @@
-import { ProductButtons } from "./ProductButtons/ProductButtons"
+import { ProductButtons } from "../Button/ProductButtons/ProductButtons"
 import { ProductCharacteristics } from "./ProductCharacteristics/ProductCharacteristics"
 import { ProductCount } from "./ProductCount/ProductCount"
 import { ProductDescription } from "./ProductDescription/ProductDescription"

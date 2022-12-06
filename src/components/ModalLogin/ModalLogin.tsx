@@ -71,7 +71,7 @@ export const ModalLogin = React.memo(() => {
     setTimeout(() => {
       setIsAddProductMessage(null);
       dispatch(closeInformMassage());
-    }, 3000);
+    }, 400);
   }
 
   const closeForm = () => {

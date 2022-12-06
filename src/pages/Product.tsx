@@ -8,11 +8,13 @@ import { AppDispatch } from "../reducers/redux-store";
 
 import { StarsUnderCard } from "../components/Products/StarsUnderCard/StarsUnderCard";
 import { ProductCount } from "../components/Product/ProductCount/ProductCount";
-import { ProductButtons } from "../components/Product/ProductButtons/ProductButtons";
+import { ProductButtons } from "../components/Button/ProductButtons/ProductButtons";
 import { ProductDescription } from "../components/Product/ProductDescription/ProductDescription";
 import { ProductShare } from "../components/Product/ProductShare/ProductShare";
 import { ProductCharacteristics } from "../components/Product/ProductCharacteristics/ProductCharacteristics";
 import { ProductImg } from "../components/Product/ProductImg/ProductImg";
+import { setProductCart } from "../reducers/cart-reducer/cart-reducer";
+import { ProductCartType } from "../admin/api/cart-api";
 
 export const Product = React.memo(() => {
   const productNumber = useParams();
@@ -41,6 +43,15 @@ const productDataFiltered = productData.filter((m) => {
     return null;
   }
 })
+//
+const addToCart = (
+  userId: number,
+  date: string,
+  products: ProductCartType[]
+) => {
+  dispatch(setProductCart(userId, date, products));
+
+};
   return (
     <>
       <NavBreadcrumb />
@@ -92,7 +103,7 @@ const productDataFiltered = productData.filter((m) => {
                       <hr className="my-6" />
                       {/*  count */}
                       <ProductCount />
-                      <ProductButtons id={m.id} />
+                      <ProductButtons id={m.id} addToCart={addToCart} kind={'mainProduct'} />
                       <hr className="my-6" />
                       <ProductCharacteristics product={productDataFiltered} />
                       <ProductShare />

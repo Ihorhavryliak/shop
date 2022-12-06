@@ -44,19 +44,16 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
 
   return (
     <>
-      {getDataLocal === "list" ? 
-      
-      '' : ''}
+      {getDataLocal === "list" ? "" : ""}
 
       <div
         className={
-          getDataLocal === "on-three" ?
-          `row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2` 
-          :
-          getDataLocal === "on-four" ?
-          `row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2`
-          : ''
-       }
+          getDataLocal === "on-three"
+            ? `row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2`
+            : getDataLocal === "on-four"
+            ? `row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2`
+            : ""
+        }
       >
         {products.length > 0 &&
           products
@@ -128,16 +125,11 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
             .slice((itemOffset - 1) * limitParamNew, itemOffset * limitParamNew)
             .map((m) => {
               if (getDataLocal === "list") {
-                return <ProductsCardList m={m} key={m.id} />
+                return <ProductsCardList m={m} key={m.id} />;
               } else {
-return <CartProduct m={m} key={m.id} />
+                return <CartProduct m={m} key={m.id} />;
               }
-
-            }
-        
-            
-            
-            )}
+            })}
         {/*  page not found */}
 
         {productsLength === 0 && <div>Products not founds</div>}

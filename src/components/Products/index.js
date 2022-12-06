@@ -1,4 +1,5 @@
 
+import { ButtonAddToCard } from "../Button/ProductsButons/ButtonAddToCard";
 import { CartModal } from "../CartModal/CartModal";
 import { AsideSection } from "./AsideSection/AsideSection";
 import { BannerAside } from "./AsideSection/BannerAside/BannerAside";
@@ -19,6 +20,7 @@ export {
   ContentCategoryName,
   BannerAside,
   OnModalProduct,
-  CartModal
+  CartModal,
+  ButtonAddToCard
 } 
 

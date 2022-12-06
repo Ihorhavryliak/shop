@@ -23,6 +23,8 @@ import "rc-slider/assets/index.css";
 import { BsGrid, BsGrid3X3Gap, BsListUl } from "react-icons/bs";
 import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs";
 import { AsideSection, ContentCategoryName, FilterDeveloper, NavBreadcrumb } from "../components";
+import { getIsAddedSelector } from "../reducers/cart-reducer/cart-selector";
+import { AlertMessageSusses } from "../components/AlertMessageSusses/AlertMessageSusses";
 
 
 
@@ -39,6 +41,7 @@ const Products = React.memo(() => {
   const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
   const getFilter = useSelector(getFilterSelector);
+
 
   //save data filter content in  localStorage if null
   if (localStorage.getItem("filter_content") === null) {
@@ -469,6 +472,7 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
             </div>
           </div>
         </div>
+     
       </main>
     </>
   );

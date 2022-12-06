@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { BsCart4, BsFillHeartFill, BsHeart } from "react-icons/bs";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.scss";
@@ -13,32 +13,30 @@ import { ModalLogin } from "../ModalLogin/ModalLogin";
 import { OnModalProduct } from "../Products";
 import { getIsAuthSelector } from "../../reducers/auth-reducer/auth-selector";
 import { CartModal } from "../CartModal/CartModal";
+import { getCartSelector } from "../../reducers/cart-reducer/cart-selector";
 const Header = React.memo(() => {
   const getFavoriteData = useSelector(getFavoriteSelector);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const isLogIn = useSelector(getIsAuthSelector);
   const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
-
-//close forme
+  const cartDate = useSelector(getCartSelector);
+  //close forme
   useEffect(() => {
     if (isLogIn !== null) {
       setTimeout(() => {
-      setIsOpenModal(!isLogIn)
-      if(isLogIn){
-       return navigate('/')
-      }
-    }, 2000);
+        setIsOpenModal(!isLogIn);
+        if (isLogIn) {
+          return navigate("/");
+        }
+      }, 600);
     }
-  }, [isLogIn])
+  }, [isLogIn]);
 
-  // 
+  //
   if (isLogIn !== null) {
-  
-
-
   }
-  
+
   return (
     <header>
       <div className="navbar navbar-light py-lg-4 pt-3 px-0 pb-0 d-flex justify-content-between ">
@@ -61,12 +59,12 @@ const Header = React.memo(() => {
                     className="text-muted position-relative pe-2"
                     to="favorite"
                   >
-                    {getFavoriteData.length > 0 ? (
+                   {/*  {getFavoriteData.length > 0 ? (
                       <BsFillHeartFill />
                     ) : (
+                     ''
+                    )} */}
                       <BsHeart />
-                    )}
-
                     {getLocalStorage("favorite").length > 0 ? (
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success small_size">
                         {getLocalStorage("favorite").length}
@@ -79,34 +77,43 @@ const Header = React.memo(() => {
                 </div>
 
                 <div className="list-inline-item">
-                  <span className="text-muted position-relative pe-2 span__link" 
-                  onClick={()=>{setIsOpenModal(!isOpenModal)}}
+                  <span
+                    className="text-muted position-relative pe-2 span__link"
+                    onClick={() => {
+                      setIsOpenModal(!isOpenModal);
+                    }}
                   >
                     <BiUser />{" "}
                   </span>
                 </div>
                 <div className="list-inline-item">
-                  <span 
-                     onClick={()=>{setIsOpenCart(!isOpenCart)}}
-                  className="text-muted position-relative span__link" >
+                  <span
+                    onClick={() => {
+                      setIsOpenCart(!isOpenCart);
+                    }}
+                    className="text-muted position-relative span__link"
+                  >
                     <FiShoppingBag />
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success small_size">
+                    {cartDate.products.length > 0 && cartDate.products.reduce((total, obj) => total + obj.quantity, 0)}
+                    </span>
                   </span>{" "}
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {/* cart */}
         <CartModal isOpenMenu={isOpenCart} setIsOpenMenu={setIsOpenCart}  />
       </div>
-     <OnModalProduct name={'Sing In'} isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
-                      <ModalLogin />
-     </OnModalProduct>
-
-        {/* cart */}
-  
-   
+      <OnModalProduct
+        name={"Sing In"}
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+      >
+        <ModalLogin />
+      </OnModalProduct>
     </header>
-    
   );
 });
 

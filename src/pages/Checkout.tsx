@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -38,23 +38,25 @@ export const Checkout = React.memo(() => {
     }
     dispatch(setToCartOneNumber(id, number));
   };
+ 
+  
   return (
     <div className="container">
       <div className="row">
         <div className="col">
           <div className="mb-2">
             <h1>Checkout</h1>
-            <p>There are {cartDate.products.length} product in this Checkout.</p>
+            <p>There are {cartDate.products.reduce((total, obj) => total + obj.quantity, 0)} product in this Checkout.</p>
           </div>
         </div>
       </div>
       <hr />
       <div className="row">
-        <div className="col-3">
+        <div className="col-12 col-xl-3">
           
           <CheckoutForm />
         </div>
-        <div className="col-9">
+        <div className="col-12 col-xl-9">
       <ul className="list-group list-group-flush">
         {cartDate.products.length > 0
           ? cartDate.products.map((m) => {

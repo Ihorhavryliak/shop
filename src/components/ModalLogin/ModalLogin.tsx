@@ -5,7 +5,7 @@ import {
   BsFillExclamationTriangleFill,
 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
   closeInformMassage,
   setAuth,
@@ -33,8 +33,11 @@ type NewType = {
   resetForm: () => void;
 };
 //
-
-export const ModalLogin = React.memo(() => {
+type ModalLoginType ={
+  setIsOpenModal: (b: boolean)=> void
+}
+export const ModalLogin = React.memo((props: ModalLoginType) => {
+  const {setIsOpenModal} = props;
   const dispatch: AppDispatch = useDispatch();
   const isLogIn = useSelector(getIsAuthSelector);
   const isBody = useSelector(getIsBodySelector);
@@ -164,7 +167,9 @@ export const ModalLogin = React.memo(() => {
               </div>
 
               <div className="modal-footer border-0 justify-content-center">
-                Already have an account? <a href="#!">Sign up</a>
+                Already have an account? <Link 
+                onClick={() => setIsOpenModal(false)}
+                to="/sign-up">Sign up</Link>
               </div>
 
               {/* <!-- Modal false --> */}

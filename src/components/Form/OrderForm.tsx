@@ -131,7 +131,7 @@ export const OrderForm = React.memo((props: OrderFormType) => {
 
               {/*  password */}
               <div className="mb-4">
-                <label className="form-label">Phone</label>
+                <label className="form-label">Mobile Phone</label>
                 <Field
                   type="phone"
                   name="phone"

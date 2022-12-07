@@ -22,11 +22,13 @@ const Favorite = React.memo(() => {
     products: ProductCartType[]
   ) => {
     dispatch(setProductCart(userId, date, products));
-  
   };
 
-  const getLocalIdFavorite = getLocalStorage("favorite") as GetAllProductsType[]
-  return (    <section>
+  const getLocalIdFavorite = getLocalStorage(
+    "favorite"
+  ) as GetAllProductsType[];
+  return (
+    <section className="mb-5">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
@@ -35,7 +37,7 @@ const Favorite = React.memo(() => {
               <p>
                 {getLocalIdFavorite.length > 0
                   ? `There are ${
-                    getLocalIdFavorite.length === 1
+                      getLocalIdFavorite.length === 1
                         ? `${getLocalIdFavorite.length} product`
                         : `${getLocalIdFavorite.length} products`
                     } in this wishlist.`
@@ -103,7 +105,10 @@ const Favorite = React.memo(() => {
                               <span className="badge bg-success">In Stock</span>
                             </td>
                             <td className="align-middle">
-                            <ButtonAddToCard addToCart={addToCart} id={m.id} />
+                              <ButtonAddToCard
+                                addToCart={addToCart}
+                                id={m.id}
+                              />
                             </td>
                             <td className="align-middle">
                               <span className="text-muted">

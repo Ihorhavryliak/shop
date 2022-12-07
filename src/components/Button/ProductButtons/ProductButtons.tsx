@@ -37,16 +37,16 @@ export const ProductButtons = React.memo(({id = 1, kind, addToCart, quantity}: P
        
       </div>
       <div className="col-md-4 col-4">
-        <Link
+      <span
           className="btn btn-light me-1"
-          to="/"
+          /* to="/" */
           data-bs-toggle="tooltip"
           data-bs-html="true"
           aria-label="Compare"
-        >
+        > 
        
           <BsArrowLeftRight className="feather-icon" />
-        </Link>
+        </span> 
         <FavoriteHeart id={id}  className="btn btn-light " />
        
       </div>

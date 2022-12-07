@@ -9,6 +9,7 @@ import { ModalLogin } from "./ModalLogin/ModalLogin";
 import { OrderForm } from "./Form/OrderForm";
 import WrapperPopular from "./WrapperPopular/WrapperPopular";
 import { CheckoutForm } from "./Form/CheckoutForm";
+import { SignUpForm } from "./Form/SignUpForm";
 
 
 
@@ -38,6 +39,7 @@ export {
   ModalLogin,
   OrderForm,
   WrapperPopular,
-  CheckoutForm
+  CheckoutForm,
+  SignUpForm
 }
 

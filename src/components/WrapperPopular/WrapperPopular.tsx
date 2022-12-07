@@ -54,7 +54,7 @@ let settings = {
   slidesToShow: showSlides,
   slidesToScroll: 1,
   autoplay: true,
-  speed: 1000,
+  /* speed: 1000, */
   autoplaySpeed: 2000,
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />,

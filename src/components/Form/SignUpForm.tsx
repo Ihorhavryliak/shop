@@ -17,43 +17,84 @@ import {
 import { cleanCart } from "../../reducers/cart-reducer/cart-reducer";
 import { AppDispatch } from "../../reducers/redux-store";
 
-
 type FormDataType = {
   username: string;
   phone: string;
+  email: string;
+  password: string;
+  repeat_password: string;
 };
 type DataType = {
   username?: string;
   phone?: string;
+  email?: string;
+  password?: string;
+  repeat_password?: string;
 };
 
 type NewType = {
   setSubmitting: (isSubmitting: boolean) => void;
   resetForm: () => void;
-  
 };
 //
-type OrderFormType={
-
- 
-}
-export const CheckoutForm = React.memo((props: OrderFormType) => {
-
-
+type OrderFormType = {};
+export const SignUpForm = React.memo((props: OrderFormType) => {
   const dispatch: AppDispatch = useDispatch();
 
   const isLogIn = useSelector(getIsAuthSelector);
-  const [isAddProductMessage, setIsAddProductMessage] = useState<boolean | null
+  const [isAddProductMessage, setIsAddProductMessage] = useState<
+    boolean | null
   >();
-  const [isSuccessOrder, setIsSuccessOrder] = useState<null| boolean>(null)
-  //
+  const [isSuccessOrder, setIsSuccessOrder] = useState<null | boolean>(null);
+  // name
   const singInValidate = (values: FormDataType) => {
     const errors: DataType = {};
     if (values.username.length <= 0) {
       errors.username = "Please enter a name.";
     }
+    //email
+    if (values.email.length <= 0) {
+      errors.email = "Please enter a email.";
+    }
+    if (!(values.email.length <= 0) && !values.email.includes("@")) {
+      errors.email = "Field Email must have include @.";
+    }
+    if (
+      values.email.includes("@") &&
+      !values.email.slice(values.email.indexOf("@")).includes(".")
+    ) {
+      errors.email = "Field Email must have include '.'";
+    }
+    if (
+      values.email.includes("@") &&
+      values.email.slice(values.email.indexOf("@")).includes(".") &&
+      !(values.email.slice(values.email.lastIndexOf(".")).length - 1 > 0)
+    ) {
+      errors.email = "Field Email must have include 'alphabet after @ .'";
+    }
+ 
+    //phone
     if (values.phone.length <= 0) {
-      errors.phone = "Please enter a phone.";
+      errors.phone = "Please enter a phone."
+    }
+    if (Number.isNaN(+values.phone)) {
+      errors.phone = "No valid mobile phone. Should include only number or '+' and number";
+    }
+    // password
+    if (values.password.length <= 0) {
+      errors.password = "Please enter a password.";
+    }
+
+    //repeat password
+    if (values.repeat_password.length <= 0) {
+      errors.repeat_password = "Please enter a  password.";
+    }
+
+    if (
+      !(values.repeat_password.length <= 0) &&
+      !(values.password === values.repeat_password)
+    ) {
+      errors.repeat_password = "Please enter a the same password.";
     }
     return errors;
   };
@@ -62,9 +103,10 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
     values: FormDataType,
     { setSubmitting, resetForm }: NewType
   ) => {
-     onClearCart();
+    onClearCart();
     setIsSuccessOrder(true);
     setSubmitting(false);
+    window.scrollTo(0, 0);
   };
 
   // reset
@@ -85,7 +127,7 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
     dispatch(cleanCart());
   };
 
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const goToMainPAge = () => {
     return navigate("/");
   };
@@ -98,13 +140,16 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
           initialValues={{
             username: "",
             phone: "",
+            email: "",
+            password: "",
+            repeat_password: "",
           }}
           validate={singInValidate}
           onSubmit={submit}
         >
           {({ isSubmitting, errors, setFieldValue, values, touched }) => (
             <Form noValidate>
-              <div className="mb-3">
+              <div className="mb-1">
                 <label className="form-label">Name</label>
                 <Field
                   type="text"
@@ -116,7 +161,7 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
                         : "is-valid"
                       : ""
                   }`}
-                  placeholder=""
+                  placeholder="Name"
                 />
 
                 <div
@@ -132,9 +177,35 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
                     "Looks good!"}
                 </div>
               </div>
+              {/*    email */}
+              <div className="mb-1">
+                <label className="form-label">Email</label>
+                <Field
+                  type="email"
+                  name="email"
+                  className={`form-control ${
+                    touched.email !== undefined
+                      ? errors.email
+                        ? "is-invalid"
+                        : "is-valid"
+                      : ""
+                  }`}
+                  placeholder="Email"
+                />
 
-              {/*  password */}
-              <div className="mb-4">
+                <div
+                  className={`${
+                    touched.email && errors.email
+                      ? "invalid-feedback"
+                      : "valid-feedback"
+                  }`}
+                >
+                  {touched.email && errors.email && errors.email}
+                  {touched.email && errors.email === undefined && "Looks good!"}
+                </div>
+              </div>
+              {/*  phone */}
+              <div className="mb-1">
                 <label className="form-label">Mobile Phone</label>
                 <Field
                   type="phone"
@@ -146,7 +217,7 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
                         : "is-valid"
                       : ""
                   }`}
-                  placeholder=""
+                  placeholder="Mobile Phone"
                 />
 
                 <div
@@ -157,34 +228,90 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
                   }`}
                 >
                   {touched.phone && errors.phone && errors.phone}
-                  {touched.phone &&
-                    errors.phone === undefined &&
+                  {touched.phone && errors.phone === undefined && "Looks good!"}
+                </div>
+              </div>
+
+              {/*  password */}
+              <div className="mb-1">
+                <label className="form-label">Password</label>
+                <Field
+                  type="password"
+                  name="password"
+                  className={`form-control ${
+                    touched.password !== undefined
+                      ? errors.password
+                        ? "is-invalid"
+                        : "is-valid"
+                      : ""
+                  }`}
+                  placeholder="Password"
+                />
+
+                <div
+                  className={`${
+                    touched.password && errors.password
+                      ? "invalid-feedback"
+                      : "valid-feedback"
+                  }`}
+                >
+                  {touched.password && errors.password && errors.password}
+                  {touched.password &&
+                    errors.password === undefined &&
+                    "Looks good!"}
+                </div>
+              </div>
+
+              {/* repeat  password */}
+              <div className="mb-4">
+                <label className="form-label">Repeat password</label>
+                <Field
+                  type="password"
+                  name="repeat_password"
+                  className={`form-control ${
+                    touched.repeat_password !== undefined
+                      ? errors.repeat_password
+                        ? "is-invalid"
+                        : "is-valid"
+                      : ""
+                  }`}
+                  placeholder="Password"
+                />
+
+                <div
+                  className={`${
+                    touched.repeat_password && errors.repeat_password
+                      ? "invalid-feedback"
+                      : "valid-feedback"
+                  }`}
+                >
+                  {touched.repeat_password &&
+                    errors.repeat_password &&
+                    errors.repeat_password}
+                  {touched.repeat_password &&
+                    errors.repeat_password === undefined &&
                     "Looks good!"}
                 </div>
               </div>
 
               <div className="d-flex justify-content-between">
-     
-      <button
-          onClick={()=>{
-           return (
-            goToMainPAge()
-            ) 
-            }}
-          className="btn btn-dark">
-                Cancel
-              </button> 
-              <button
+                <button
+                  onClick={() => {
+                    return goToMainPAge();
+                  }}
+                  className="btn btn-dark"
+                >
+                  Cancel
+                </button>
+                <button
                   type="submit"
                   className="btn btn-dark"
                   disabled={isSubmitting}
                 >
-               Checkout
+                  Sign Up
                 </button>
               </div>
-
-           
-
+         
               {/* <!-- Modal false --> */}
               {isSuccessOrder === false && (
                 <>
@@ -205,7 +332,7 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
                             className="bi flex-shrink-0 me-2 mb-0"
                           />
                           <div>
-                            <strong>Error</strong>! You not Sign In. Try again
+                            <strong>Error</strong>! You not Sign up. Try again
                             please!
                           </div>
                           <button
@@ -234,27 +361,21 @@ export const CheckoutForm = React.memo((props: OrderFormType) => {
           >
             <BsCheckCircleFill width={60} className="bi flex-shrink-0 me-2" />
             <div>
-              <strong>You have Successfully arranged order!</strong>
-             
+              <strong>You have Successfully Sign up!</strong>
             </div>
-            
           </div>
           <div className="mt-2 d-flex justify-content-end ">
-          <button
-          onClick={()=>{
-        return (
-          goToMainPAge()
-        )
-        }}
-          className="btn btn-dark">
-                Go to home page
-              </button>
-
+            <button
+              onClick={() => {
+                return goToMainPAge();
+              }}
+              className="btn btn-dark"
+            >
+              Go to home page
+            </button>
           </div>
-        
         </>
       )}
- 
     </>
   );
 });

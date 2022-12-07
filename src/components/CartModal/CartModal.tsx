@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsCheckCircleFill, BsFillTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { GetAllProductsType } from "../../api/products-list-api";
 import {
   addToCartOneNumber,
   cleanCart,
   deleteFromCartOneNumber,
   deleteFromDate,
+  setProductCart,
   setToCartOneNumber,
 } from "../../reducers/cart-reducer/cart-reducer";
 import { getCartSelector } from "../../reducers/cart-reducer/cart-selector";
+import { getProducts } from "../../reducers/products-list-reducer/products-list-reducer";
 import { getAllProducts } from "../../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../../reducers/redux-store";
 import { OrderForm } from "../Form/OrderForm";
@@ -26,11 +28,12 @@ type CartModalType = {
 export const CartModal = React.memo(
   ({ isOpenMenu, setIsOpenMenu }: CartModalType) => {
     const cartDate = useSelector(getCartSelector);
-    const getProducts = useSelector(getAllProducts);
+    const getProduct = useSelector(getAllProducts);
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     /* modal */
-  /*   const [isOpenModal, setIsOpenModal] = useState(false); */
+    /*   const [isOpenModal, setIsOpenModal] = useState(false); */
     const [isOrderOneActive, setIsOrderOneActive] = useState(false);
     let sum = 0;
 
@@ -61,8 +64,28 @@ export const CartModal = React.memo(
 
     // navigate to order page
     const onOrderPage = () => {
-      return (setIsOpenMenu(!isOpenMenu), navigate("/checkout"));
+      // eslint-disable-next-line no-sequences
+      return setIsOpenMenu(!isOpenMenu), navigate("/checkout");
     };
+
+    useEffect(() => {
+      dispatch(getProducts("asc", "1000"));
+    }, [navigate]);
+
+    useEffect(() => {}, [cartDate]);
+    //alert free delivery
+    let summary = [0] as number[];
+    if (cartDate.products.length > 0) {
+      summary = cartDate.products.map((m) => {
+        const findProduct = getProduct.find((f) => f.id === m.productId);
+        if (findProduct === undefined) {
+          return 0;
+        } else {
+          return findProduct.price * m.quantity;
+        }
+      });
+    }
+
     return (
       <>
         <div
@@ -84,18 +107,23 @@ export const CartModal = React.memo(
           </div>
 
           <div className="offcanvas-body">
-            {/* <div>
-              <div className="alert alert-danger p-2">
-                You’ve got FREE delivery. Start
-                <a href="/" className="alert-link">
-                  checkout now!
-                </a>
-              </div>
-            </div> */}
+            <div>
+              {cartDate.products.length > 0 && summary[0] > 200 ? (
+                <div className="alert alert-info p-2">
+                  You’ve got FREE delivery. Start
+                  <Link to="checkout" className="alert-link">
+                    {" "}
+                    checkout now!
+                  </Link>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
             <ul className="list-group list-group-flush">
               {cartDate.products.length > 0
                 ? cartDate.products.map((m) => {
-                    const findProduct = getProducts.find(
+                    const findProduct = getProduct.find(
                       (f) => f.id === m.productId
                     ) as GetAllProductsType;
                     if (findProduct === undefined) {
@@ -215,7 +243,7 @@ export const CartModal = React.memo(
                 Checkout
               </button>
             </div>
-                  {/* buttons */}
+            {/* buttons */}
             <hr />
             <div className="mt-3 d-flex justify-content-between">
               <button

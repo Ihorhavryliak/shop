@@ -181,6 +181,7 @@ export const setProductCart =
   (userId: number, date: string, products: ProductCartType[]): ThunkType =>
   async (dispatch) => {
     const data = await cartAPI.addProductToCart(userId, date, products);
+
     dispatch(actions.getProductsCart(data));
     dispatch(isAddedProductToCart(true));
     //add to local storage

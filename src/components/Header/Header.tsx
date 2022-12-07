@@ -111,7 +111,7 @@ const Header = React.memo(() => {
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
       >
-        <ModalLogin />
+        <ModalLogin setIsOpenModal={setIsOpenModal} />
       </OnModalProduct>
     </header>
 

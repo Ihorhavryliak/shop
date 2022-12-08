@@ -125,7 +125,7 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
         )}
       </small>
       {type === "product" && (
-        <a className="ms-2  position-absolute " href="9">
+        <span className="ms-2  position-absolute " /* href="9" */>
           (
           {`${
             countRating !== undefined && countRating === 1
@@ -133,7 +133,7 @@ export const StarsUnderCard: React.FC<StarsUnderCartType> = ({
               : `${countRating} reviews`
           }`}
           )
-        </a>
+        </span>
       )}
     </div>
   );

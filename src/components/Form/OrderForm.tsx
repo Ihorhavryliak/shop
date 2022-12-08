@@ -55,8 +55,12 @@ export const OrderForm = React.memo((props: OrderFormType) => {
     if (values.username.length <= 0) {
       errors.username = "Please enter a name.";
     }
+    //phone
     if (values.phone.length <= 0) {
-      errors.phone = "Please enter a phone.";
+      errors.phone = "Please enter a phone."
+    }
+    if (Number.isNaN(+values.phone)) {
+      errors.phone = "No valid mobile phone. Should include only number or '+' and number";
     }
     return errors;
   };

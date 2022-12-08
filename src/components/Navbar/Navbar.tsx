@@ -24,7 +24,7 @@ const Navbar = React.memo(() => {
 
 
   return (
-    <div className="border-bottom  mb-4">
+    <div className="border-bottom  mb-4 mt__1">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         {/* button small screen */}
         <div className="container     justify-content-end d-lg-none">

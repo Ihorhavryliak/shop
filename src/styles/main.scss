@@ -29,8 +29,14 @@ a:hover {
 .mb-8 {
   margin-bottom: 2rem !important;
 }
+
 .mt-8 {
   margin-top: 2rem !important;
+}
+@media(max-width: media.$mobile) {
+  .mt-8 {
+    margin-top: 0rem !important;
+  }
 }
 .my-6 {
   margin-bottom: 1.5rem !important;

@@ -22,3 +22,27 @@
   width: 1px!important;
 }
 
+
+//@at-root
+.is-sticky {
+  display: block !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+ /*  box-shadow: 0 2px 24px 0 rgb(0 0 0 / 15%); */
+  background-color: #ffffff !important;
+  /* animation: 500ms ease-in-out 0s normal none 1 running fadeInDown; */
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+@media(max-width: 331px){
+  .is-sticky {
+    position: relative
+  }
+
+}
+.header-section {
+  display: none;
+}

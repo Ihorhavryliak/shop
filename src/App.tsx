@@ -7,17 +7,27 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "./reducers/redux-store";
 import { useLocation } from "react-router-dom";
 import { FooterAdmin, HeaderAdmin, SidebarAdmin } from "./admin/components";
+import { HeaderStick } from "./utils/HeaderStick";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 function App() {
-  const navigation = useLocation();
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategory());
   }, []);
+  const location = useLocation();
+
+/* 
+  useEffect(() => {
+    window.addEventListener("onload", onLoadHtml);
+    return () => {
+      window.removeEventListener("onload", onLoadHtml);
+    };
+  }); */
 
   return (
     <>
-      {navigation.pathname.includes("admin") ? (
+      {location.pathname.includes("admin") ? (
         <>
           {/* "Admin" */}
           <div className="container-fluid">
@@ -36,9 +46,15 @@ function App() {
       ) : (
         <>
           {/* "Users" */}
+          {/* <HeaderStick /> */}
+
           <Header />
+
           <Navbar />
-          <AppRouters />
+
+         
+              <AppRouters />
+      
           <Footer />
         </>
       )}

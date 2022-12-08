@@ -38,8 +38,9 @@ const Header = React.memo(() => {
   }
 
   return ( <>
-    <header>
-      <div className="navbar navbar-light py-lg-4 pt-3 px-0 pb-0 d-flex justify-content-between ">
+     <header className="is-sticky">
+      <div className=" navbar navbar-light py-lg-3 pt-3 px-0 pb-3 d-flex justify-content-between ">
+    
         <div className="container">
           <div className="row w-100 align-items-center g-lg-2 g-0">
             <div className=" col-8 	 col-sm-6 col-md-6 col-lg-3 col-xl-3   col-xxl-3  ">
@@ -103,9 +104,11 @@ const Header = React.memo(() => {
             </div>
           </div>
         </div>
+        </div>
+      </header>
         {/* cart */}
         <CartModal isOpenMenu={isOpenCart} setIsOpenMenu={setIsOpenCart}  />
-      </div>
+    
       <OnModalProduct
         name={"Sing In"}
         isOpenModal={isOpenModal}
@@ -113,7 +116,7 @@ const Header = React.memo(() => {
       >
         <ModalLogin setIsOpenModal={setIsOpenModal} />
       </OnModalProduct>
-    </header>
+ 
 
     
    </>

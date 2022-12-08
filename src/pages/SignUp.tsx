@@ -9,7 +9,7 @@ export const SignUp = React.memo(() => {
           <div className="col text-center">
             <div className="mb-2">
               <h1>Sign up</h1>
-              <p>Please fill all your date.</p>
+              <p>Please fill all your data.</p>
             </div>
           </div>
           <hr />

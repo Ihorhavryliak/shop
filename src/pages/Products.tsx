@@ -26,6 +26,7 @@ import { AsideSection, ContentCategoryName, FilterDeveloper, NavBreadcrumb } fro
 import { getIsAddedSelector } from "../reducers/cart-reducer/cart-selector";
 import { AlertMessageSusses } from "../components/AlertMessageSusses/AlertMessageSusses";
 import { getLocalStorage } from "../utils/getLocalStorage";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 
 
@@ -296,14 +297,41 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
       setFilterRating([...filterRating, (filterRating[indexNameRate] = e)]);
     }
   };
+const [isLoad, setIsLoad] = useState(false);
 
+console.log()
 //
+useEffect(() => {
+  window.addEventListener('load', (event) => {
+    const header = document.querySelector(".load__age");
+   /*  header.textContent += "load\n"; */
+    setIsLoad(true)
+   
+  });
+  return () => {
+      window.removeEventListener('load', (event) => {
+        setIsLoad(false)
+      });
+  };
+});
 
+     
+
+      
   return (
     <>
-      <main>
+     <SwitchTransition>
+            <CSSTransition
+              key={location.pathname}
+              /*   nodeRef={nodeRef} */
+              timeout={100}
+              classNames="page"
+              unmountOnExit 
+            >
+
+      <main className="load__age">
         <NavBreadcrumb />
-        <div className=" mt-8 mb-lg-14 mb-8">
+        <div className=" mt-8 mb-lg-14 mb-8 ">
           {/* container */}
           <div className="container">
             <div className="row  gx-10">
@@ -475,6 +503,8 @@ const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
         </div>
      
       </main>
+      </CSSTransition>
+          </SwitchTransition>
     </>
   );
 });

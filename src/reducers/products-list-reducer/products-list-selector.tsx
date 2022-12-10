@@ -3,7 +3,9 @@ import { AppStateType } from "../redux-store";
 
 
 
-
+export const getIsDateReceiveSelector = (state: AppStateType) => {
+  return state.productsList.isDate
+}
 
 export const getFilterSelector = (state: AppStateType) => {
   return state.productsList.filter

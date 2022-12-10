@@ -1,14 +1,14 @@
 import { Footer, Header, Navbar } from "./components";
 import "./styles/main.scss";
 import { AppRouters } from "./AppRouters";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCategory } from "./reducers/category-reducer/category-reducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./reducers/redux-store";
 import { useLocation } from "react-router-dom";
 import { FooterAdmin, HeaderAdmin, SidebarAdmin } from "./admin/components";
-import { HeaderStick } from "./utils/HeaderStick";
-import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { motion } from "framer-motion";
+import { variants } from "./utils/Animation";
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
@@ -17,13 +17,21 @@ function App() {
   }, []);
   const location = useLocation();
 
-/* 
+  const [play, setPlay] = useState(false);
+
   useEffect(() => {
-    window.addEventListener("onload", onLoadHtml);
-    return () => {
-      window.removeEventListener("onload", onLoadHtml);
+    const onPage = () => {
+      setPlay(true);
     };
-  }); */
+    if (document.readyState === "complete") {
+      onPage();
+    } else {
+      window.addEventListener("load", onPage);
+    }
+    return () => window.removeEventListener("load", onPage);
+  }, []);
+
+
 
   return (
     <>
@@ -45,17 +53,21 @@ function App() {
         </>
       ) : (
         <>
+      
           {/* "Users" */}
           {/* <HeaderStick /> */}
 
-          <Header />
-
-          <Navbar />
-
-         
-              <AppRouters />
-      
-          <Footer />
+              <motion.div 
+               animate={play ? "open" : "closed"}
+        variants={variants}
+        
+        >
+            <Header />
+            <Navbar />
+            <AppRouters />
+            <Footer />
+            </motion.div>
+    
         </>
       )}
     </>

@@ -195,14 +195,14 @@ const Footer = React.memo(() => {
                 </li>
                 <li className="list-inline-item ms-4">
                   <a href="#!">
-                    {" "}
-                    <img src={googlePlay} alt="googlePlay" />
+              
+                    <img className="footer__img" src={googlePlay} alt="googlePlay" />
                   </a>
                 </li>
                 <li className="list-inline-item">
                   <a href="#!">
                     {" "}
-                    <img src={appStore} alt="appStore" />
+                    <img className="footer__img" src={appStore} alt="appStore" />
                   </a>
                 </li>
               </ul>

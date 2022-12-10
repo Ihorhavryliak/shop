@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryPopularProducts } from "../../../data/setCategoryProducts";
-import { getDataInCategory, getProducts } from "../../../reducers/products-list-reducer/products-list-reducer";
-import { getAllProducts } from "../../../reducers/products-list-reducer/products-list-selector";
+import { getProductsCategory } from "../../../reducers/products-category-reducer/products-category-reducer";
+import { getAllProductsCategory } from "../../../reducers/products-category-reducer/products-category-selector";
 import { AppDispatch } from "../../../reducers/redux-store";
 import { CartProduct } from "../../Products";
 import "./PopularProducts.scss";
 const PopularProducts = React.memo(() => {
-  const products = useSelector(getAllProducts);
+  const products = useSelector(getAllProductsCategory);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts('asc', '100'));
+    dispatch(getProductsCategory('asc', '100'));
   }, []);
 
   return (

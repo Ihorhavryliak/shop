@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getDataInCategory } from "../../../reducers/products-list-reducer/products-list-reducer";
-import { getAllProducts } from "../../../reducers/products-list-reducer/products-list-selector";
-import { AppDispatch } from "../../../reducers/redux-store";
-import { CartProduct } from "../../Products";
+import React from "react";
+import { useSelector } from "react-redux";
 import './DailyBestSells.scss';
 import imgBestsellers from '../../../assets/bestsellers.jpg'
 import { CartProductCard } from "./CartProductCard/CartProductCard";
 import { ButtonShopNow } from "../../Button/ButtonShopNow";
 import { dailyBestSells } from "../../../data/setCategoryProducts";
+import { getAllProductsCategory } from "../../../reducers/products-category-reducer/products-category-selector";
 const DailyBestSells = React.memo(() => {
-  const products = useSelector(getAllProducts); 
+  const products = useSelector(getAllProductsCategory); 
 
 
   return (

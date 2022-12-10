@@ -12,7 +12,9 @@ import {
   setToCartOneNumber,
 } from "../../reducers/cart-reducer/cart-reducer";
 import { getCartSelector } from "../../reducers/cart-reducer/cart-selector";
-import { getProducts } from "../../reducers/products-list-reducer/products-list-reducer";
+import { getProductsCategory } from "../../reducers/products-category-reducer/products-category-reducer";
+import { getAllProductsCategory } from "../../reducers/products-category-reducer/products-category-selector";
+
 import { getAllProducts } from "../../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../../reducers/redux-store";
 import { OrderForm } from "../Form/OrderForm";
@@ -28,7 +30,7 @@ type CartModalType = {
 export const CartModal = React.memo(
   ({ isOpenMenu, setIsOpenMenu }: CartModalType) => {
     const cartDate = useSelector(getCartSelector);
-    const getProduct = useSelector(getAllProducts);
+    const getProduct = useSelector(getAllProductsCategory);
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -69,7 +71,7 @@ export const CartModal = React.memo(
     };
 
     useEffect(() => {
-      dispatch(getProducts("asc", "1000"));
+      dispatch(getProductsCategory("asc", "1000"));
     }, [navigate]);
 
     useEffect(() => {}, [cartDate]);

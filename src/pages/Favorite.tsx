@@ -6,6 +6,7 @@ import { ProductCartType } from "../admin/api/cart-api";
 import { GetAllProductsType } from "../api/products-list-api";
 import { ButtonAddToCard } from "../components/Products";
 import { setProductCart } from "../reducers/cart-reducer/cart-reducer";
+import { getFavoriteCategorySelector } from "../reducers/products-category-reducer/products-category-selector";
 import { getFavoriteSelector } from "../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../reducers/redux-store";
 import { onDeleteToFavorite } from "../utils/functions";
@@ -14,7 +15,7 @@ import { getLocalStorage } from "../utils/getLocalStorage";
 import "./Favorite.scss";
 
 const Favorite = React.memo(() => {
-  const getFavoriteData = useSelector(getFavoriteSelector);
+  const getFavoriteData = useSelector(getFavoriteCategorySelector);
   const dispatch: AppDispatch = useDispatch();
   const addToCart = (
     userId: number,

@@ -3,8 +3,8 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import "./FeaturedCategories.scss";
 import { useSelector } from "react-redux";
-import { getAllProducts } from "../../../reducers/products-list-reducer/products-list-selector";
 import { Link } from "react-router-dom";
+import { getAllProductsCategory } from "../../../reducers/products-category-reducer/products-category-selector";
 
 export function PrevArrow(props: any) {
   const { onClick } = props;
@@ -33,7 +33,7 @@ export function NextArrow(props: any) {
 }
 
 const FeaturedCategories = React.memo(() => {
-  const products = useSelector(getAllProducts);
+  const products = useSelector(getAllProductsCategory);
   const [screenWight, setScreenWight] = useState<number>(
     () => window.innerWidth
   );
@@ -109,7 +109,4 @@ const FeaturedCategories = React.memo(() => {
 });
 
 export default FeaturedCategories;
-/* function useStats<T>(arg0: () => number): [any, any] {
-  throw new Error("Function not implemented.");
-}
- */
+

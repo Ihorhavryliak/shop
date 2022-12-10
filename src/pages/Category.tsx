@@ -1,21 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/exports";
-import {
-  getAllProducts,
-  getCategorySelector,
-  getFilterSelector,
-  getIsDateReceiveSelector,
-} from "../reducers/products-list-reducer/products-list-selector";
+
 import { AppDispatch } from "../reducers/redux-store";
-import {
-  getDataInCategory,
-  setCleanProductsList,
-  setDateReceive,
-  /*   getProducts, */
-  setStyle,
-} from "../reducers/products-list-reducer/products-list-reducer";
-import { useLocation } from "react-router-dom";
+
 import { useQueryParam, StringParam, ArrayParam } from "use-query-params";
 import Paginator from "../utils/Paginator";
 import "rc-slider/assets/index.css";
@@ -27,12 +15,22 @@ import {
   FilterDeveloper,
   NavBreadcrumb,
 } from "../components";
-import { getIsAddedSelector } from "../reducers/cart-reducer/cart-selector";
-import { AlertMessageSusses } from "../components/AlertMessageSusses/AlertMessageSusses";
 import { getLocalStorage } from "../utils/getLocalStorage";
-import { SwitchTransition, CSSTransition } from "react-transition-group";
-import { motion } from "framer-motion";
+import {
+  getAllProductsCategory,
+  getFilterCategorySelector,
+  getIsDateReceiveCategorySelector,
+} from "../reducers/products-category-reducer/products-category-selector";
+import { getCategorySelector } from "../reducers/products-list-reducer/products-list-selector";
+import {
+  getProductsCategory,
+  setCleanProductsListCategory,
+  setDateReceiveCategory,
+  setStyleCategory,
+} from "../reducers/products-category-reducer/products-category-reducer";
+import { useLocation } from "react-router-dom";
 import { variants } from "../utils/Animation";
+import { motion } from "framer-motion";
 
 type QueryType = {
   limit?: string;
@@ -40,14 +38,14 @@ type QueryType = {
   contentStyle?: string;
 };
 
-const Products = React.memo((props) => {
-  /* const {setIsIntersecting} = props; */
+const Category = React.memo((props) => {
   //get data
-  const products = useSelector(getAllProducts);
+  const products = useSelector(getAllProductsCategory);
   const dispatch: AppDispatch = useDispatch();
+  const getFilter = useSelector(getFilterCategorySelector);
+  //get categories
+  const categoriesNameData = useSelector(getCategorySelector);
   const location = useLocation();
-  const getFilter = useSelector(getFilterSelector);
-
   //save data filter content in  localStorage if null
   if (localStorage.getItem("filter_content") === null) {
     localStorage.setItem(
@@ -61,7 +59,6 @@ const Products = React.memo((props) => {
   }
   // - get data from local
   const filter = JSON.parse(localStorage.getItem("filter_content") as string);
-
   // set url
   const [limitParam, setLimitParam] = useQueryParam("limit", StringParam);
   const [currentPage, setCurrentPage] = useQueryParam("page", StringParam);
@@ -74,15 +71,13 @@ const Products = React.memo((props) => {
   const [nameFilterCategory, setNameFilterCategory] = useState<
     Array<string | null>
   >([]);
-  //get categories
-  const categoriesNameData = useSelector(getCategorySelector);
+
   //sent to paginator
   const [itemOffset, setItemOffset] = useState(1);
   let limitParamNew = +filter.limit;
   if (typeof limitParam === "string") {
     limitParamNew = +limitParam;
   }
-
   //Fitter min max price filter
   const productMaxPrice = Math.max.apply(
     null,
@@ -101,36 +96,20 @@ const Products = React.memo((props) => {
   const [sortOldPrice, setSortOldPrice] = useState(filter.sort);
   // open close mobile filter
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
-  //Get category url
-  const productInCategoryUrl = location.pathname
-    .slice(location.pathname.lastIndexOf("/"))
-    .replace("-", " ");
   // Filter rating stars
   const [filterRating, setFilterRating] = useState<Array<number>>([]);
   const ratingArr = [5, 4, 3, 2, 1];
-
   //Name category
   const breadcrumbs = useReactRouterBreadcrumbs();
   //@ts-ignore
   const categoryBreadcrumbsName = breadcrumbs[breadcrumbs.length - 1].breadcrumb.props.children as string;
-
   //requests first
   useEffect(() => {
-    dispatch(
-      getDataInCategory(productInCategoryUrl, filter.sort, filter.limit)
-    );
-    dispatch(
-      getDataInCategory(productInCategoryUrl, filter.sort, filter.limit)
-    );
+    dispatch(getProductsCategory(filter.sort, filter.limit));
     return () => {
-      dispatch(setCleanProductsList());
+      dispatch(setCleanProductsListCategory());
     };
-  }, [location.pathname]);
-  /*  useEffect(() => {
-    if (!location.pathname.includes("category")) {
-      dispatch(getProducts(filter.sort, filter.limit));
-    }
-  }, []); */
+  }, []);
   //get url
   useEffect(() => {
     let actualFilter: QueryType = filter;
@@ -143,7 +122,6 @@ const Products = React.memo((props) => {
       const changeParamObj = sortRatePrice as string;
       actualFilter = { ...actualFilter, sort: changeParamObj };
     }
-
     if (currentPage) {
       setItemOffset(+currentPage);
     }
@@ -163,10 +141,8 @@ const Products = React.memo((props) => {
       setMinMaxPrice([min, max]);
     }
     //send data
-
     dispatch(
-      getDataInCategory(
-        productInCategoryUrl,
+      getProductsCategory(
         actualFilter.sort as string,
         actualFilter.limit as string
       )
@@ -224,11 +200,13 @@ const Products = React.memo((props) => {
       JSON.stringify({ ...localStorageFilterData, [name]: value })
     );
   };
+
   //set main style in local storage
   const setStylesContent = (name: string) => {
-    dispatch(setStyle(name));
+    dispatch(setStyleCategory(name));
     addFilterStorageLocal("contentStyle", name);
   };
+
   //price in inputs
   const setMinPrice = (e: string) => {
     if (Array.isArray(minMaxPrice)) {
@@ -301,12 +279,11 @@ const Products = React.memo((props) => {
       setFilterRating([...filterRating, (filterRating[indexNameRate] = e)]);
     }
   };
-
   //check is download date
-  const getIsDateReceive = useSelector(getIsDateReceiveSelector);
+  const getIsDateReceive = useSelector(getIsDateReceiveCategorySelector);
   //set isDateReceive
   useEffect(() => {
-    dispatch(setDateReceive(true));
+    dispatch(setDateReceiveCategory(true));
   }, [location.pathname]);
 
   return (
@@ -345,14 +322,8 @@ const Products = React.memo((props) => {
                   <div className="mb-3 mb-lg-0">
                     <p className="mb-0">
                       {/*  count of products */}
-                      Products found{" "}
-                      <motion.span
-                        className="text-dark"
-                        animate={!getIsDateReceive ? "open" : "closed"}
-                        variants={variants}
-                      >
-                        {productsLength === 0 ? "" : productsLength}
-                      </motion.span>
+                      <span className="text-dark">{productsLength} </span>
+                      Products found
                     </p>
                   </div>
                   {/* content filter / */}
@@ -494,9 +465,8 @@ const Products = React.memo((props) => {
           </div>
         </div>
       </main>
-      {/*   )} */}
     </>
   );
 });
 
-export default Products;
+export default Category;

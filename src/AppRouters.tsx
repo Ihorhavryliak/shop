@@ -3,7 +3,7 @@ import React from "react";
 import { Route, Routes, ScrollRestoration } from "react-router-dom";
 import {  AdminProducts, HomeAdmin } from "./admin/pages";
 import { AddNewProducts } from "./admin/pages/AddNewProducts/AddNewProducts";
-import {  Error, Favorite, Home, Checkout, SignUp } from "./pages";
+import {  Error, Favorite, Home, Checkout, SignUp, Category } from "./pages";
 import { Product } from "./pages/Product";
 import Products from "./pages/Products";
 import { WindowsTopScroll } from "./utils/WindowsTopScroll";
@@ -16,9 +16,12 @@ export const AppRouters = () => {
       <WindowsTopScroll />
       <Routes>
         <Route path="/"  > 
-      
          <Route index element={<Home />} errorElement={<Error />} /> 
-         <Route path="products" element={<Products />} errorElement={<Error />}/>
+      
+         <Route path="/products" >
+                <Route index element={<Category />} errorElement={<Error />} /> 
+          </Route>
+
           <Route path="/products/category/" >
                 <Route index element={<Products />} errorElement={<Error />} /> 
                 <Route path=":id" element={<Products />} errorElement={<Error />} />

@@ -2,8 +2,6 @@ import React from "react";
 import { BsArrowLeftRight } from "react-icons/bs";
 import './ProductButtons.scss'
 import { FavoriteHeart } from "../../FavoriteHeart/FavoriteHeart";
-import { Link } from "react-router-dom";
-
 import { ProductCartType } from "../../../admin/api/cart-api";
 import { ButtonAddToCard } from "../ProductsButtons/ButtonAddToCard";
 

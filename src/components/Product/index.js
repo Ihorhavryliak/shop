@@ -1,4 +1,5 @@
 import { ProductButtons } from "../Button/ProductButtons/ProductButtons"
+import { ProductAnimation } from "./ProductAnimation"
 import { ProductCharacteristics } from "./ProductCharacteristics/ProductCharacteristics"
 import { ProductCount } from "./ProductCount/ProductCount"
 import { ProductDescription } from "./ProductDescription/ProductDescription"
@@ -16,5 +17,6 @@ export {
   ProductDescription,
   ProductImg,
   ProductShare,
+  ProductAnimation
 }
 

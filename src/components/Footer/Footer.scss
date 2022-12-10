@@ -1,3 +1,5 @@
+@use "../../styles/media";
+
 .footer {
   background-color: #f0f3f2;
   padding: 4rem 0;
@@ -27,4 +29,9 @@ footer .social-links {
   height: 2rem;
   line-height: 2rem;
   width: 2rem;
+}
+@media(max-width: media.$mobile) {
+  .footer__img{
+    width: 60px;
+  }
 }

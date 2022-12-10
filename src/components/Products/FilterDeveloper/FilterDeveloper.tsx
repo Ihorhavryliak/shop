@@ -27,9 +27,7 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
     limitParamNew,
     productsLength,
   } = props;
-
   const getStyleDate = useSelector(getFilterSelector);
-
   const getLocalStorage = (name: string) => {
     let getDataLocalStorage = {} as limitProductsType | null;
     if (localStorage.getItem(name) !== null) {
@@ -39,13 +37,9 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
     }
     return getDataLocalStorage;
   };
-
   const getDataLocal = getLocalStorage("filter_content")?.contentStyle;
-
   return (
     <>
-      
-
       <div
         className={
           getDataLocal === "on-three"
@@ -132,7 +126,7 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
             })}
         {/*  page not found */}
 
-        {productsLength === 0 && <div>Products not founds</div>}
+        {/* {productsLength === 0 && <div>Products not founds</div>} */}
       </div>
     </>
   );

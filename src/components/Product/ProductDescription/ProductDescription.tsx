@@ -3,6 +3,7 @@ import { GetProductDataType } from "../../../api/product-api";
 import './ProductDescription.scss'
 
 export const ProductDescription = React.memo(({data}: {data: GetProductDataType[]}) => {
+
   const productDetailsTab = 'Product Details'
   const [activeTab, setActiveTab] = useState(productDetailsTab);
   return (
@@ -69,10 +70,11 @@ export const ProductDescription = React.memo(({data}: {data: GetProductDataType[
                 <div className="mb-5">
                   <h4 className="mb-1">Nutrient Value &amp; Benefits</h4>
                   <p className="mb-0">
-              {data.length > 1 && data[0].description}
+              {data.length > 0 && data[0].description}
                   </p>
                 </div>
-                <div className="mb-5">
+
+               {/*  <div className="mb-5">
                   <h5 className="mb-1">Storage Tips</h5>
                   <p className="mb-0">
                     Nisi, tellus iaculis urna bibendum in lacus, integer. Id
@@ -98,7 +100,8 @@ export const ProductDescription = React.memo(({data}: {data: GetProductDataType[
                     the actual product. Every effort is made to maintain
                     accuracy of all information displayed.
                   </p>
-                </div>
+                </div> */}
+
               </div>
             </div>
             <div
@@ -186,8 +189,10 @@ export const ProductDescription = React.memo(({data}: {data: GetProductDataType[
               aria-labelledby="contact-tab"
             >
               <div className="my-8">
+               
                 Nutrient Value & Benefits
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+           
               </div>
             </div>
           </div>

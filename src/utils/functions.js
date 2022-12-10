@@ -1,9 +1,8 @@
-import { setDeleteFavorite } from "../reducers/products-list-reducer/products-list-reducer";
-import { AppDispatch } from "../reducers/redux-store";
+import { setDeleteFavoriteCategory } from "../reducers/products-category-reducer/products-category-reducer";
 import { getLocalStorage } from "./getLocalStorage";
 
 export const onDeleteToFavorite = (id, dispatch) => {
-  dispatch(setDeleteFavorite(id));
+  dispatch(setDeleteFavoriteCategory(id));
   if (getLocalStorage("favorite") !== null) {
     localStorage.setItem(
       "favorite",

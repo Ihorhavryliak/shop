@@ -22,6 +22,7 @@ import { ProductImg } from "../components/Product/ProductImg/ProductImg";
 import { setProductCart } from "../reducers/cart-reducer/cart-reducer";
 import { ProductCartType } from "../admin/api/cart-api";
 import { motion } from "framer-motion";
+import { ProductAnimation } from "../components/Product";
 
 export const Product = React.memo(() => {
   const productNumber = useParams();
@@ -37,6 +38,9 @@ export const Product = React.memo(() => {
         dispatch(dataProduct(+productNumber.id));
       }
     }
+    return () => {
+      dispatch(setCleanProduct());
+    };
   }, [location]);
   //filter only include product from id
   const productDataFiltered = productData.filter((m) => {
@@ -65,21 +69,19 @@ export const Product = React.memo(() => {
   //set isDateReceive
   useEffect(() => {
     dispatch(setDateReceiveProduct(true));
-    return () => {
-      dispatch(setCleanProduct());
-    };
+  
   }, [location.pathname]);
-
+console.log(getIsDateReceive)
   return (
     <>
       <NavBreadcrumb />
       {getIsDateReceive ? (
-        "some text"
+        <ProductAnimation />
       ) : (
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          transition={{ duration: 1.4 }}
           className="mt-8"
         >
           <div className="container">

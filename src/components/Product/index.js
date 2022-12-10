@@ -1,5 +1,5 @@
 import { ProductButtons } from "../Button/ProductButtons/ProductButtons"
-import { ProductAnimation } from "./ProductAnimation"
+import { ProductAnimation } from "./ProductAnimation/ProductAnimation"
 import { ProductCharacteristics } from "./ProductCharacteristics/ProductCharacteristics"
 import { ProductCount } from "./ProductCount/ProductCount"
 import { ProductDescription } from "./ProductDescription/ProductDescription"

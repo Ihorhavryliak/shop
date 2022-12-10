@@ -75,6 +75,7 @@ export const actions = {
     ({ type: "SET_DATE_RECEIVE", payload: b } as const),
   getCleanProductsList: () => ({ type: "SET_CLEAN_PRODUCT_LIST" } as const),
 };
+
 export const setCleanProductsList = (): ThunkType => async (dispatch) => {
   dispatch(actions.getCleanProductsList());
 };

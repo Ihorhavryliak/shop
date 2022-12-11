@@ -33,6 +33,7 @@ import { getLocalStorage } from "../utils/getLocalStorage";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { motion } from "framer-motion";
 import { variants } from "../utils/Animation";
+import { ProductsAnimation } from "../components/Products";
 
 type QueryType = {
   limit?: string;
@@ -316,7 +317,10 @@ const Products = React.memo((props) => {
         <div className=" mt-8 mb-lg-14 mb-8 ">
           {/* container */}
           <div className="container">
+          {getIsDateReceive ? 
+          <ProductsAnimation /> :
             <div className="row  gx-10">
+             
               {/*  section filter */}
               <AsideSection
                 minMaxPrice={minMaxPrice}
@@ -462,8 +466,8 @@ const Products = React.memo((props) => {
                 </div>
                 {/*  list products + filter */}
                 <motion.div
-                  animate={!getIsDateReceive ? "open" : "closed"}
-                  variants={variants}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                 >
                   <FilterDeveloper
                     productsLength={productsLength}
@@ -491,6 +495,7 @@ const Products = React.memo((props) => {
                 </motion.div>
               </section>
             </div>
+            }
           </div>
         </div>
       </main>

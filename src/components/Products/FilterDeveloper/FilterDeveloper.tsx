@@ -126,7 +126,7 @@ export const FilterDeveloper: React.FC<FilterDeveloperType> = (props) => {
             })}
         {/*  page not found */}
 
-        {/* {productsLength === 0 && <div>Products not founds</div>} */}
+      {productsLength === 0 && <div>Products not founds</div>} 
       </div>
     </>
   );

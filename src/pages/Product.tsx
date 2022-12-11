@@ -29,6 +29,15 @@ export const Product = React.memo(() => {
   const dispatch: AppDispatch = useDispatch();
   const productData = useSelector(getProductInformation);
   const location = useLocation();
+  //Count
+  const [value, setValue] = useState(1);
+  //check is download date
+  const getIsDateReceive = useSelector(getIsDateReceiveProductSelector);
+  //set isDateReceive
+  useEffect(() => {
+    dispatch(setDateReceiveProduct(true));
+  }, [location.pathname]);
+  //the first request
   useEffect(() => {
     if (productNumber.id !== undefined) {
       const isSameId = productData.some(
@@ -63,15 +72,6 @@ export const Product = React.memo(() => {
     dispatch(setProductCart(userId, date, products));
   };
 
-  const [value, setValue] = useState(1);
-  //check is download date
-  const getIsDateReceive = useSelector(getIsDateReceiveProductSelector);
-  //set isDateReceive
-  useEffect(() => {
-    dispatch(setDateReceiveProduct(true));
-  
-  }, [location.pathname]);
-console.log(getIsDateReceive)
   return (
     <>
       <NavBreadcrumb />
@@ -81,7 +81,7 @@ console.log(getIsDateReceive)
         <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.4 }}
+          /* transition={{ duration: 1 }} */
           className="mt-8"
         >
           <div className="container">
@@ -145,9 +145,7 @@ console.log(getIsDateReceive)
                   );
                 })}
           </div>
-
           <ProductDescription data={productData} />
-
           <WrapperPopular title={"Related Items"} />
         </motion.section>
       )}

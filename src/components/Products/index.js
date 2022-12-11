@@ -8,6 +8,8 @@ import { ContentCategoryName } from "./ContentCategoryName/ContentCategoryName";
 import Filter from "./Filter";
 import { FilterDeveloper } from "./FilterDeveloper/FilterDeveloper";
 import { OnModalProduct } from "./OnModalProduct/OnModalProduct";
+import { ProductsAnimation } from "./ProductsAnimation/ProductsAnimation";
+
 import { CartProduct } from "./ProductsCard/ProductsCard";
 
 
@@ -21,6 +23,7 @@ export {
   BannerAside,
   OnModalProduct,
   CartModal,
-  ButtonAddToCard
+  ButtonAddToCard,
+  ProductsAnimation
 } 
 

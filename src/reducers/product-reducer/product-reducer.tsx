@@ -58,7 +58,7 @@ export const dataProduct = (id: number):ThunkType => async (dispatch) => {
 
   dispatch(actions.getProduct(data));
 
-    dispatch(actions.getIsDateReceiveProduct(false));
+    /* dispatch(actions.getIsDateReceiveProduct(false)); */
  
 }
 

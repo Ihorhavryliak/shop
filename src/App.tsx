@@ -1,23 +1,39 @@
 import { Footer, Header, Navbar } from "./components";
 import "./styles/main.scss";
 import { AppRouters } from "./AppRouters";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCategory } from "./reducers/category-reducer/category-reducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./reducers/redux-store";
 import { useLocation } from "react-router-dom";
 import { FooterAdmin, HeaderAdmin, SidebarAdmin } from "./admin/components";
+import { motion } from "framer-motion";
+import { variants } from "./utils/Animation";
 
 function App() {
-  const navigation = useLocation();
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategory());
   }, []);
+  const location = useLocation();
+
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    const onPage = () => {
+      setPlay(true);
+    };
+    if (document.readyState === "complete") {
+      onPage();
+    } else {
+      window.addEventListener("load", onPage);
+    }
+    return () => window.removeEventListener("load", onPage);
+  }, []);
 
   return (
     <>
-      {navigation.pathname.includes("admin") ? (
+      {location.pathname.includes("admin") ? (
         <>
           {/* "Admin" */}
           <div className="container-fluid">
@@ -36,10 +52,15 @@ function App() {
       ) : (
         <>
           {/* "Users" */}
-          <Header />
-          <Navbar />
-          <AppRouters />
-          <Footer />
+          {/* <HeaderStick /> */}
+          {play && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <Header />
+              <Navbar />
+              <AppRouters />
+              <Footer />
+            </motion.div>
+          )}
         </>
       )}
     </>

@@ -3,7 +3,9 @@ import { AppStateType } from "../redux-store";
 
 
 
-
+export const getIsDateReceiveSelector = (state: AppStateType) => {
+  return state.productsList.isDate
+}
 
 export const getFilterSelector = (state: AppStateType) => {
   return state.productsList.filter
@@ -21,3 +23,12 @@ export const getProductMaxPriceSelector = createSelector(getAllProducts, (produc
 export const getCategorySelector = (state: AppStateType) => {
   return state.categories.category
 }
+
+//get favorite 
+export const getFavoriteSelector = (state: AppStateType) => {
+  return state.productsList.favorite
+}
+//createSelectorSuper
+export const getIsFavoriteSelectorSuper = createSelector(getFavoriteSelector, (favorite)=>{
+  return  favorite ;
+})

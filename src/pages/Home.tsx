@@ -1,21 +1,25 @@
-
 import React from "react";
-import { Advantages, CategorySlider, DailyBestSells, DiscountsPhoto, FeaturedCategories, MainSlider, PopularProducts } from "../components";
-
-
-
+import {
+  Advantages,
+  DailyBestSells,
+  DiscountsPhoto,
+  FeaturedCategories,
+  MainSlider,
+  PopularProducts,
+} from "../components";
 
 const Home = React.memo(() => {
-  return (<main>
+  document.title = "Shop Store - buy products";
+  return (
+    <main>
       <MainSlider />
-    {/*   <CategorySlider /> */}
       <FeaturedCategories />
       <DiscountsPhoto />
       <PopularProducts />
       <DailyBestSells />
       <Advantages />
-      </main>
+    </main>
   );
 });
 
-export  default Home
+export default Home;

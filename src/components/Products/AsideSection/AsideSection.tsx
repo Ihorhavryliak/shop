@@ -1,6 +1,8 @@
 import React from "react";
 import Slider from "rc-slider";
 import { BsFillStarFill, BsStar } from "react-icons/bs";
+import { BannerAside } from "./BannerAside/BannerAside";
+
 
 type AsideSectionType = {
   minMaxPrice: number | number[];
@@ -16,19 +18,29 @@ type AsideSectionType = {
   ratingArr: number[];
   setFilterRate: (e: number) => void;
   filterRating: number[];
+  isOpenFilter: boolean
+  setIsOpenFilter: (e: boolean) => void
 };
 
 export const AsideSection: React.FC<AsideSectionType> = (props) => {
   const { minMaxPrice, setMaxPrice, setMinPrice, maxMinStartPrice } = props;
   const { setSortRangePriceMaxMin, setItemOffset, setMinMaxPrice } = props;
   const { categoriesNameData, nameFilterCategory, setFilterCategoryName } = props;
-  const { ratingArr, setFilterRate, filterRating } = props;
-
+  const { ratingArr, setFilterRate, filterRating, isOpenFilter } = props;
+  const {setIsOpenFilter} = props;
   return (
     <aside className="col-lg-3 col-md-4 mb-6 mb-md-0">
       {/* filter min max ok form */}
-      <div className="row mt-3">
-        <h5 className="mb-2">Price:</h5>
+      <div className={`offcanvas offcanvas-start offcanvas-collapse w-md-50 ${isOpenFilter ? 'show ' : 'show hiding'}` }>
+        
+      <div className="offcanvas-header d-lg-none" >
+              <h5 className="offcanvas-title" id="offcanvasCategoryLabel">Filter</h5>
+              <button  onClick={()=> setIsOpenFilter(!isOpenFilter)} type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+        <div className="offcanvas-body ps-lg-2 pt-lg-0">
+
+      <div className="row">
+        <h5 className="mb-3">Price:</h5>
         <div className="col-4">
           <input
             type="text"
@@ -55,9 +67,10 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
               : true}
             className="form-control"
             onChange={(e) => setMaxPrice(e.target.value)} />
-        </div>
       </div>
-      <div className="row">
+      </div>
+
+      <div className="row mb-3">
         <div className="col">
           <Slider
             range
@@ -82,7 +95,7 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
         </div>
       </div>
       {/*    filter category */}
-      <div className="mt-3">
+      <div className="mb-8">
         <h5>Category</h5>
         <div>
           {categoriesNameData.map((cat, i) => {
@@ -106,7 +119,7 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
         </div>
       </div>
       {/* filter rating  */}
-      <div>
+      <div className="mb-8">
         <h5>Rating</h5>
         {ratingArr.map((r, i) => {
           return (
@@ -174,6 +187,17 @@ export const AsideSection: React.FC<AsideSectionType> = (props) => {
           );
         })}
       </div>
+      <BannerAside />
+      </div>
+      
+      
+      </div>  
+    
+     {isOpenFilter && 
+   <div
+      onClick={()=> setIsOpenFilter(!isOpenFilter)}
+      className={`offcanvas-backdrop  ${isOpenFilter ? ' fade  show' : 'fade '} `} ></div> 
+}
     </aside>
   );
 };

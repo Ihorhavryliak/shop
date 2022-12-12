@@ -1,9 +1,15 @@
 import { categoryAPI } from "../../api/category-api";
+import { categoryData } from "../../data/catrgory";
+import { targum } from "../../data/setCategoryProducts";
 import { BaseThunkType, InfersActionsTypes } from "../redux-store"
 
 
 let initialState = {
   category: [] as Array<string>,
+}
+
+if(targum) {
+  initialState ={ category: categoryData as Array<string>,}
 }
 
 const categoryReducer = (state = initialState, action: ActionCreatesTypes ): InitialStateType => {

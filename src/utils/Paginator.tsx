@@ -18,9 +18,13 @@ const Paginator: React.FC<PaginatedItemsType> = React.memo((props) => {
   const handlePageClick = (current: any) => {
     setItemOffset(current.pageNumber.selected + 1);
     setCurrentPage(current.pageNumber.selected + 1)
+
+  
+
   };
+  
 //if page 0
-(currentPage === 0) ? currentPage = 1 : currentPage = newOffset
+(currentPage === 0) ? currentPage = 1 : currentPage = newOffset;
  
   return (
     <>
@@ -31,18 +35,18 @@ const Paginator: React.FC<PaginatedItemsType> = React.memo((props) => {
           handlePageClick({ pageNumber });
         }}
         pageRangeDisplayed={2}
-        marginPagesDisplayed={3}
+        marginPagesDisplayed={2}
         pageCount={pageCount}
         previousLabel="< "
         pageClassName="page-item"
-        pageLinkClassName="page-link"
+        pageLinkClassName="page-link mx-1 rounded-3 text-body"
         previousClassName="page-item"
-        previousLinkClassName="page-link"
+        previousLinkClassName="page-link mx-1 rounded-3 text-body"
         nextClassName="page-item"
-        nextLinkClassName="page-link"
+        nextLinkClassName="page-link mx-1 rounded-3 text-body"
         breakLabel="..."
         breakClassName="page-item"
-        breakLinkClassName="page-link"
+        breakLinkClassName="page-link mx-1 rounded-3 text-body"
         containerClassName="pagination"
         activeClassName="active"
         renderOnZeroPageCount={undefined}

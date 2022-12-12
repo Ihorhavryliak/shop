@@ -1,7 +1,7 @@
 import  sliderTwo from "../assets/slider-2.jpg";
 import sliderOne from "../assets/slide-1.jpg";
-export const speedSlider = 400;
-export const autoplaySpeedSetting = 4000;
+export const speedSlider = 200;
+export const autoplaySpeedSetting = 2000;
 export const turnStraits = false;
 export const mainSlider = [
   {
@@ -12,7 +12,7 @@ export const mainSlider = [
   description: ` Introduced a new model for online grocery shopping and
   convenient home delivery.`,
   nameButton: `Shop Now`,
-  link: ''
+  link: `products/category/men's-clothing`
 },
 {
   img: sliderTwo,
@@ -21,6 +21,6 @@ export const mainSlider = [
   price: '$100',
   description: `Free Shipping to First-Time Customers Only, After promotions and discounts are applied.`,
   nameButton: `Shop Now`,
-  link: ''
+  link: '/products/category/electronics'
 },
 ]

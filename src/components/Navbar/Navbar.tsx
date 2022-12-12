@@ -15,16 +15,16 @@ const Navbar = React.memo(() => {
   //close menu phone
   const [isOpenMenuSlide, setIsOpenMenuSlide] = useState(false);
 
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(() => 0);
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setHeight(ref.current!.offsetHeight);
+    setHeight(() => ref.current!.offsetHeight);
   });
 
-  console.log(height, "dfdf");
+
   return (
-    <div className="border-bottom  mb-4">
+    <div className="border-bottom  mb-4 mt__1">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         {/* button small screen */}
         <div className="container     justify-content-end d-lg-none">
@@ -56,15 +56,15 @@ const Navbar = React.memo(() => {
                 : ""}
 
               <li className="nav-item dropdown">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  to={`products`}
+                <span
+                  className="nav-link dropdown-toggle "
+                 
                   data-bs-toggle="dropdown"
                 >
                   All categories
-                </Link>
+                </span>
                 <ul className="dropdown-menu open">
-                  {categoryData.length &&
+                  {categoryData.length > 0 &&
                     categoryData.map((m, i) => {
                       return (
                         <li className="nav-item" key={i}>
@@ -112,7 +112,7 @@ const Navbar = React.memo(() => {
                   href="#collapseExample"
                 >
                   <span className="me-2"></span> 
-                  All CATEGORY
+                  ALL CATEGORY
                 </a>
                 <div
                   className={`mt-2 collapse  ${
@@ -128,10 +128,9 @@ const Navbar = React.memo(() => {
                             <li className="nav-item" key={i}>
                               <NavLink
                                 className="dropdown-item"
+                                onClick={()=>setIsOpenMenu(!isOpenMenu)} 
                                 aria-current="page"
-                                to={`${startUrl}${m
-                                  .replace(/['/]/g, "-")
-                                  .replace(" ", "")}`}
+                                to={`${startUrl}${m.replace(" ", "-")}`}
                               >
                                 {m[0].toUpperCase() + m.slice(1)}
                               </NavLink>
@@ -148,7 +147,8 @@ const Navbar = React.memo(() => {
                           {categoryData.map( (m, i) => {
                             return(
                               <li key={`${i}__`} className="nav-item dropdown">
-                              <NavLink className="nav-link" to={startUrl + m}>{m[0].toUpperCase() + m.slice(1)}</NavLink>
+                              <NavLink onClick={()=>setIsOpenMenu(!isOpenMenu)} className="nav-link" 
+                              to={`${startUrl}${m.replace(" ", "-")}`}>{m[0].toUpperCase() + m.slice(1)}</NavLink>
                             </li>
                             )
                           })}
@@ -161,7 +161,7 @@ const Navbar = React.memo(() => {
           {isOpenMenu && (
             <div
               onClick={() => setIsOpenMenu(!isOpenMenu)}
-              className={`offcanvas-backdrop fade ${isOpenMenu ? "show" : ""} `}
+              className={`offcanvas-backdrop  ${isOpenMenu ? " fade show" : "fade"} `}
             ></div>
           )}
         </div>

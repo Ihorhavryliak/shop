@@ -1,7 +1,10 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import addProductReducer from "../admin/reducers/add-product-reducer";
+import authReducer from "./auth-reducer/auth-reducer";
+import cartReducer from "./cart-reducer/cart-reducer";
 import categoryReducer from "./category-reducer/category-reducer";
 import productReducer from "./product-reducer/product-reducer";
+import productCategoryReducer from "./products-category-reducer/products-category-reducer";
 import productListReducer from "./products-list-reducer/products-list-reducer";
 
 
@@ -15,6 +18,12 @@ const store = configureStore({
     categories: categoryReducer,
     // @ts-ignore
     adminAddProduct: addProductReducer,
+    // @ts-ignore
+    auth: authReducer,
+      // @ts-ignore
+    cart: cartReducer,
+     // @ts-ignore
+    productCategory: productCategoryReducer
   },
 });
 

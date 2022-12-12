@@ -1,73 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/exports";
 import {
   getAllProducts,
   getCategorySelector,
   getFilterSelector,
+  getIsDateReceiveSelector,
 } from "../reducers/products-list-reducer/products-list-selector";
 import { AppDispatch } from "../reducers/redux-store";
 import {
   getDataInCategory,
-  getProducts,
+  setCleanProductsList,
+  setDateReceive,
+  /*   getProducts, */
+  setStyle,
 } from "../reducers/products-list-reducer/products-list-reducer";
 import { useLocation } from "react-router-dom";
-import {
-  useQueryParam,
-  StringParam,
-  ArrayParam,
-} from "use-query-params";
+import { useQueryParam, StringParam, ArrayParam } from "use-query-params";
 import Paginator from "../utils/Paginator";
 import "rc-slider/assets/index.css";
 import { BsGrid, BsGrid3X3Gap, BsListUl } from "react-icons/bs";
 import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs";
-import { AsideSection, FilterDeveloper, NavBreadcrumb } from "../components";
-
-
+import {
+  AsideSection,
+  ContentCategoryName,
+  FilterDeveloper,
+  NavBreadcrumb,
+} from "../components";
+import { getIsAddedSelector } from "../reducers/cart-reducer/cart-selector";
+import { AlertMessageSusses } from "../components/AlertMessageSusses/AlertMessageSusses";
+import { getLocalStorage } from "../utils/getLocalStorage";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { motion } from "framer-motion";
+import { variants } from "../utils/Animation";
+import { ProductsAnimation } from "../components/Products";
 
 type QueryType = {
   limit?: string;
   sort?: string;
+  contentStyle?: string;
 };
 
-const Products = React.memo(() => {
+const Products = React.memo((props) => {
+  /* const {setIsIntersecting} = props; */
   //get data
   const products = useSelector(getAllProducts);
   const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
   const getFilter = useSelector(getFilterSelector);
 
-  //save data filter content in  localStorage
+  //save data filter content in  localStorage if null
   if (localStorage.getItem("filter_content") === null) {
     localStorage.setItem(
       "filter_content",
-      JSON.stringify({ limit: getFilter.limit, sort: getFilter.sort })
+      JSON.stringify({
+        limit: getFilter.limit,
+        sort: getFilter.sort,
+        contentStyle: getFilter.contentStyle,
+      })
     );
   }
-  const filter = JSON.parse(localStorage.getItem("filter_content") as string);
-  //set main style in local storage
-  //change main style main content
   // - get data from local
-  const getLocalContentStyle = JSON.parse(
-    localStorage.getItem("filter_content") as string
-  ) as { contentStyle: string };
-  let mainContentInitialValue = getLocalContentStyle.contentStyle;
-  // check is mainContentInitialValue undefined
-  if (getLocalContentStyle === undefined) {
-    mainContentInitialValue = "onFour";
-  }
-  const [mainContentStyle, setMainContentStyle] = useState(
-    mainContentInitialValue
-  );
-  if (getLocalContentStyle.contentStyle !== undefined) {
-    const getObj = JSON.parse(localStorage.getItem("filter_content") as string);
-    localStorage.setItem(
-      "filter_content",
-      JSON.stringify({ ...getObj, contentStyle: mainContentStyle })
-    );
-  } else {
-    setMainContentStyle(getLocalContentStyle.contentStyle);
-  }
+  const filter = JSON.parse(localStorage.getItem("filter_content") as string);
 
   // set url
   const [limitParam, setLimitParam] = useQueryParam("limit", StringParam);
@@ -78,7 +72,9 @@ const Products = React.memo(() => {
     ArrayParam
   );
   //filter check checkbox
-  const [nameFilterCategory, setNameFilterCategory] = useState<Array<string | null>>([]);
+  const [nameFilterCategory, setNameFilterCategory] = useState<
+    Array<string | null>
+  >([]);
   //get categories
   const categoriesNameData = useSelector(getCategorySelector);
   //sent to paginator
@@ -104,11 +100,12 @@ const Products = React.memo(() => {
   ]);
   // filter content sortOldPrice rating data
   const [sortOldPrice, setSortOldPrice] = useState(filter.sort);
-
+  // open close mobile filter
+  const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false);
   //Get category url
-  const productInCategoryUrl = location.pathname.slice(
-    location.pathname.lastIndexOf("/")
-  ).replace("-", " ");
+  const productInCategoryUrl = location.pathname
+    .slice(location.pathname.lastIndexOf("/"))
+    .replace("-", " ");
   // Filter rating stars
   const [filterRating, setFilterRating] = useState<Array<number>>([]);
   const ratingArr = [5, 4, 3, 2, 1];
@@ -120,20 +117,17 @@ const Products = React.memo(() => {
 
   //requests first
   useEffect(() => {
-    if (location.pathname.includes("category")) {
-      dispatch(
-        getDataInCategory(productInCategoryUrl, filter.sort, filter.limit)
-      );
-    }
-  }, [location.pathname]);
+    dispatch(
+      getDataInCategory(productInCategoryUrl, filter.sort, filter.limit)
+    );
+    dispatch(
+      getDataInCategory(productInCategoryUrl, filter.sort, filter.limit)
+    );
+    return () => {
+      dispatch(setCleanProductsList());
+    };
+  }, [location.pathname, dispatch]);
 
-  useEffect(() => {
-    if (!location.pathname.includes("category")) {
-      dispatch(getProducts(filter.sort, filter.limit));
-    }
-  }, []);
-
-  //get url
   useEffect(() => {
     let actualFilter: QueryType = filter;
     if (limitParam) {
@@ -165,59 +159,16 @@ const Products = React.memo(() => {
       setMinMaxPrice([min, max]);
     }
     //send data
-    if (location.pathname.includes("category")) {
-      dispatch(
-        getDataInCategory(
-          productInCategoryUrl,
-          actualFilter.sort as string,
-          actualFilter.limit as string
-        )
-      );
-    } else {
-      dispatch(
-        getProducts(actualFilter.sort as string, actualFilter.limit as string)
-      );
-    }
+
+    dispatch(
+      getDataInCategory(
+        productInCategoryUrl,
+        actualFilter.sort as string,
+        actualFilter.limit as string
+      )
+    );
   }, []);
-
-  // request limit filter select
-  const setLimitProducts = (productInfoLimit: string) => {
-    // update page
-    setItemOffset(1);
-    // set limit in use
-    setLimitParam(productInfoLimit);
-    // ad to local storage
-    addFilterStorageLocal("limit", productInfoLimit);
-  };
-
-  //sort old hight
-  const setFilterSort = (e: string) => {
-    //set in reduce
-    /* dispatch(setSort(e)); */
-    //set in url
-    setSortRatePrice(e);
-    //set page on 1
-    setItemOffset(1);
-    // select filter sort
-    choseFilterSort(e);
-  };
-  const choseFilterSort = (value: string) => {
-    setSortOldPrice(value);
-    addFilterStorageLocal("sort", value);
-  };
-  // function add to local storage filter
-  const addFilterStorageLocal = (name: string, value: string) => {
-    const localStorageFilterData = JSON.parse(
-      localStorage.getItem("filter_content") as string
-    );
-    localStorage.setItem(
-      "filter_content",
-      JSON.stringify({ ...localStorageFilterData, [name]: value })
-    );
-  };
-
   //min max price from range filter ---
-
   useEffect(() => {
     if (
       productMaxPrice !== Infinity &&
@@ -237,7 +188,43 @@ const Products = React.memo(() => {
       setMaxMinStartPrice([0, 0]);
     }
   }, [productMaxPrice, productMinPrice]);
-
+  // request limit filter select
+  const setLimitProducts = (productInfoLimit: string) => {
+    // update page
+    setItemOffset(1);
+    // set limit in use
+    setLimitParam(productInfoLimit);
+    // ad to local storage
+    addFilterStorageLocal("limit", productInfoLimit);
+  };
+  //sort old hight
+  const setFilterSort = (e: string) => {
+    //set in url
+    setSortRatePrice(e);
+    //set page on 1
+    setItemOffset(1);
+    // select filter sort
+    choseFilterSort(e);
+  };
+  const choseFilterSort = (value: string) => {
+    setSortOldPrice(value);
+    addFilterStorageLocal("sort", value);
+  };
+  // function set add to local storage filter
+  const addFilterStorageLocal = (name: string, value: string) => {
+    const localStorageFilterData = JSON.parse(
+      localStorage.getItem("filter_content") as string
+    );
+    localStorage.setItem(
+      "filter_content",
+      JSON.stringify({ ...localStorageFilterData, [name]: value })
+    );
+  };
+  //set main style in local storage
+  const setStylesContent = (name: string) => {
+    dispatch(setStyle(name));
+    addFilterStorageLocal("contentStyle", name);
+  };
   //price in inputs
   const setMinPrice = (e: string) => {
     if (Array.isArray(minMaxPrice)) {
@@ -311,16 +298,24 @@ const Products = React.memo(() => {
     }
   };
 
-
+  //check is download date
+  const getIsDateReceive = useSelector(getIsDateReceiveSelector);
+  //set isDateReceive
+  useEffect(() => {
+    dispatch(setDateReceive(true));
+  }, [location.pathname]);
 
   return (
     <>
       <main>
         <NavBreadcrumb />
-        <div>
+        <div className=" mt-8 mb-lg-14 mb-8 ">
           {/* container */}
           <div className="container">
+          {getIsDateReceive ? 
+          <ProductsAnimation /> :
             <div className="row  gx-10">
+             
               {/*  section filter */}
               <AsideSection
                 minMaxPrice={minMaxPrice}
@@ -336,23 +331,27 @@ const Products = React.memo(() => {
                 ratingArr={ratingArr}
                 setFilterRate={setFilterRate}
                 filterRating={filterRating}
+                isOpenFilter={isOpenFilter}
+                setIsOpenFilter={setIsOpenFilter}
               />
               {/*   content section */}
               <section className="col-lg-9 col-md-12">
                 {/* name category */}
-                {categoryBreadcrumbsName && (
-                  <div>
-                    <h1>{categoryBreadcrumbsName}</h1>
-                  </div>
-                )}
+                <ContentCategoryName categoryName={categoryBreadcrumbsName} />
 
                 {/*   category filter */}
                 <div className="d-lg-flex justify-content-between align-items-center">
                   <div className="mb-3 mb-lg-0">
                     <p className="mb-0">
                       {/*  count of products */}
-                      <span className="text-dark">{productsLength} </span>
-                      Products found
+                      Products found{" "}
+                      <motion.span
+                        className="text-dark"
+                        animate={!getIsDateReceive ? "open" : "closed"}
+                        variants={variants}
+                      >
+                        {productsLength === 0 ? "" : productsLength}
+                      </motion.span>
                     </p>
                   </div>
                   {/* content filter / */}
@@ -360,54 +359,53 @@ const Products = React.memo(() => {
                     <div className="d-flex align-items-center justify-content-between">
                       {/*  change style main content */}
                       <div>
-                        <a
-                          href={"#list"}
+                        <span
                           onClick={() => {
-                            setMainContentStyle("list");
+                            setStylesContent("list");
                           }}
                           className={
-                            mainContentStyle === "list"
-                              ? "active me-3"
-                              : "text-muted me-3"
+                            getLocalStorage("filter_content").contentStyle ===
+                            "list"
+                              ? "active me-3 span__link"
+                              : "text-muted me-3 span__link"
                           }
                         >
                           <BsListUl />
-                        </a>
-                        <a
-                          href={"#onFour"}
+                        </span>
+
+                        <span
                           onClick={() => {
-                            setMainContentStyle("on-four");
+                            setStylesContent("on-three");
                           }}
                           className={
-                            mainContentStyle === "on-four"
-                              ? "active me-3"
-                              : "text-muted me-3"
+                            getLocalStorage("filter_content").contentStyle ===
+                            "on-three"
+                              ? "active me-3 span__link"
+                              : "text-muted me-3 span__link"
                           }
                         >
                           <BsGrid />
-                        </a>
-                        <a
-                          href={"#onThree"}
+                        </span>
+                        <span
                           onClick={() => {
-                            setMainContentStyle("on-three");
+                            setStylesContent("on-four");
                           }}
                           className={
-                            mainContentStyle === "on-three"
-                              ? "active me-3"
-                              : "text-muted me-3"
+                            getLocalStorage("filter_content").contentStyle ===
+                            "on-four"
+                              ? "active me-3 span__link"
+                              : "text-muted me-3 span__link"
                           }
                         >
                           <BsGrid3X3Gap />
-                        </a>
+                        </span>
                       </div>
                       {/* icon filters on small screen  */}
                       <div className="ms-2 d-lg-none">
-                        <a
-                          className="btn btn-outline-gray-400 text-muted"
-                          data-bs-toggle="offcanvas"
-                          href="#offcanvasCategory"
-                          role="button"
-                          aria-controls="offcanvasCategory"
+                        <button
+                          className="btn btn__filter__gray text-muted"
+                          onClick={() => setIsOpenFilter(!isOpenFilter)}
+                          type="button"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -424,7 +422,7 @@ const Products = React.memo(() => {
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                           </svg>
                           Filters
-                        </a>
+                        </button>
                       </div>
                     </div>
                     <div className="d-flex mt-2 mt-lg-0">
@@ -462,34 +460,41 @@ const Products = React.memo(() => {
                   </div>
                 </div>
                 {/*  list products + filter */}
-                <FilterDeveloper
-                  productsLength={productsLength}
-                  limitParamNew={limitParamNew}
-                  itemOffset={itemOffset}
-                  sortOldPrice={sortOldPrice}
-                  minMaxPrice={minMaxPrice}
-                  nameFilterCategory={nameFilterCategory}
-                  filterRating={filterRating}
-                  products={products}
-                />
-                {/* paginator */}
-                {productsLength !== 0 ? (
-                  <div className="mt-3">
-                    <Paginator
-                      itemsPerPage={+filter.limit}
-                      newOffset={itemOffset}
-                      setCurrentPage={setCurrentPage}
-                      items={productsLength}
-                      setItemOffset={setItemOffset}
-                    />
-                  </div>
-                ) : null}
-                {/* paginator */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  <FilterDeveloper
+                    productsLength={productsLength}
+                    limitParamNew={limitParamNew}
+                    itemOffset={itemOffset}
+                    sortOldPrice={sortOldPrice}
+                    minMaxPrice={minMaxPrice}
+                    nameFilterCategory={nameFilterCategory}
+                    filterRating={filterRating}
+                    products={products}
+                  />
+                  {/* paginator */}
+                  {productsLength !== 0 ? (
+                    <div className="mt-3">
+                      <Paginator
+                        itemsPerPage={+filter.limit}
+                        newOffset={itemOffset}
+                        setCurrentPage={setCurrentPage}
+                        items={productsLength}
+                        setItemOffset={setItemOffset}
+                      />
+                    </div>
+                  ) : null}
+                  {/* paginator */}
+                </motion.div>
               </section>
             </div>
+            }
           </div>
         </div>
       </main>
+      {/*   )} */}
     </>
   );
 });

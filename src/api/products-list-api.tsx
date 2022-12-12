@@ -8,9 +8,9 @@ export const productsListAPI = {
       .get<Array<GetProductDataType>>(`products?&sort=${sortResult}`).then(res=> res.data)
     )
   },
-  async getProductsInCategory(categoryName: string, sortResult: string  = '') {
-    const res = await instance.get<Array<GetAllProductsType>>(`products/category${categoryName}?&sort=${sortResult}`);
-    return res.data;
+   getProductsInCategory(categoryName: string, sortResult: string  = '') {
+    return instance.get<Array<GetAllProductsType>>(`products/category${categoryName}?&sort=${sortResult}`).then(res=> res.data);
+
   },
 
 };

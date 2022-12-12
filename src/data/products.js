@@ -6,7 +6,7 @@ const count = 200 ;
 for (let i = 1; i <= count; i++) {
   dataProducts.push( 
     {
-    category: 'shoes ' + i,
+    category: 'shoes',
     description: "shoes shoes img img img shoes shoes img shoes shoes img shoes shoes img shoes shoes img shoes shoes img",
     id: i,
     image: img,

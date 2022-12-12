@@ -9,7 +9,7 @@ import { actions, addNewProductData } from "../../reducers/add-product-reducer";
 import { getIsProductAdd } from "../../reducers/add-product-selector";
 import './AddNewProduct.scss'
 
-type ErrorsType = {
+export type ErrorsType = {
   title?: string;
   description?: string;
   category?: string;
@@ -38,7 +38,7 @@ const userSearchFormValidate = (values: FormType) => {
   return errors;
 };
 
-type NewType = {
+export type NewType = {
   setSubmitting: (isSubmitting: boolean) => void;
   resetForm: () => void;
 };
@@ -68,7 +68,7 @@ export const AddNewProducts = React.memo(() => {
   };
 
 
-  console.log(isAddProductMessage);
+
   //photo
   const handleOpenFileInput = () => {
     fileRef.current?.click();

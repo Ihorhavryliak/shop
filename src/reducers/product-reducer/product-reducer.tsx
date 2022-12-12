@@ -22,7 +22,7 @@ const productReducer = (state = initialState, action: ActionCreatesTypes ): Init
   switch(action.type){
     case "SET_DATA_PRODUCT":
         return {...state, 
-          product: [ /* ...state.product, */ action.payload]};
+          product: [...state.product,  action.payload]};
           case "SET_DATE_RECEIVE":
             return { ...state, isDate: action.payload };
           case "SET_CLEAN_PRODUCT_LIST":

@@ -100,8 +100,11 @@ export const getDataInCategory =
       categoryName,
       sortResult
     );
-    dispatch(actions.getDataProductsInCategory(data));
-    dispatch(actions.getIsDateReceive(false));
+    if(data){
+      dispatch(actions.getDataProductsInCategory(data));
+      dispatch(actions.getIsDateReceive(false));
+    }
+   
   };
 
 export const setDateReceive =

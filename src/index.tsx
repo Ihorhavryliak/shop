@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux/";
 import App from "./App";
-import { BrowserRouter, HashRouter} from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, HashRouter} from "react-router-dom";
 import store from "./reducers/redux-store";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6'
@@ -12,15 +12,17 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
+  <HashRouter >
   <Provider store={store}>
-    <HashRouter>
+  
     <QueryParamProvider adapter={ReactRouter6Adapter}    /* options={{
         searchStringToObject: parse,
         objectToSearchString: stringify,
       }} */>
         <App />
       </QueryParamProvider>
-    </HashRouter>
+   
   </Provider>
+  </HashRouter>
 );
 

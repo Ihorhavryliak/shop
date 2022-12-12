@@ -31,8 +31,6 @@ function App() {
     return () => window.removeEventListener("load", onPage);
   }, []);
 
-
-
   return (
     <>
       {location.pathname.includes("admin") ? (
@@ -53,21 +51,16 @@ function App() {
         </>
       ) : (
         <>
-      
           {/* "Users" */}
           {/* <HeaderStick /> */}
-
-              <motion.div 
-               animate={play ? "open" : "closed"}
-        variants={variants}
-        
-        >
-            <Header />
-            <Navbar />
-            <AppRouters />
-            <Footer />
+          {play && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <Header />
+              <Navbar />
+              <AppRouters />
+              <Footer />
             </motion.div>
-    
+          )}
         </>
       )}
     </>

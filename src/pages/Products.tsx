@@ -126,13 +126,8 @@ const Products = React.memo((props) => {
     return () => {
       dispatch(setCleanProductsList());
     };
-  }, [location.pathname]);
-  /*  useEffect(() => {
-    if (!location.pathname.includes("category")) {
-      dispatch(getProducts(filter.sort, filter.limit));
-    }
-  }, []); */
-  //get url
+  }, [location.pathname, dispatch]);
+
   useEffect(() => {
     let actualFilter: QueryType = filter;
     if (limitParam) {

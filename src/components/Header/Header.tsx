@@ -26,16 +26,17 @@ const Header = React.memo(() => {
   //close forme
   useEffect(() => {
     dispatch(getProductsCategory("asc", "10000"));
-    if (isLogIn !== null) {
-      setTimeout(() => {
-        setIsOpenModal(!isLogIn);
-        if (isLogIn) {
-          return navigate("/");
-        }
-      }, 600);
-    }
+  
   }, [isLogIn]);
-
+  
+  if (isLogIn !== null) {
+    setTimeout(() => {
+      setIsOpenModal(!isLogIn);
+      if (isLogIn) {
+        return navigate("/");
+      }
+    }, 600);
+  }
   //
   if (isLogIn !== null) {
   }
